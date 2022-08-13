@@ -1,0 +1,6 @@
+framework module Pods_elecCarChareInfo {
+  umbrella header "Pods-elecCarChareInfo-umbrella.h"
+
+  export *
+  module * { export * }
+}

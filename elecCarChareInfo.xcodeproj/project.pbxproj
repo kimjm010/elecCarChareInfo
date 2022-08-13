@@ -7,23 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90D0F257B74FFD4CCC58D263 /* Pods_elecCarChareInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B10FF017DD9C1C2204F5B5 /* Pods_elecCarChareInfo.framework */; };
 		F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8B928A4DA2300515185 /* AppDelegate.swift */; };
 		F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */; };
-		F56BA8BE28A4DA2300515185 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8BD28A4DA2300515185 /* ViewController.swift */; };
 		F56BA8C128A4DA2300515185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8BF28A4DA2300515185 /* Main.storyboard */; };
 		F56BA8C328A4DA2300515185 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8C228A4DA2300515185 /* Assets.xcassets */; };
 		F56BA8C628A4DA2300515185 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8C428A4DA2300515185 /* LaunchScreen.storyboard */; };
+		F56BA8D128A4EB5A00515185 /* ChargeStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8D028A4EB5A00515185 /* ChargeStationViewController.swift */; };
+		F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8D328A4EC2600515185 /* ChargeStationModel.swift */; };
+		F56BA8D628A4ED7100515185 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8D528A4ED7100515185 /* GoogleService-Info-2.plist */; };
+		F56BA8DA28A5E78200515185 /* OptionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8D928A5E78200515185 /* OptionsCollectionViewCell.swift */; };
+		F56BA8E228A5ED5A00515185 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8E128A5ED5A00515185 /* User.swift */; };
+		F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */; };
+		F56BA8E628A5EF1000515185 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */; };
+		F56BA8E928A636B300515185 /* ChargeStnAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8E828A636B300515185 /* ChargeStnAnnotation.swift */; };
+		F56BA8EB28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */; };
+		F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F3569E76FCF2F149DD2F343 /* Pods-elecCarChareInfo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elecCarChareInfo.debug.xcconfig"; path = "Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo.debug.xcconfig"; sourceTree = "<group>"; };
+		82B10FF017DD9C1C2204F5B5 /* Pods_elecCarChareInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_elecCarChareInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56BA8B628A4DA2300515185 /* elecCarChareInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = elecCarChareInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56BA8B928A4DA2300515185 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F56BA8BD28A4DA2300515185 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F56BA8C028A4DA2300515185 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F56BA8C228A4DA2300515185 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F56BA8C528A4DA2300515185 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F56BA8C728A4DA2300515185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F56BA8D028A4EB5A00515185 /* ChargeStationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStationViewController.swift; sourceTree = "<group>"; };
+		F56BA8D328A4EC2600515185 /* ChargeStationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStationModel.swift; sourceTree = "<group>"; };
+		F56BA8D528A4ED7100515185 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
+		F56BA8D928A5E78200515185 /* OptionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCollectionViewCell.swift; sourceTree = "<group>"; };
+		F56BA8E128A5ED5A00515185 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
+		F56BA8E828A636B300515185 /* ChargeStnAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnAnnotation.swift; sourceTree = "<group>"; };
+		F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnInfoTableViewController.swift; sourceTree = "<group>"; };
+		F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		FE6121C9F51CC113D67E685B /* Pods-elecCarChareInfo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elecCarChareInfo.release.xcconfig"; path = "Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +53,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D0F257B74FFD4CCC58D263 /* Pods_elecCarChareInfo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61679DC61A98BD5889D6F3CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7F3569E76FCF2F149DD2F343 /* Pods-elecCarChareInfo.debug.xcconfig */,
+				FE6121C9F51CC113D67E685B /* Pods-elecCarChareInfo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		737169940BD15031F98D6E69 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82B10FF017DD9C1C2204F5B5 /* Pods_elecCarChareInfo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F56BA8AD28A4DA2300515185 = {
 			isa = PBXGroup;
 			children = (
 				F56BA8B828A4DA2300515185 /* elecCarChareInfo */,
 				F56BA8B728A4DA2300515185 /* Products */,
+				61679DC61A98BD5889D6F3CE /* Pods */,
+				737169940BD15031F98D6E69 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +98,56 @@
 		F56BA8B828A4DA2300515185 /* elecCarChareInfo */ = {
 			isa = PBXGroup;
 			children = (
+				F56BA8E728A6369E00515185 /* SubViews */,
+				F56BA8D228A4EC1B00515185 /* Model */,
+				F56BA8CF28A4EB4500515185 /* ViewControllers */,
+				F56BA8D828A5E73500515185 /* Cells */,
 				F56BA8B928A4DA2300515185 /* AppDelegate.swift */,
 				F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */,
-				F56BA8BD28A4DA2300515185 /* ViewController.swift */,
 				F56BA8BF28A4DA2300515185 /* Main.storyboard */,
-				F56BA8C228A4DA2300515185 /* Assets.xcassets */,
 				F56BA8C428A4DA2300515185 /* LaunchScreen.storyboard */,
+				F56BA8C228A4DA2300515185 /* Assets.xcassets */,
 				F56BA8C728A4DA2300515185 /* Info.plist */,
+				F56BA8D528A4ED7100515185 /* GoogleService-Info-2.plist */,
 			);
 			path = elecCarChareInfo;
+			sourceTree = "<group>";
+		};
+		F56BA8CF28A4EB4500515185 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F56BA8D028A4EB5A00515185 /* ChargeStationViewController.swift */,
+				F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */,
+				F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F56BA8D228A4EC1B00515185 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F56BA8D328A4EC2600515185 /* ChargeStationModel.swift */,
+				F56BA8E128A5ED5A00515185 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F56BA8D828A5E73500515185 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F56BA8D928A5E78200515185 /* OptionsCollectionViewCell.swift */,
+				F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */,
+				F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F56BA8E728A6369E00515185 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				F56BA8E828A636B300515185 /* ChargeStnAnnotation.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +157,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F56BA8CA28A4DA2300515185 /* Build configuration list for PBXNativeTarget "elecCarChareInfo" */;
 			buildPhases = (
+				57808BE7F138FA61C698602A /* [CP] Check Pods Manifest.lock */,
 				F56BA8B228A4DA2300515185 /* Sources */,
 				F56BA8B328A4DA2300515185 /* Frameworks */,
 				F56BA8B428A4DA2300515185 /* Resources */,
+				8933E047F6BAAFD70041316D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,22 +210,73 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F56BA8E628A5EF1000515185 /* InfoTableViewCell.xib in Resources */,
 				F56BA8C628A4DA2300515185 /* LaunchScreen.storyboard in Resources */,
 				F56BA8C328A4DA2300515185 /* Assets.xcassets in Resources */,
+				F56BA8D628A4ED7100515185 /* GoogleService-Info-2.plist in Resources */,
 				F56BA8C128A4DA2300515185 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		57808BE7F138FA61C698602A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-elecCarChareInfo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8933E047F6BAAFD70041316D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F56BA8B228A4DA2300515185 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F56BA8BE28A4DA2300515185 /* ViewController.swift in Sources */,
+				F56BA8EB28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift in Sources */,
+				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
+				F56BA8DA28A5E78200515185 /* OptionsCollectionViewCell.swift in Sources */,
+				F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */,
 				F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */,
 				F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */,
+				F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */,
+				F56BA8D128A4EB5A00515185 /* ChargeStationViewController.swift in Sources */,
+				F56BA8E928A636B300515185 /* ChargeStnAnnotation.swift in Sources */,
+				F56BA8E228A5ED5A00515185 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +418,7 @@
 		};
 		F56BA8CB28A4DA2300515185 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F3569E76FCF2F149DD2F343 /* Pods-elecCarChareInfo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -295,6 +432,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,6 +448,7 @@
 		};
 		F56BA8CC28A4DA2300515185 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE6121C9F51CC113D67E685B /* Pods-elecCarChareInfo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -323,6 +462,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
