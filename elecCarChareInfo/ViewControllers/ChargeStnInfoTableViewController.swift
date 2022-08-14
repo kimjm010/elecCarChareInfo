@@ -25,13 +25,13 @@ class ChargeStnInfoTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyChargeStation.count
+        return dummyChargeStationData.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! InfoTableViewCell
         
-        let chargeStn = dummyChargeStation[indexPath.row].chargeStn
+        let chargeStn = dummyChargeStationData[indexPath.row]
         cell.stnPlaceLabel.text = chargeStn.stnPlace
         cell.stnAddrLabel.text = chargeStn.stnAddr
         cell.slowChargerStatusLabel.text = "완속: \(chargeStn.slowCnt)"
