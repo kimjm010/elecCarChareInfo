@@ -10,6 +10,8 @@
 		90D0F257B74FFD4CCC58D263 /* Pods_elecCarChareInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B10FF017DD9C1C2204F5B5 /* Pods_elecCarChareInfo.framework */; };
 		F522B78928A8D4E000054965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F522B78828A8D4E000054965 /* MapKit.framework */; };
 		F522B78B28A8E0E100054965 /* ChargeStnAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B78A28A8E0E100054965 /* ChargeStnAnnotationView.swift */; };
+		F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B78D28A9388D00054965 /* ChargeAnnotation.swift */; };
+		F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */; };
 		F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8B928A4DA2300515185 /* AppDelegate.swift */; };
 		F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */; };
 		F56BA8C128A4DA2300515185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8BF28A4DA2300515185 /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 		82B10FF017DD9C1C2204F5B5 /* Pods_elecCarChareInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_elecCarChareInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F522B78828A8D4E000054965 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F522B78A28A8E0E100054965 /* ChargeStnAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnAnnotationView.swift; sourceTree = "<group>"; };
+		F522B78D28A9388D00054965 /* ChargeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotation.swift; sourceTree = "<group>"; };
+		F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotationView.swift; sourceTree = "<group>"; };
 		F56BA8B628A4DA2300515185 /* elecCarChareInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = elecCarChareInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56BA8B928A4DA2300515185 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F522B78C28A9386B00054965 /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				F522B78D28A9388D00054965 /* ChargeAnnotation.swift */,
+				F522B78F28A93AD600054965 /* CustomAnnotationView */,
+			);
+			path = Annotation;
+			sourceTree = "<group>";
+		};
+		F522B78F28A93AD600054965 /* CustomAnnotationView */ = {
+			isa = PBXGroup;
+			children = (
+				F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */,
+			);
+			path = CustomAnnotationView;
+			sourceTree = "<group>";
+		};
 		F56BA8AD28A4DA2300515185 = {
 			isa = PBXGroup;
 			children = (
@@ -102,7 +123,7 @@
 		F56BA8B828A4DA2300515185 /* elecCarChareInfo */ = {
 			isa = PBXGroup;
 			children = (
-				F56BA8E728A6369E00515185 /* SubViews */,
+				F522B78C28A9386B00054965 /* Annotation */,
 				F56BA8D228A4EC1B00515185 /* Model */,
 				F56BA8CF28A4EB4500515185 /* ViewControllers */,
 				F56BA8D828A5E73500515185 /* Cells */,
@@ -145,13 +166,6 @@
 				F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		F56BA8E728A6369E00515185 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,10 +285,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */,
 				F56BA8EB28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift in Sources */,
 				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
 				F56BA8DA28A5E78200515185 /* OptionsCollectionViewCell.swift in Sources */,
 				F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */,
+				F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */,
 				F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */,
 				F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */,
 				F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */,

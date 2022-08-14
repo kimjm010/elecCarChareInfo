@@ -10,25 +10,6 @@ import CoreLocation
 import MapKit
 
 
-struct TempChargeStn {
-    let id: Int
-    let metro: String
-    let city: String
-    let stnPlace: String
-    let stnAddr: String
-    let rapidCnt: Int
-    let slowCnt: Int
-    let carType: String
-    let coordinate: CLLocationCoordinate2D
-    var annotation: MKAnnotation {
-        return ChargeStnAnnotation(coordinate: coordinate,
-                                   stnId: id,
-                                   title: stnPlace,
-                                   subtitle: stnAddr)
-    }
-}
-
-
 class ChargeStationViewController: UIViewController {
     
     // MARK: IBOutlets
@@ -38,22 +19,6 @@ class ChargeStationViewController: UIViewController {
     
     
     // MARK: Vars
-    
-    /*
-     var list = [ChargeStn]() {
-     willSet {
-     mapView.removeAnnotations(allAnnotations)
-     allAnnotations.removeAll()
-     }
-     didSet {
-     let newAnnotations = list.map { $0.annotation }
-     allAnnotations = newAnnotations
-     mapView.addAnnotations(allAnnotations)
-     registerMapAnnotationViews()
-     }
-     }
-     */
-    
     
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
@@ -67,24 +32,12 @@ class ChargeStationViewController: UIViewController {
         return m
     }()
     
+    private var allAnnotations: [MKAnnotation]?
+    
+    
+    
     // options 배열
     var options = [Option(optionName: "Filter", optionImage: UIImage(systemName: "slider.horizontal.3"))]
-    
-    /*
-     // 임시 충전소 주소 배열
-     // TODO: DB 적용해서 DB에서 가져와서 작업 해보자
-     lazy var tempChargeStnLocation: [CLLocationCoordinate2D] = {
-     var tempArray: [CLLocationCoordinate2D] = []
-     for i in 0 ..< dummyChargeStation.count {
-     getCoordinate(dummyChargeStation[i].stnAddr) { (location, error) in
-     tempArray.append(location)
-     print(location.latitude, location.longitude, i, "&&")
-     }
-     }
-     
-     return tempArray
-     }()
-     */
     
     
     // MARK: IBActions
@@ -136,7 +89,7 @@ class ChargeStationViewController: UIViewController {
     }
     
     
-    /// Check User's Location Authorization
+    /// User's Location Authorization확인
     private func checkLocationAuth() {
         if CLLocationManager.locationServicesEnabled() {
             let status: CLAuthorizationStatus
@@ -166,13 +119,13 @@ class ChargeStationViewController: UIViewController {
     
     /// 지도에서 사용할 annotation View 타입을 등록합니다.
     private func registerMapAnnotationViews() {
-        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeStnAnnotation.self))
+        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
         
-        let annotations: [ChargeStnAnnotation] = dummyChargeStationData.map { (charge) in
-            return ChargeStnAnnotation(coordinate: charge.coordinate,
-                                       stnId: charge.id,
-                                       title: charge.stnPlace,
-                                       subtitle: charge.stnAddr)
+        let annotations: [ChargeAnnotation] = dummyChargeStationData.map { (charge) in
+            return ChargeAnnotation(coordinate: charge.coordinate,
+                                    id: charge.id,
+                                    title: charge.stnPlace,
+                                    subtitle: charge.stnAddr)
         }
         
         mapView.addAnnotations(annotations)
@@ -218,7 +171,6 @@ class ChargeStationViewController: UIViewController {
             completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
-    
 }
 
 
@@ -275,136 +227,61 @@ extension ChargeStationViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
+        // annotation이 MKUserLocation인 경우는 customize 하지 않음.
+        guard !annotation.isKind(of: MKUserLocation.self) else {
+            return nil
+        }
+        
         var annotationView: MKAnnotationView?
         
-        if let annotation = annotation as? MKClusterAnnotation {
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-            view.markerTintColor = .systemBlue
+        if let annotation = annotation as? ChargeAnnotation {
+            annotationView = setupChargeStnAnnotationView(for: annotation, on: mapView)
         }
-        
-        if let annoation = annotation as? MKPointAnnotation {
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-            
-            view.markerTintColor = .brown
-            view.glyphImage = UIImage(named: "chargeStn")
-            
-            return view
-        }
-        
-        let annotationImgView = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        let image = UIImage(named: "chargeStn")
-        annotationView?.image = image
-        
-        let annotationLabel = UILabel(frame: CGRect(x: 0, y: -35, width: 45, height: 45))
-        annotationLabel.backgroundColor = .systemOrange
-        annotationLabel.textColor = .white
-        annotationLabel.numberOfLines = 3
-        annotationLabel.textAlignment = .center
-        annotationLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        annotationLabel.text = annotation.title!
-        
-        annotationView?.addSubview(annotationImgView)
-        annotationView?.addSubview(annotationLabel)
-        
-        
         
         return annotationView
-        
-        /*
-         if let annotation = annotation as? MKClusterAnnotation {
-         let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-         view.markerTintColor = UIColor.systemBlue
-         
-         return view
-         }
-         
-         if let annotation = annotation as? ChargeStnAnnotation {
-         let view = mapView.dequeueReusableAnnotationView(withIdentifier: "charge", for: annotation) as! MKMarkerAnnotationView
-         view.canShowCallout = false
-         
-         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-         imageView.image = UIImage(named: "chargeStn")
-         
-         view.detailCalloutAccessoryView = imageView
-         
-         return view
-         }
-         */
-        
-        
-        /*
-         guard !(annotation.isKind(of: MKUserLocation.self)) else { return nil }
-         
-         var annotationView: MKAnnotationView?
-         
-         if let annotation = annotation as? MKClusterAnnotation {
-         let clusterView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-         clusterView.markerTintColor = UIColor.systemGray6
-         return clusterView
-         }
-         
-         let tempImage = UIImage(systemName: "chargeStn")
-         
-         if let annotation = annotation as? ChargeStnAnnotation {
-         let tintColor = UIColor.systemRed
-         let glyphImage = tempImage
-         annotationView = setupChargeStnAnnotationView(for: annotation, on: mapView, tintColor: tintColor, image: glyphImage)
-         }
-         
-         return annotationView
-         */
-        
     }
     
-    /*
-     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-     if let overlay = overlay as? MKCircle {
-     let render = MKCircleRenderer(overlay: overlay)
-     render.strokeColor = UIColor.systemRed
-     
-     return render
-     } else if let overlay = overlay as? MKPolygon {
-     let render = MKPolygonRenderer(overlay: overlay)
-     render.strokeColor = UIColor.systemBlue
-     
-     return render
-     } else if let overlay = overlay as? MKMultiPolyline {
-     let render = MKMultiPolygonRenderer(overlay: overlay)
-     render.lineWidth = 5
-     render.strokeColor = UIColor.systemRed
-     
-     return render
-     }
-     
-     return MKOverlayRenderer(overlay: overlay)
-     }
-     */
     
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        if let overlay = overlay as? MKCircle {
+//            let render = MKCircleRenderer(overlay: overlay)
+//            render.strokeColor = UIColor.systemRed
+//
+//            return render
+//        } else if let overlay = overlay as? MKPolygon {
+//            let render = MKPolygonRenderer(overlay: overlay)
+//            render.strokeColor = UIColor.systemBlue
+//
+//            return render
+//        } else if let overlay = overlay as? MKMultiPolyline {
+//            let render = MKMultiPolygonRenderer(overlay: overlay)
+//            render.lineWidth = 5
+//            render.strokeColor = UIColor.systemRed
+//
+//            return render
+//        }
+//
+//        return MKOverlayRenderer(overlay: overlay)
+//    }
     
     
     /// 지도에 표시할 annotation View를 제공합니다.
-    ///
-    /// 제네릭 메소드이므로, 특정 annotation의 타입으로 전달되고 view는 재사용 됩니다.
-    ///
+    /// 
     /// - Parameters:
     ///   - annotation: annotation
     ///   - mapView: annotation 표시할 mapView
-    ///   - tintColor: marker의 tint Color
-    ///   - image: marker의 glyph Image
     /// - Returns: annotationView
-    private func setupChargeStnAnnotationView<AnnotationType: ChargeStnAnnotation>(for annotation: AnnotationType, on mapView: MKMapView, tintColor: UIColor, image: UIImage? = nil) -> MKAnnotationView {
-        let identifier = NSStringFromClass(ChargeStnAnnotation.self)
-        let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
-        
-        if let markerAnnotationView = view as? MKMarkerAnnotationView {
-            markerAnnotationView.canShowCallout = true
-            markerAnnotationView.markerTintColor = tintColor
-            markerAnnotationView.glyphImage = image
-            
-            // callout 표시
-            let rightButton = UIButton(type: .detailDisclosure)
-            markerAnnotationView.rightCalloutAccessoryView = rightButton
-        }
+    private func setupChargeStnAnnotationView(for annotation: ChargeAnnotation, on mapView: MKMapView) -> MKAnnotationView {
+        let reuseIdentifier = NSStringFromClass(ChargeAnnotation.self)
+        let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
+
+        let image = #imageLiteral(resourceName: "chargeStn")
+        view.image = image
+
+        let rightButton = UIButton(type: .detailDisclosure)
+        view.rightCalloutAccessoryView = rightButton
+
+        view.canShowCallout = true
         
         return view
     }
@@ -417,10 +294,20 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - view: callout의 annotation View
     ///   - control: tap 이벤트가 발생한 컨트롤
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") as! ChargeStnInfoTableViewController
-        
-        navigationController?.pushViewController(vc, animated: true)
-        optionContainerStackView.isHidden = true
+        if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
+            print("Tapped Charge Station accessory view")
+            
+            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
+                infoVC.modalPresentationStyle = .popover
+                let presentationController = infoVC.popoverPresentationController
+                presentationController?.permittedArrowDirections = .any
+
+                presentationController?.sourceRect = control.frame
+                presentationController?.sourceView = control
+
+                present(infoVC, animated: true, completion: nil)
+            }
+        }
     }
 }
 
@@ -446,20 +333,4 @@ extension ChargeStationViewController: UICollectionViewDataSource {
         return cell
     }
     
-}
-
-
-
-
-// MARK: - UICollectionView Delegate
-
-extension ChargeStationViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterTableViewController") as! FilterTableViewController
-        
-        navigationController?.pushViewController(vc, animated: true)
-    }
 }

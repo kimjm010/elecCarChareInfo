@@ -12,6 +12,16 @@ class InfoTableViewCell: UITableViewCell {
     // MARK: IBOutlets
     @IBOutlet weak var stnPlaceLabel: UILabel!
     @IBOutlet weak var stnAddrLabel: UILabel!
-    @IBOutlet weak var slowChargerStatusLabel: UILabel!
-    @IBOutlet weak var rapidChargerStatusLabel: UILabel!
+    @IBOutlet weak var slowChargeContainerView: UIStackView!
+    @IBOutlet weak var rapidChargeContainerView: UIStackView!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var slowChargeLabel: UILabel!
+    @IBOutlet weak var rapidChargeLabel: UILabel!
+    
+    
+    func configure(chargeStation: ChargeStation, completion: @escaping (_ chargeStation: ChargeStation) -> Void) {
+        stnPlaceLabel.text = chargeStation.stnPlace
+        stnAddrLabel.text = chargeStation.stnAddr
+        completion(chargeStation)
+    }
 }

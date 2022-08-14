@@ -62,7 +62,7 @@ class ChargeStnAnnotationView: MKAnnotationView {
     override func prepareForDisplay() {
         super.prepareForDisplay()
         
-        if let _ = annotation as? ChargeStnAnnotation {
+        if let _ = annotation as? ChargeAnnotation {
             imageView.image = UIImage(named: "chargeStn")
         }
         

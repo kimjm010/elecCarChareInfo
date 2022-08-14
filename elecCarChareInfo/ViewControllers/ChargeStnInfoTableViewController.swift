@@ -12,30 +12,27 @@ class ChargeStnInfoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     
     // MARK: - UITableView DataSource
     
-    
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyChargeStationData.count
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! InfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoTableViewCell", for: indexPath) as! InfoTableViewCell
         
         let chargeStn = dummyChargeStationData[indexPath.row]
-        cell.stnPlaceLabel.text = chargeStn.stnPlace
-        cell.stnAddrLabel.text = chargeStn.stnAddr
-        cell.slowChargerStatusLabel.text = "완속: \(chargeStn.slowCnt)"
-        cell.rapidChargerStatusLabel.text = "완속: \(chargeStn.rapidCnt)"
+        cell.configure(chargeStation: chargeStn) { (chargeStation) in
+            cell.slowChargeLabel.text = "완속: \(chargeStn.slowCnt)"
+            cell.rapidChargeLabel.text = "완속: \(chargeStn.rapidCnt)"
+            
+            cell.slowChargeContainerView.isHidden = chargeStation.slowCnt > 0 ? false : true
+            cell.rapidChargeContainerView.isH idden = chargeStation.rapidCnt > 0 ? false : true
+        }
+        
         
         return cell
     }
