@@ -112,9 +112,6 @@
                                     </activityIndicatorView>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fYl-zC-NTB">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="THJ-zv-IFy" id="qbv-8Z-GsV"/>
-                                        </connections>
                                     </mapView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -196,10 +193,10 @@
                                 </connections>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gvS-PP-Xh2">
-                                <rect key="frame" x="359" y="1080" width="47" height="100"/>
+                                <rect key="frame" x="366" y="1017" width="40" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9A-aH-Hcc">
-                                        <rect key="frame" x="0.0" y="0.0" width="47" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="28"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="location" catalog="system"/>
                                         <connections>
@@ -207,7 +204,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okO-ZI-M6A">
-                                        <rect key="frame" x="0.0" y="36" width="47" height="28"/>
+                                        <rect key="frame" x="0.0" y="36" width="40" height="28"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="star.fill" catalog="system"/>
                                         <connections>
@@ -215,7 +212,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTa-zg-wb0">
-                                        <rect key="frame" x="0.0" y="72" width="47" height="28"/>
+                                        <rect key="frame" x="0.0" y="72" width="40" height="28"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="moon.fill" catalog="system"/>
                                         <connections>
@@ -224,7 +221,8 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="bvL-4I-vyc"/>
+                                    <constraint firstAttribute="height" constant="100" id="gsc-UC-Eex"/>
+                                    <constraint firstAttribute="width" constant="40" id="idH-x9-hsQ"/>
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c9X-Mc-ur9">
@@ -268,9 +266,9 @@
                             <constraint firstItem="dMD-ae-g79" firstAttribute="trailing" secondItem="e9p-un-QSQ" secondAttribute="trailing" id="ed1-vh-HQM"/>
                             <constraint firstItem="Xme-iP-iWE" firstAttribute="leading" secondItem="UNT-Pz-OGD" secondAttribute="leading" id="jdB-ib-RNT"/>
                             <constraint firstAttribute="bottom" secondItem="dMD-ae-g79" secondAttribute="bottom" id="kk9-o2-Z5G"/>
-                            <constraint firstAttribute="bottom" secondItem="gvS-PP-Xh2" secondAttribute="bottom" constant="20" id="sei-gC-5nY"/>
+                            <constraint firstItem="gvS-PP-Xh2" firstAttribute="bottom" secondItem="e9p-un-QSQ" secondAttribute="bottom" id="r6H-ps-nra"/>
+                            <constraint firstItem="gvS-PP-Xh2" firstAttribute="trailing" secondItem="c9X-Mc-ur9" secondAttribute="trailing" id="rKa-IH-FA3"/>
                             <constraint firstItem="Xme-iP-iWE" firstAttribute="trailing" secondItem="UNT-Pz-OGD" secondAttribute="trailing" id="vii-KS-fRY"/>
-                            <constraint firstItem="e9p-un-QSQ" firstAttribute="trailing" secondItem="gvS-PP-Xh2" secondAttribute="trailing" constant="8" id="zgz-5H-GSK"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="ChargeStation" image="map" catalog="system" id="6n5-h6-a5G"/>
