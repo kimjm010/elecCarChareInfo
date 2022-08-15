@@ -16,9 +16,12 @@ class ChargeStationViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var menuCollectionView: UICollectionView!
     @IBOutlet weak var optionContainerStackView: UIStackView!
+    @IBOutlet weak var enterPlaceButton: UIButton!
     
     
     // MARK: Vars
+    
+    var selectedChargeStation: ChargeStation?
     
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
@@ -37,30 +40,43 @@ class ChargeStationViewController: UIViewController {
     
     
     // options 배열
-    var options = [Option(optionName: "Filter", optionImage: UIImage(systemName: "slider.horizontal.3"))]
+    var options = [
+        Option(optionName: "Filter", optionImage: UIImage(systemName: "slider.horizontal.3")),
+        Option(optionName: "I'm not filter", optionImage: UIImage(systemName: "slider.horizontal.3")),
+        Option(optionName: "I'm Filter's friend", optionImage: UIImage(systemName: "slider.horizontal.3"))
+    ]
     
     
     // MARK: IBActions
     @IBAction func goToCurrentLocation(_ sender: Any) {
+#if DEBUG
         print(#function)
+#endif
         // TODO: 현재위치(디바이스 위치)로 위치로 돌아갈 것
     }
     
     
     @IBAction func registerMarked(_ sender: Any) {
+#if DEBUG
         print(#function)
+#endif
         // TODO: 내 정보에 즐겨찾기 추가할 것
     }
     
     
     @IBAction func chageMode(_ sender: Any) {
-        print(#function)
+        
+#if DEBUG
+        print(#function, view.overrideUserInterfaceStyle.rawValue)
+#endif
         // TODO: 앱의 화면 모드 변경할 것 / 기본값은 디바이스 설정 값
     }
     
     
     @IBAction func zoomInPressed(_ sender: Any) {
+#if DEBUG
         print(#function)
+#endif
         // TODO: 확대 할 것
     }
     
@@ -71,9 +87,19 @@ class ChargeStationViewController: UIViewController {
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ChargeInfoViewController {
+            vc.chargeStation
+        }
+    }
+    
+    
     // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        enterPlaceButton.layer.cornerRadius = 10
         
         checkLocationAuth()
         
@@ -86,6 +112,7 @@ class ChargeStationViewController: UIViewController {
                                         latitudinalMeters: 1000,
                                         longitudinalMeters: 1000)
         mapView.setRegion(region, animated: true)
+        
     }
     
     
@@ -99,17 +126,12 @@ class ChargeStationViewController: UIViewController {
             switch status {
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
-            case .restricted:
-                // TODO: 경고창 + 설정으로 이동
-                break
-            case  .denied:
-                // TODO: 경고창 + 설정으로 이동
-                break
-            case .authorizedAlways, .authorizedWhenInUse:
-                updateLocation()
-                break
+            case .restricted, .denied:
+                alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                                  message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                                  completion: nil)
             default:
-                break
+                updateLocation()
             }
         }
     }
@@ -131,22 +153,6 @@ class ChargeStationViewController: UIViewController {
         mapView.addAnnotations(annotations)
     }
     
-    
-    /// 해당 좌표에 원을 표시
-    /// - Parameter coordinate: CLLocationCoordinate2D객체
-    private func addCircle(at coordinate: CLLocationCoordinate2D) {
-        
-        // overlay생성 후 mapView에 추가
-        let circle = MKCircle(center: coordinate, radius: 100)
-        mapView.addOverlay(circle)
-    }
-    
-    
-    private func addPolygon(at coordinate: CLLocationCoordinate2D) {
-        let coordinates = Array(dummyChargeStationData.map { $0.coordinate } [0...2])
-        let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
-        mapView.addOverlay(polygon)
-    }
     
     // MARK: - Convert Placemark into Coordinate
     
@@ -180,11 +186,14 @@ class ChargeStationViewController: UIViewController {
 
 extension ChargeStationViewController: CLLocationManagerDelegate {
     
+    /// 위치 업데이트를 시작합니다.
     func updateLocation() {
         locationManager.startUpdatingHeading()
     }
     
     
+    /// 위치 사용 권한 변경 시 호출됩니다.
+    /// - Parameter manager: locationManager 객체
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
@@ -200,14 +209,19 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
     }
     
     
+    /// 위치 검색 실패 시 알림창을 띄웁니다.
+    /// - Parameters:
+    ///   - manager: location manager 객체
+    ///   - error: error 객체
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // TODO: 경고창 띄우기
         locationManager.stopUpdatingHeading()
     }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // TODO: Forward Geo Coding으로 주소 -> 경위도로 변환할 것
-        print(#function)
+        guard let userVal = manager.location?.coordinate else { return }
+        print(#function, userVal.latitude, userVal.longitude)
     }
 }
 
@@ -218,13 +232,25 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
 
 extension ChargeStationViewController: MKMapViewDelegate {
     
+    /// Annotation View를 tap했을 때 이벤트가 전달됩니다.
+    /// - Parameters:
+    ///   - mapView: annotation 표시한 mapView
+    ///   - view: 선택 된 MKAnnotationView 객체
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        // TODO: 밑에 뷰로 충전소 정보 화면 띄우고 쓸어올리면 modal 방식으로 전체화면 표시
         // TODO: OpenInMap으로 이동
-        print(#function)
+        
+        let annotation = view.annotation
+        enterPlaceButton.titleLabel?.text = annotation?.title ?? ""
+        enterPlaceButton.titleLabel?.tintColor = .label
+        enterPlaceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
     }
     
     
+    /// ChargeStation Annotation View를 리턴합니다.
+    /// - Parameters:
+    ///   - mapView: annotation 표시할 mapView
+    ///   - annotation: MKAnnotation 객체
+    /// - Returns: MKAnnotationView객체
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // annotation이 MKUserLocation인 경우는 customize 하지 않음.
@@ -242,31 +268,8 @@ extension ChargeStationViewController: MKMapViewDelegate {
     }
     
     
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        if let overlay = overlay as? MKCircle {
-//            let render = MKCircleRenderer(overlay: overlay)
-//            render.strokeColor = UIColor.systemRed
-//
-//            return render
-//        } else if let overlay = overlay as? MKPolygon {
-//            let render = MKPolygonRenderer(overlay: overlay)
-//            render.strokeColor = UIColor.systemBlue
-//
-//            return render
-//        } else if let overlay = overlay as? MKMultiPolyline {
-//            let render = MKMultiPolygonRenderer(overlay: overlay)
-//            render.lineWidth = 5
-//            render.strokeColor = UIColor.systemRed
-//
-//            return render
-//        }
-//
-//        return MKOverlayRenderer(overlay: overlay)
-//    }
-    
-    
     /// 지도에 표시할 annotation View를 제공합니다.
-    /// 
+    ///
     /// - Parameters:
     ///   - annotation: annotation
     ///   - mapView: annotation 표시할 mapView
@@ -274,13 +277,13 @@ extension ChargeStationViewController: MKMapViewDelegate {
     private func setupChargeStnAnnotationView(for annotation: ChargeAnnotation, on mapView: MKMapView) -> MKAnnotationView {
         let reuseIdentifier = NSStringFromClass(ChargeAnnotation.self)
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
-
+        
         let image = #imageLiteral(resourceName: "chargeStn")
         view.image = image
-
+        
         let rightButton = UIButton(type: .detailDisclosure)
         view.rightCalloutAccessoryView = rightButton
-
+        
         view.canShowCallout = true
         
         return view
@@ -297,16 +300,30 @@ extension ChargeStationViewController: MKMapViewDelegate {
         if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
             print("Tapped Charge Station accessory view")
             
-            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
-                infoVC.modalPresentationStyle = .popover
-                let presentationController = infoVC.popoverPresentationController
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "ChargeInfoViewController") {
+                vc.modalPresentationStyle = .popover
+                let presentationController = vc.popoverPresentationController
                 presentationController?.permittedArrowDirections = .any
-
+                
                 presentationController?.sourceRect = control.frame
                 presentationController?.sourceView = control
-
-                present(infoVC, animated: true, completion: nil)
+                
+                present(vc, animated: true, completion: nil)
             }
+            
+            
+            
+//
+//            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
+//                infoVC.modalPresentationStyle = .popover
+//                let presentationController = infoVC.popoverPresentationController
+//                presentationController?.permittedArrowDirections = .any
+//
+//                presentationController?.sourceRect = control.frame
+//                presentationController?.sourceView = control
+//
+//                present(infoVC, animated: true, completion: nil)
+//            }
         }
     }
 }
@@ -332,5 +349,32 @@ extension ChargeStationViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
 }
+
+
+
+
+//extension ChargeStationViewController: UICollectionViewDelegateFlowLayout {
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        
+//        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+//            return .zero
+//        }
+//        
+//        let bounds = collectionView.bounds
+//        var width = bounds.width - (flowLayout.sectionInset.left + flowLayout.sectionInset.right)
+//        
+//        let availableWidth = width / CGFloat(options.count)
+//        
+//        switch options.count {
+//        case 3:
+//            width = (availableWidth - (flowLayout.minimumInteritemSpacing)) / 2
+//            return CGSize(width: width, height: 20)
+//        default:
+//            break
+//        }
+//        return .zero
+//        
+//    }
+//}
