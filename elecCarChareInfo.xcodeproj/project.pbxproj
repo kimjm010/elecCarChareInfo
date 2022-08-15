@@ -23,9 +23,13 @@
 		F56BA8DA28A5E78200515185 /* OptionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8D928A5E78200515185 /* OptionsCollectionViewCell.swift */; };
 		F56BA8E228A5ED5A00515185 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8E128A5ED5A00515185 /* User.swift */; };
 		F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */; };
-		F56BA8E628A5EF1000515185 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */; };
 		F56BA8EB28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */; };
 		F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */; };
+		F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */; };
+		F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */; };
+		F5C4186528AA273700BFBD96 /* ChargeTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */; };
+		F5C4186728AA276300BFBD96 /* CarTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */; };
+		F5C4186928AA77B600BFBD96 /* ChargeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186828AA77B600BFBD96 /* ChargeInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,9 +52,13 @@
 		F56BA8D928A5E78200515185 /* OptionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCollectionViewCell.swift; sourceTree = "<group>"; };
 		F56BA8E128A5ED5A00515185 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
-		F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
 		F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnInfoTableViewController.swift; sourceTree = "<group>"; };
 		F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeTypeTableViewCell.swift; sourceTree = "<group>"; };
+		F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTypeTableViewCell.swift; sourceTree = "<group>"; };
+		F5C4186828AA77B600BFBD96 /* ChargeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeInfoViewController.swift; sourceTree = "<group>"; };
 		FE6121C9F51CC113D67E685B /* Pods-elecCarChareInfo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elecCarChareInfo.release.xcconfig"; path = "Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +131,7 @@
 		F56BA8B828A4DA2300515185 /* elecCarChareInfo */ = {
 			isa = PBXGroup;
 			children = (
+				F5C4185F28AA04CF00BFBD96 /* Extensions */,
 				F522B78C28A9386B00054965 /* Annotation */,
 				F56BA8D228A4EC1B00515185 /* Model */,
 				F56BA8CF28A4EB4500515185 /* ViewControllers */,
@@ -163,9 +172,20 @@
 			children = (
 				F56BA8D928A5E78200515185 /* OptionsCollectionViewCell.swift */,
 				F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */,
-				F56BA8E428A5EF1000515185 /* InfoTableViewCell.xib */,
+				F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */,
+				F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */,
+				F5C4186828AA77B600BFBD96 /* ChargeInfoViewController.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		F5C4185F28AA04CF00BFBD96 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */,
+				F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F56BA8E628A5EF1000515185 /* InfoTableViewCell.xib in Resources */,
 				F56BA8C628A4DA2300515185 /* LaunchScreen.storyboard in Resources */,
 				F56BA8C328A4DA2300515185 /* Assets.xcassets in Resources */,
 				F56BA8D628A4ED7100515185 /* GoogleService-Info-2.plist in Resources */,
@@ -285,18 +304,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5C4186728AA276300BFBD96 /* CarTypeTableViewCell.swift in Sources */,
 				F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */,
 				F56BA8EB28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift in Sources */,
+				F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */,
 				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
 				F56BA8DA28A5E78200515185 /* OptionsCollectionViewCell.swift in Sources */,
 				F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */,
+				F5C4186928AA77B600BFBD96 /* ChargeInfoViewController.swift in Sources */,
 				F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */,
 				F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */,
 				F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */,
+				F5C4186528AA273700BFBD96 /* ChargeTypeTableViewCell.swift in Sources */,
 				F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */,
 				F56BA8D128A4EB5A00515185 /* ChargeStationViewController.swift in Sources */,
 				F522B78B28A8E0E100054965 /* ChargeStnAnnotationView.swift in Sources */,
 				F56BA8E228A5ED5A00515185 /* User.swift in Sources */,
+				F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

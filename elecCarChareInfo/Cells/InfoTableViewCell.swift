@@ -17,6 +17,11 @@ class InfoTableViewCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var slowChargeLabel: UILabel!
     @IBOutlet weak var rapidChargeLabel: UILabel!
+    @IBOutlet weak var getDirectionButton: UIButton!
+    
+    override func awakeFromNib() {
+        getDirectionButton.setEnableBtnTheme()
+    }
     
     
     func configure(chargeStation: ChargeStation, completion: @escaping (_ chargeStation: ChargeStation) -> Void) {
