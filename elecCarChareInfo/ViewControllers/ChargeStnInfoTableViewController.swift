@@ -22,13 +22,15 @@ class ChargeStnInfoTableViewController: UITableViewController {
     // MARK: - IBActions
     
     @IBAction func findRouteTapped(_ sender: Any) {
-        
+        // TODO: iOS Map으로 연결하여 루트 보여주기
+        print(#function)
     }
     
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
     }
     
@@ -66,7 +68,6 @@ class ChargeStnInfoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(200)
     }
-    
     
     
     // MARK: - UITableView Delegate

@@ -29,7 +29,6 @@
 		F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */; };
 		F5C4186528AA273700BFBD96 /* ChargeTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */; };
 		F5C4186728AA276300BFBD96 /* CarTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */; };
-		F5C4186928AA77B600BFBD96 /* ChargeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186828AA77B600BFBD96 /* ChargeInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +57,6 @@
 		F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeTypeTableViewCell.swift; sourceTree = "<group>"; };
 		F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTypeTableViewCell.swift; sourceTree = "<group>"; };
-		F5C4186828AA77B600BFBD96 /* ChargeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeInfoViewController.swift; sourceTree = "<group>"; };
 		FE6121C9F51CC113D67E685B /* Pods-elecCarChareInfo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elecCarChareInfo.release.xcconfig"; path = "Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +172,6 @@
 				F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */,
 				F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */,
 				F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */,
-				F5C4186828AA77B600BFBD96 /* ChargeInfoViewController.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -311,7 +308,6 @@
 				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
 				F56BA8DA28A5E78200515185 /* OptionsCollectionViewCell.swift in Sources */,
 				F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */,
-				F5C4186928AA77B600BFBD96 /* ChargeInfoViewController.swift in Sources */,
 				F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */,
 				F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */,
 				F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */,

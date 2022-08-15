@@ -87,13 +87,6 @@ class ChargeStationViewController: UIViewController {
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? ChargeInfoViewController {
-            vc.chargeStation
-        }
-    }
-    
-    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -298,32 +291,17 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - control: tap 이벤트가 발생한 컨트롤
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
-            print("Tapped Charge Station accessory view")
-            
-            if let vc = storyboard?.instantiateViewController(withIdentifier: "ChargeInfoViewController") {
-                vc.modalPresentationStyle = .popover
-                let presentationController = vc.popoverPresentationController
+
+            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
+                infoVC.modalPresentationStyle = .popover
+                let presentationController = infoVC.popoverPresentationController
                 presentationController?.permittedArrowDirections = .any
-                
+
                 presentationController?.sourceRect = control.frame
                 presentationController?.sourceView = control
-                
-                present(vc, animated: true, completion: nil)
+
+                present(infoVC, animated: true, completion: nil)
             }
-            
-            
-            
-//
-//            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
-//                infoVC.modalPresentationStyle = .popover
-//                let presentationController = infoVC.popoverPresentationController
-//                presentationController?.permittedArrowDirections = .any
-//
-//                presentationController?.sourceRect = control.frame
-//                presentationController?.sourceView = control
-//
-//                present(infoVC, animated: true, completion: nil)
-//            }
         }
     }
 }
