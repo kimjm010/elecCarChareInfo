@@ -25,6 +25,7 @@
 		F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */; };
 		F56BA8EB28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */; };
 		F56BA8ED28A7E6A300515185 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */; };
+		F5A02E4C28AB1C92005B43DA /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A02E4B28AB1C92005B43DA /* NSNotification+Extension.swift */; };
 		F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */; };
 		F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */; };
 		F5C4186528AA273700BFBD96 /* ChargeTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */; };
@@ -53,6 +54,7 @@
 		F56BA8E328A5EF1000515185 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		F56BA8EA28A7DEBC00515185 /* ChargeStnInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnInfoTableViewController.swift; sourceTree = "<group>"; };
 		F56BA8EC28A7E6A300515185 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		F5A02E4B28AB1C92005B43DA /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
 		F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		F5C4186428AA273700BFBD96 /* ChargeTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeTypeTableViewCell.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */,
 				F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */,
+				F5A02E4B28AB1C92005B43DA /* NSNotification+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */,
 				F5C4186528AA273700BFBD96 /* ChargeTypeTableViewCell.swift in Sources */,
 				F56BA8E528A5EF1000515185 /* InfoTableViewCell.swift in Sources */,
+				F5A02E4C28AB1C92005B43DA /* NSNotification+Extension.swift in Sources */,
 				F56BA8D128A4EB5A00515185 /* ChargeStationViewController.swift in Sources */,
 				F522B78B28A8E0E100054965 /* ChargeStnAnnotationView.swift in Sources */,
 				F56BA8E228A5ED5A00515185 /* User.swift in Sources */,

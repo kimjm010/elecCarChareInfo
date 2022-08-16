@@ -15,6 +15,8 @@ class ChargeStnInfoTableViewController: UITableViewController {
     // MARK: - Vars
     var chargeStn: ChargeStation?
     
+    var token: NSObjectProtocol?
+    
     // MARK: - IBOutlets
     @IBOutlet var chargeStationInfoTableView: UITableView!
     
@@ -22,16 +24,38 @@ class ChargeStnInfoTableViewController: UITableViewController {
     // MARK: - IBActions
     
     @IBAction func findRouteTapped(_ sender: Any) {
+        
         // TODO: iOS Map으로 연결하여 루트 보여주기
         print(#function)
     }
     
     
+    // MARK:
+    
+    @objc
+    private func dataRecieved(_ notification: Notification) {
+        if let chargeStn = chargeStn {
+            print(chargeStn.stnPlace)
+        }
+    }
+    
+    
     // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        token = NotificationCenter.default.addObserver(forName: .sendDataToChargeInfoVC, object: nil, queue: .main, using: { [weak self] (noti) in
+            guard let data = noti.userInfo?["charge"] as? ChargeStation else { return }
+            print(data, self?.chargeStn?.stnPlace)
+        })
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        NotificationCenter.default.removeObserver(token)
     }
     
     
@@ -68,7 +92,7 @@ class ChargeStnInfoTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(200)
     }
-    
+  
     
     // MARK: - UITableView Delegate
     
