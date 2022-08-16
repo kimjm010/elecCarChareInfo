@@ -23,6 +23,8 @@ class ChargeStationViewController: UIViewController {
     
     var selectedChargeStation: ChargeStation?
     
+    var token: NSObjectProtocol?
+    
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
         let m = CLLocationManager()
@@ -97,17 +99,20 @@ class ChargeStationViewController: UIViewController {
         checkLocationAuth()
         
         mapView.delegate = self
-        //        mapView.addAnnotations(dummyMakrs)
         registerMapAnnotationViews()
         
-        let initCntrCoordinate = dummyChargeStationData.first?.coordinate ?? CLLocationCoordinate2D(latitude: 37.4718415, longitude: 127.0877141)
-        let region = MKCoordinateRegion(center: initCntrCoordinate,
-                                        latitudinalMeters: 1000,
-                                        longitudinalMeters: 1000)
-        mapView.setRegion(region, animated: true)
-        
+        // 앱 첫 화면의 위치를 지정
+        // TODO: 사용자의 위치로 변경할 것
+//        let initCntrCoordinate = dummyChargeStationData.first?.coordinate ?? CLLocationCoordinate2D(latitude: 37.4718415, longitude: 127.0877141)
+//        let region = MKCoordinateRegion(center: initCntrCoordinate,
+//                                        latitudinalMeters: 1000,
+//                                        longitudinalMeters: 1000)
+//        mapView.setRegion(region, animated: true)
     }
     
+    
+    
+    // MARK: - User Location 권한 확인
     
     /// User's Location Authorization확인
     private func checkLocationAuth() {
@@ -140,7 +145,11 @@ class ChargeStationViewController: UIViewController {
             return ChargeAnnotation(coordinate: charge.coordinate,
                                     id: charge.id,
                                     title: charge.stnPlace,
-                                    subtitle: charge.stnAddr)
+                                    subtitle: charge.stnAddr,
+                                    city: charge.city,
+                                    rapidCnt: charge.rapidCnt,
+                                    slowCnt: charge.slowCnt,
+                                    carType: charge.carType)
         }
         
         mapView.addAnnotations(annotations)
@@ -169,6 +178,60 @@ class ChargeStationViewController: UIViewController {
             
             completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
+    }
+    
+    
+    // MARK: - Add Route
+    
+    private func addRoute(to coordinate: CLLocationCoordinate2D) {
+        
+        mapView.removeOverlays(mapView.overlays)
+        
+        let request = MKDirections.Request()
+        
+        // TODO: 경로 설정 불가 -> 이유 확인할 것
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: mapView.userLocation.coordinate))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+        request.transportType = .automobile
+        request.requestsAlternateRoutes = true
+        
+        #if DEBUG 
+        print(request)
+        #endif
+        
+        let directions = MKDirections(request: request)
+        #if DEBUG
+        print(directions)
+        #endif
+        
+        directions.calculate { (response, error) in
+            if let error = error {
+                print(error.localizedDescription, "**")
+                return
+            }
+            
+            if let response = response {
+                let lines = MKMultiPolyline(response.routes.map { $0.polyline })
+                
+                self.mapView.addOverlay(lines)
+                
+                self.mapView.setVisibleMapRect(lines.boundingMapRect, edgePadding: UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100), animated: true)
+            }
+        }
+    }
+    
+    
+    // MARK: - Open In Map
+    
+    private func openInMap(to annotation: MKAnnotation) {
+        let source = MKMapItem(placemark: MKPlacemark(coordinate: mapView.userLocation.coordinate))
+        source.name = "Current Location"
+        
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
+        destination.name = annotation.title ?? "Unknown"
+        print(destination)
+        
+        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 }
 
@@ -215,6 +278,14 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let userVal = manager.location?.coordinate else { return }
         print(#function, userVal.latitude, userVal.longitude)
+        
+        if let current = locations.last {
+            print(current)
+            
+            let region = MKCoordinateRegion(center: current.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
+            mapView.setRegion(region, animated: true)
+            
+        }
     }
 }
 
@@ -230,12 +301,18 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - mapView: annotation 표시한 mapView
     ///   - view: 선택 된 MKAnnotationView 객체
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        // TODO: OpenInMap으로 이동
         
         let annotation = view.annotation
         enterPlaceButton.titleLabel?.text = annotation?.title ?? ""
         enterPlaceButton.titleLabel?.tintColor = .label
         enterPlaceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
+        
+        addRoute(to: annotation!.coordinate)
+        openInMap(to: annotation!)
+        
+        #if DEBUG
+        print(#function)
+        #endif
     }
     
     
@@ -245,6 +322,10 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - annotation: MKAnnotation 객체
     /// - Returns: MKAnnotationView객체
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        #if DEBUG
+        print(#function)
+        #endif
         
         // annotation이 MKUserLocation인 경우는 customize 하지 않음.
         guard !annotation.isKind(of: MKUserLocation.self) else {
@@ -268,6 +349,11 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - mapView: annotation 표시할 mapView
     /// - Returns: annotationView
     private func setupChargeStnAnnotationView(for annotation: ChargeAnnotation, on mapView: MKMapView) -> MKAnnotationView {
+        
+        #if DEBUG
+        print(#function)
+        #endif
+        
         let reuseIdentifier = NSStringFromClass(ChargeAnnotation.self)
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
         
@@ -290,9 +376,38 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - view: callout의 annotation View
     ///   - control: tap 이벤트가 발생한 컨트롤
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        #if DEBUG
+        print(#function)
+        #endif
+        
         if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
+            
+            if let charge = annotation as? ChargeAnnotation {
+                guard let city = charge.city,
+                      let stnPlace = charge.title,
+                      let stnAddr = charge.subtitle,
+                      let rapidCnt = charge.rapidCnt,
+                      let slowCnt = charge.slowCnt,
+                      let carType = charge.carType else { return }
+                selectedChargeStation = ChargeStation(id: charge.id,
+                                                      city: city,
+                                                      stnPlace: stnPlace,
+                                                      stnAddr: stnAddr,
+                                                      rapidCnt: rapidCnt,
+                                                      slowCnt: slowCnt,
+                                                      coordinate: charge.coordinate,
+                                                      carType: carType)
+                if let selectedData = selectedChargeStation {
+                    NotificationCenter.default.post(name: .sendDataToChargeInfoVC, object: nil, userInfo: ["charge": selectedData])
+                }
+                
+            }
+            
 
             if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
+                
+                
                 infoVC.modalPresentationStyle = .popover
                 let presentationController = infoVC.popoverPresentationController
                 presentationController?.permittedArrowDirections = .any
@@ -303,6 +418,21 @@ extension ChargeStationViewController: MKMapViewDelegate {
                 present(infoVC, animated: true, completion: nil)
             }
         }
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        if let overlay = overlay as? MKMultiPolyline {
+            let r = MKMultiPolygonRenderer(overlay: overlay)
+            
+            r.lineWidth = 5
+            r.strokeColor = UIColor.red
+            
+            return r
+        }
+        
+        return MKOverlayRenderer(overlay: overlay)
     }
 }
 

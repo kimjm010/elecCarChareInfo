@@ -387,7 +387,7 @@
             </objects>
             <point key="canvasLocation" x="-2266.666666666667" y="-1003.125"/>
         </scene>
-        <!--Charge Stn Info Table View Controller-->
+        <!--Charge Station Info-->
         <scene sceneID="tch-oc-NfW">
             <objects>
                 <tableViewController storyboardIdentifier="ChargeStnInfoTableViewController" id="1ek-Kf-36V" customClass="ChargeStnInfoTableViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
@@ -594,13 +594,23 @@
                             <outlet property="delegate" destination="1ek-Kf-36V" id="HCR-Cc-taK"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="aRj-nz-lFn"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Charge Station Info" id="e4R-G4-03U">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2NF-mI-vd5">
+                            <color key="tintColor" systemColor="labelColor"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="chargeStationInfoTableView" destination="ixJ-xv-BeB" id="u9o-eF-lh2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QSP-Ty-WPD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2266.666666666667" y="-293.30357142857139"/>
+            <point key="canvasLocation" x="-2286" y="-277"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3vl-Er-1SK">
@@ -638,6 +648,9 @@
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
