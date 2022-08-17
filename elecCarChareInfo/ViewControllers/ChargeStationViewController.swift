@@ -94,6 +94,14 @@ class ChargeStationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.showsUserLocation = true
+        
+        #if DEBUG
+        print(mapView.userLocation.coordinate.latitude, mapView.userLocation.coordinate.longitude)
+        #endif
+        
+        
+        
         enterPlaceButton.layer.cornerRadius = 10
         
         checkLocationAuth()
@@ -128,8 +136,10 @@ class ChargeStationViewController: UIViewController {
                 alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
                                   message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
                                   completion: nil)
-            default:
+            case .authorizedAlways, .authorizedWhenInUse:
                 updateLocation()
+            default:
+                break
             }
         }
     }
@@ -195,14 +205,7 @@ class ChargeStationViewController: UIViewController {
         request.transportType = .automobile
         request.requestsAlternateRoutes = true
         
-        #if DEBUG 
-        print(request)
-        #endif
-        
         let directions = MKDirections(request: request)
-        #if DEBUG
-        print(directions)
-        #endif
         
         directions.calculate { (response, error) in
             if let error = error {
@@ -254,13 +257,10 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
             updateLocation()
-            break
-        case .restricted, .denied:
-            // TODO: 경고창 + 설정으로 이동
-            break
         default:
-            // TODO: 경고창 + 설정으로 이동
-            break
+            alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                              completion: nil)
         }
     }
     
@@ -270,21 +270,26 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
     ///   - manager: location manager 객체
     ///   - error: error 객체
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // TODO: 경고창 띄우기
+        
         locationManager.stopUpdatingHeading()
+        
+        alertLocationAuth(title: "사용자의 위치를 확인 할 수 없습니다.",
+                          message: "설정에서 위치 서비스를 허용 하시겠습니까?",
+                          completion: nil)
     }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let userVal = manager.location?.coordinate else { return }
-        print(#function, userVal.latitude, userVal.longitude)
         
         if let current = locations.last {
-            print(current)
+            print(current, "****")
             
-            let region = MKCoordinateRegion(center: current.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
+            let region = MKCoordinateRegion(center: current.coordinate,
+                                            latitudinalMeters: 20,
+                                            longitudinalMeters: 20)
+            
+            print(current.coordinate, "^^^현재위치^^^")
             mapView.setRegion(region, animated: true)
-            
         }
     }
 }
@@ -309,10 +314,6 @@ extension ChargeStationViewController: MKMapViewDelegate {
         
         addRoute(to: annotation!.coordinate)
         openInMap(to: annotation!)
-        
-        #if DEBUG
-        print(#function)
-        #endif
     }
     
     
@@ -322,10 +323,6 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - annotation: MKAnnotation 객체
     /// - Returns: MKAnnotationView객체
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        #if DEBUG
-        print(#function)
-        #endif
         
         // annotation이 MKUserLocation인 경우는 customize 하지 않음.
         guard !annotation.isKind(of: MKUserLocation.self) else {
@@ -350,10 +347,6 @@ extension ChargeStationViewController: MKMapViewDelegate {
     /// - Returns: annotationView
     private func setupChargeStnAnnotationView(for annotation: ChargeAnnotation, on mapView: MKMapView) -> MKAnnotationView {
         
-        #if DEBUG
-        print(#function)
-        #endif
-        
         let reuseIdentifier = NSStringFromClass(ChargeAnnotation.self)
         let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
         
@@ -376,10 +369,6 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - view: callout의 annotation View
     ///   - control: tap 이벤트가 발생한 컨트롤
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
-        #if DEBUG
-        print(#function)
-        #endif
         
         if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
             
@@ -424,7 +413,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
         if let overlay = overlay as? MKMultiPolyline {
-            let r = MKMultiPolygonRenderer(overlay: overlay)
+            let r = MKMultiPolylineRenderer(overlay: overlay)
             
             r.lineWidth = 5
             r.strokeColor = UIColor.red
