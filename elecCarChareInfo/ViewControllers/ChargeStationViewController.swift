@@ -17,13 +17,18 @@ class ChargeStationViewController: UIViewController {
     @IBOutlet weak var menuCollectionView: UICollectionView!
     @IBOutlet weak var optionContainerStackView: UIStackView!
     @IBOutlet weak var enterPlaceButton: UIButton!
+    @IBOutlet weak var changeThemeButton: UIButton!
     
     
     // MARK: Vars
     
     var selectedChargeStation: ChargeStation?
     
+    var selectedAnnotation: MKAnnotation?
+    
     var token: NSObjectProtocol?
+    
+    var isDarkMode: Bool = false
     
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
@@ -38,8 +43,6 @@ class ChargeStationViewController: UIViewController {
     }()
     
     private var allAnnotations: [MKAnnotation]?
-    
-    
     
     // options 배열
     var options = [
@@ -67,11 +70,12 @@ class ChargeStationViewController: UIViewController {
     
     
     @IBAction func chageMode(_ sender: Any) {
-        
-#if DEBUG
-        print(#function, view.overrideUserInterfaceStyle.rawValue)
-#endif
         // TODO: 앱의 화면 모드 변경할 것 / 기본값은 디바이스 설정 값
+        isDarkMode = isDarkMode ? false : true
+        
+        UserDefaults.standard.set(isDarkMode, forKey: "changeTheme")
+        let userInfo = ["mode": isDarkMode]
+        NotificationCenter.default.post(name: .changeThmeme, object: nil, userInfo: userInfo)
     }
     
     
@@ -90,23 +94,26 @@ class ChargeStationViewController: UIViewController {
     
     
     // MARK: - View Life Cycle
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getCoordinate(dummyChargeStationData[0].stnAddr) { (coordinate, error) in
+            
+            print(coordinate.latitude, coordinate.longitude, dummyChargeStationData[0].stnAddr)
+        }
+        
         mapView.showsUserLocation = true
-        
-        #if DEBUG
-        print(mapView.userLocation.coordinate.latitude, mapView.userLocation.coordinate.longitude)
-        #endif
-        
-        
+        mapView.delegate = self
         
         enterPlaceButton.layer.cornerRadius = 10
         
+//        isDarkMode = UserDefaults.standard.bool(forKey: "changeTheme")
+        
         checkLocationAuth()
         
-        mapView.delegate = self
+        
         registerMapAnnotationViews()
         
         // 앱 첫 화면의 위치를 지정
@@ -117,7 +124,6 @@ class ChargeStationViewController: UIViewController {
 //                                        longitudinalMeters: 1000)
 //        mapView.setRegion(region, animated: true)
     }
-    
     
     
     // MARK: - User Location 권한 확인
@@ -173,19 +179,19 @@ class ChargeStationViewController: UIViewController {
     ///   - addressString: 변환할 주소
     ///   - completion: 변환 성공 시 (CLLocationCoordinate2D, NSError?)을 담은 completion handler가 호출됨
     private func getCoordinate(_ addressString: String, completion: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-        
+
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {
-                
+
                 if let placemark = placemarks?[0] {
                     let location = placemark.location!
-                    
+
                     completion(location.coordinate, nil)
                     return
                 }
             }
-            
+
             completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
@@ -193,13 +199,14 @@ class ChargeStationViewController: UIViewController {
     
     // MARK: - Add Route
     
+    /// 특정 충전소가까지의 Route를 제공합니다.
+    /// - Parameter coordinate: 충전소 위치
     private func addRoute(to coordinate: CLLocationCoordinate2D) {
         
         mapView.removeOverlays(mapView.overlays)
         
         let request = MKDirections.Request()
         
-        // TODO: 경로 설정 불가 -> 이유 확인할 것
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: mapView.userLocation.coordinate))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
         request.transportType = .automobile
@@ -226,6 +233,8 @@ class ChargeStationViewController: UIViewController {
     
     // MARK: - Open In Map
     
+    /// 애플 지도 연동하여 해당 위치까지 경로 제공
+    /// - Parameter annotation: 목적지의 annotation 객체
     private func openInMap(to annotation: MKAnnotation) {
         let source = MKMapItem(placemark: MKPlacemark(coordinate: mapView.userLocation.coordinate))
         source.name = "Current Location"
@@ -279,16 +288,18 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
     }
     
     
+    /// 사용자의 위치가 업데이틑 경우 호출하는 메소드,
+    /// - Parameters:
+    ///   - manager: locationManager 객체
+    ///   - locations: 업데이트된 위치 배열
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if let current = locations.last {
-            print(current, "****")
             
             let region = MKCoordinateRegion(center: current.coordinate,
                                             latitudinalMeters: 20,
                                             longitudinalMeters: 20)
             
-            print(current.coordinate, "^^^현재위치^^^")
             mapView.setRegion(region, animated: true)
         }
     }
@@ -312,8 +323,9 @@ extension ChargeStationViewController: MKMapViewDelegate {
         enterPlaceButton.titleLabel?.tintColor = .label
         enterPlaceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
         
-        addRoute(to: annotation!.coordinate)
-        openInMap(to: annotation!)
+        // TODO: annotationview를 선택하는 것 말고 길찾기 버튼을 선택했을 때 경로 찾도록 변경
+//        addRoute(to: annotation!.coordinate)
+//        openInMap(to: annotation!)
     }
     
     
@@ -372,35 +384,34 @@ extension ChargeStationViewController: MKMapViewDelegate {
         
         if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
             
-            if let charge = annotation as? ChargeAnnotation {
-                guard let city = charge.city,
-                      let stnPlace = charge.title,
-                      let stnAddr = charge.subtitle,
-                      let rapidCnt = charge.rapidCnt,
-                      let slowCnt = charge.slowCnt,
-                      let carType = charge.carType else { return }
-                selectedChargeStation = ChargeStation(id: charge.id,
+            
+            if let chargeAnnotation = annotation as? ChargeAnnotation {
+                guard let city = chargeAnnotation.city,
+                      let stnPlace = chargeAnnotation.title,
+                      let stnAddr = chargeAnnotation.subtitle,
+                      let rapidCnt = chargeAnnotation.rapidCnt,
+                      let slowCnt = chargeAnnotation.slowCnt,
+                      let carType = chargeAnnotation.carType else { return }
+                selectedAnnotation = chargeAnnotation
+                selectedChargeStation = ChargeStation(id: chargeAnnotation.id,
                                                       city: city,
                                                       stnPlace: stnPlace,
                                                       stnAddr: stnAddr,
                                                       rapidCnt: rapidCnt,
                                                       slowCnt: slowCnt,
-                                                      coordinate: charge.coordinate,
+                                                      coordinate: chargeAnnotation.coordinate,
                                                       carType: carType)
-                if let selectedData = selectedChargeStation {
-                    NotificationCenter.default.post(name: .sendDataToChargeInfoVC, object: nil, userInfo: ["charge": selectedData])
-                }
-                
             }
             
+            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoViewController") as? ChargeStnInfoViewController {
 
-            if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoTableViewController") {
-                
-                
+                infoVC.chargeStn = selectedChargeStation
+                infoVC.annotation = selectedAnnotation
+
                 infoVC.modalPresentationStyle = .popover
                 let presentationController = infoVC.popoverPresentationController
                 presentationController?.permittedArrowDirections = .any
-
+                
                 presentationController?.sourceRect = control.frame
                 presentationController?.sourceView = control
 
@@ -410,6 +421,11 @@ extension ChargeStationViewController: MKMapViewDelegate {
     }
     
     
+    /// 목적지까지의 overlay를 그리는 메소드
+    /// - Parameters:
+    ///   - mapView: render객체를 요청한 mapView
+    ///   - overlay: 화면에 표시할 overlay객체
+    /// - Returns: 화면에 표시할 render
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
         if let overlay = overlay as? MKMultiPolyline {

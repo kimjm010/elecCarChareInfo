@@ -10,6 +10,8 @@ import Foundation
 
 extension NSNotification.Name {
     
-    /// callOut을 탭했을 때 ChargeStation 객체를 ChargeInfoStnTableViewController로 전달합니다.
-    static let sendDataToChargeInfoVC = NSNotification.Name(rawValue: "sendDataToChargeInfoVC")
+    
+    /// 화면 모드를 변경했을 때 알리기 위한 Notification
+    static let changeThmeme = Notification.Name(rawValue: "changeThmeme")
+    
 }

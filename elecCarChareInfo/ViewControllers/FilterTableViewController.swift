@@ -21,21 +21,21 @@ class FilterTableViewController: UITableViewController {
         
         return values
     }()
-
+    
     
     // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
@@ -46,39 +46,28 @@ class FilterTableViewController: UITableViewController {
         default:
             break
         }
-        
         return 0
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CarTypeTableViewCell", for: indexPath) as! CarTypeTableViewCell
+            
+            let carType = carTypes[indexPath.row]
+            cell.configure(carType: carType) {
+                print("셀에 부담이 안가게 여기서 작업")
+            }
+            
+            return cell
+        }
         
         if indexPath.section == 0 {
             return tableView.dequeueReusableCell(withIdentifier: "ChargeTypeTableViewCell", for: indexPath) as! ChargeTypeTableViewCell
         }
         
-        if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = "차종"
-            return cell
-        }
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CarTypeTableViewCell", for: indexPath) as! CarTypeTableViewCell
+        return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let cartype = carTypes[indexPath.row]
-        cell.configure(carType: cartype) {
-            print(#function, "셀에 부담이 안되게 하는 작업")
-        }
-        
-        return cell
     }
-    
-    
-    // MARK: - TableView Delegate
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-
 }
