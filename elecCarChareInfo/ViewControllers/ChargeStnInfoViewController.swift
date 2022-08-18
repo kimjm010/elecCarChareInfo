@@ -13,8 +13,13 @@ class ChargeStnInfoViewController: UIViewController {
     
     // MARK: - Vars
     var chargeStn: ChargeStation?
+    
     var annotation: MKAnnotation?
-    var calculatedDistance = 1.5 // TODO: 직접 계산된 거리로 변경할 것
+    
+    var calculatedDistance: Double?
+    
+    var userLocation: CLLocationCoordinate2D?
+    
     
     // MARK: - IBOutlets
     
@@ -24,6 +29,7 @@ class ChargeStnInfoViewController: UIViewController {
     @IBOutlet weak var slowChargeLabel: UILabel!
     @IBOutlet weak var rapidChargeLabel: UILabel!
     @IBOutlet weak var findDirectionButton: UIButton!
+    @IBOutlet weak var addMarkButton: UIButton!
     
     
 
@@ -37,15 +43,8 @@ class ChargeStnInfoViewController: UIViewController {
     
     @IBAction func findDirectionButtonTapped(_ sender: Any) {
         // TODO: ios 지도앱으로 바로 연결
-//
-//        let directionVC = storyboard?.instantiateViewController(withIdentifier: "ShowRouteViewController") as? ShowRouteViewController
-//        directionVC?.chargeStn = chargeStn
-//        directionVC?.annotation = annotation
-//
-//        directionVC?.modalPresentationStyle = .automatic
-//        directionVC?.modalTransitionStyle = .crossDissolve
-//        directionVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: nil, style: .plain, target: nil, action: #selector(closeVC))
-//        present(directionVC!, animated: true, completion: nil)
+        guard let annotation = annotation else { return }
+        openInMap(to: annotation)
     }
     
     
@@ -62,9 +61,29 @@ class ChargeStnInfoViewController: UIViewController {
     private func initializeData() {
         stnPlaceLabel.text = chargeStn?.stnPlace
         stnAddrLabel.text = chargeStn?.stnAddr
-        distanceLabel.text = "\(calculatedDistance)km"
+        distanceLabel.text = "\(calculatedDistance ?? 0)km"
         slowChargeLabel.text = "완속: \(chargeStn?.slowCnt ?? 0)"
         rapidChargeLabel.text = "급속: \(chargeStn?.rapidCnt ?? 0 )"
         findDirectionButton.setEnableBtnTheme()
+        addMarkButton.setTitle("", for: .normal)
+    }
+    
+    
+    // MARK: - Open In Map
+    
+    /// 애플 지도 연동하여 해당 위치까지 경로 제공
+    /// - Parameter annotation: 목적지의 annotation 객체
+    private func openInMap(to annotation: MKAnnotation) {
+        guard let userLocation = userLocation else { return }
+
+        let source = MKMapItem(placemark: MKPlacemark(coordinate: userLocation))
+        source.name = "Current Location"
+        
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
+        destination.name = annotation.title ?? "Unknown"
+        print(destination)
+        
+        MKMapItem.openMaps(with: [source, destination],
+                           launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 }

@@ -9,10 +9,8 @@ import UIKit
 
 class FilterTableViewController: UITableViewController {
     
-    // MARK: - IBOutlets
-    @IBOutlet var filterListTableView: UITableView!
-    
     // MARK: - Vars
+    
     var carTypes: [String] = {
         var values = [String]()
         for i in 0 ..< dummyChargeStationData.count {
@@ -21,6 +19,22 @@ class FilterTableViewController: UITableViewController {
         
         return values
     }()
+    
+    
+    // MARK: - IBOutlets
+    @IBOutlet var filterListTableView: UITableView!
+    
+    
+    // MARK: - IBActions
+    
+    @IBAction func filterSlowCharge(_ sender: Any) {
+        // TODO: Filter -> 급속만 제공하는 곳 제외
+    }
+    
+    
+    @IBAction func filterRapidCharge(_ sender: Any) {
+        // TODO: Filter -> 완속만 제공하는 곳 제외
+    }
     
     
     // MARK: - View Life Cycle
@@ -36,6 +50,7 @@ class FilterTableViewController: UITableViewController {
         return 3
     }
     
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
@@ -48,7 +63,7 @@ class FilterTableViewController: UITableViewController {
         }
         return 0
     }
-    
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -68,6 +83,5 @@ class FilterTableViewController: UITableViewController {
         }
         
         return tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
     }
 }
