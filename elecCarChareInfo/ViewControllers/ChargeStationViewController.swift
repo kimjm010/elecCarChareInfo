@@ -14,10 +14,12 @@ class ChargeStationViewController: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet weak var mapView: MKMapView!
+    
     @IBOutlet weak var menuCollectionView: UICollectionView!
-    @IBOutlet weak var optionContainerStackView: UIStackView!
+    
     @IBOutlet weak var enterPlaceButton: UIButton!
-    @IBOutlet weak var changeThemeButton: UIButton!
+    
+    @IBOutlet weak var goToCurrentLocationButton: UIButton!
     
     
     // MARK: Vars
@@ -26,7 +28,9 @@ class ChargeStationViewController: UIViewController {
     
     var selectedAnnotation: MKAnnotation?
     
-    var token: NSObjectProtocol?
+    var calculatedDistance: Double = 0.0
+    
+    var userLocation: CLLocationCoordinate2D?
     
     var isDarkMode: Bool = false
     
@@ -44,6 +48,7 @@ class ChargeStationViewController: UIViewController {
     
     private var allAnnotations: [MKAnnotation]?
     
+    
     // options 배열
     var options = [
         Option(optionName: "Filter", optionImage: UIImage(systemName: "slider.horizontal.3")),
@@ -53,43 +58,11 @@ class ChargeStationViewController: UIViewController {
     
     
     // MARK: IBActions
+    
+    /// 현재 위치로 이동합니다.
+    /// - Parameter sender: 현재 위치 버튼
     @IBAction func goToCurrentLocation(_ sender: Any) {
-#if DEBUG
-        print(#function)
-#endif
-        // TODO: 현재위치(디바이스 위치)로 위치로 돌아갈 것
-    }
-    
-    
-    @IBAction func registerMarked(_ sender: Any) {
-#if DEBUG
-        print(#function)
-#endif
-        // TODO: 내 정보에 즐겨찾기 추가할 것
-    }
-    
-    
-    @IBAction func chageMode(_ sender: Any) {
-        // TODO: 앱의 화면 모드 변경할 것 / 기본값은 디바이스 설정 값
-        isDarkMode = isDarkMode ? false : true
-        
-        UserDefaults.standard.set(isDarkMode, forKey: "changeTheme")
-        let userInfo = ["mode": isDarkMode]
-        NotificationCenter.default.post(name: .changeThmeme, object: nil, userInfo: userInfo)
-    }
-    
-    
-    @IBAction func zoomInPressed(_ sender: Any) {
-#if DEBUG
-        print(#function)
-#endif
-        // TODO: 확대 할 것
-    }
-    
-    
-    @IBAction func zoomOutPressed(_ sender: Any) {
-        print(#function)
-        // TODO: 축소 할 것
+        goToCurrentLocation()
     }
     
     
@@ -99,30 +72,51 @@ class ChargeStationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getCoordinate(dummyChargeStationData[0].stnAddr) { (coordinate, error) in
-            
-            print(coordinate.latitude, coordinate.longitude, dummyChargeStationData[0].stnAddr)
-        }
+        initializeData()
         
-        mapView.showsUserLocation = true
-        mapView.delegate = self
-        
-        enterPlaceButton.layer.cornerRadius = 10
-        
-//        isDarkMode = UserDefaults.standard.bool(forKey: "changeTheme")
+        goToCurrentLocation()
         
         checkLocationAuth()
         
+        initializeMapView()
         
         registerMapAnnotationViews()
         
-        // 앱 첫 화면의 위치를 지정
-        // TODO: 사용자의 위치로 변경할 것
-//        let initCntrCoordinate = dummyChargeStationData.first?.coordinate ?? CLLocationCoordinate2D(latitude: 37.4718415, longitude: 127.0877141)
-//        let region = MKCoordinateRegion(center: initCntrCoordinate,
-//                                        latitudinalMeters: 1000,
-//                                        longitudinalMeters: 1000)
-//        mapView.setRegion(region, animated: true)
+    }
+    
+    
+    // MARK: - Initialize Data
+    
+    private func initializeData() {
+        goToCurrentLocationButton.setTitle("", for: .normal)
+        goToCurrentLocationButton.setEnableBtnTheme()
+    }
+    
+    
+    // MARK: - Button UI Update
+    
+    private func updateBtnUI() {
+        enterPlaceButton.setTitle("Please Enter Region / Station Name", for: .normal)
+        enterPlaceButton.titleLabel?.textColor = UIColor.systemGray
+        enterPlaceButton.layer.cornerRadius = 10
+    }
+    
+    
+    // MARK: - MapView Initial Setting
+    
+    private func initializeMapView() {
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+    }
+    
+    
+    // MARK: - Go To Current Location
+    
+    private func goToCurrentLocation() {
+        guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
+         print(initCntrCoordinate.latitude, initCntrCoordinate.longitude)
+         let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+         mapView.setRegion(region, animated: true)
     }
     
     
@@ -214,20 +208,42 @@ class ChargeStationViewController: UIViewController {
         
         let directions = MKDirections(request: request)
         
-        directions.calculate { (response, error) in
+        directions.calculate { [weak self] (response, error) in
+            guard let self = self else { return }
+            
             if let error = error {
-                print(error.localizedDescription, "**")
+                #if DEBUG
+                print(error.localizedDescription, "Add Route response에서 에러 발생")
+                #endif
+                
                 return
             }
             
             if let response = response {
                 let lines = MKMultiPolyline(response.routes.map { $0.polyline })
                 
+                
                 self.mapView.addOverlay(lines)
                 
-                self.mapView.setVisibleMapRect(lines.boundingMapRect, edgePadding: UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100), animated: true)
+                self.mapView.setVisibleMapRect(lines.boundingMapRect,
+                                               edgePadding: UIEdgeInsets(top: 100,
+                                                                         left: 100,
+                                                                         bottom: 100,
+                                                                         right: 100),
+                                               animated: true)
+                
+                guard let distance = response.routes.first?.distance else { return }
+                self.calculatedDistance = round(distance / 1000)
             }
         }
+    }
+    
+    
+    // MARK: - Remove Route
+    
+    /// 특정 충전소까지의 Route를 취소합니다.
+    private func removeRoute() {
+        mapView.removeOverlays(mapView.overlays)
     }
     
     
@@ -241,9 +257,9 @@ class ChargeStationViewController: UIViewController {
         
         let destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
         destination.name = annotation.title ?? "Unknown"
-        print(destination)
         
-        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+        MKMapItem.openMaps(with: [source, destination],
+                           launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 }
 
@@ -324,8 +340,14 @@ extension ChargeStationViewController: MKMapViewDelegate {
         enterPlaceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
         
         // TODO: annotationview를 선택하는 것 말고 길찾기 버튼을 선택했을 때 경로 찾도록 변경
-//        addRoute(to: annotation!.coordinate)
+        addRoute(to: annotation!.coordinate)
 //        openInMap(to: annotation!)
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        removeRoute()
+        updateBtnUI()
     }
     
     
@@ -407,7 +429,9 @@ extension ChargeStationViewController: MKMapViewDelegate {
 
                 infoVC.chargeStn = selectedChargeStation
                 infoVC.annotation = selectedAnnotation
-
+                infoVC.calculatedDistance = calculatedDistance
+                infoVC.userLocation = locationManager.location?.coordinate
+                
                 infoVC.modalPresentationStyle = .popover
                 let presentationController = infoVC.popoverPresentationController
                 presentationController?.permittedArrowDirections = .any
@@ -432,7 +456,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
             let r = MKMultiPolylineRenderer(overlay: overlay)
             
             r.lineWidth = 5
-            r.strokeColor = UIColor.red
+            r.strokeColor = UIColor.systemBlue
             
             return r
         }
@@ -461,6 +485,17 @@ extension ChargeStationViewController: UICollectionViewDataSource {
         }
         
         return cell
+    }
+}
+
+
+
+
+extension ChargeStationViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterTableViewController")
+        present(vc, animated: true, completion: nil)
     }
 }
 
