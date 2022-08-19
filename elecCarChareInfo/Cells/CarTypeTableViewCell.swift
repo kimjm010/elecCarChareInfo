@@ -10,9 +10,9 @@ import UIKit
 class CarTypeTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
+    
     @IBOutlet weak var checkboxImageView: UIImageView!
     @IBOutlet weak var carTypeLabel: UILabel!
-    
     
     
     func configure(carType: String, completion: () -> ()) {

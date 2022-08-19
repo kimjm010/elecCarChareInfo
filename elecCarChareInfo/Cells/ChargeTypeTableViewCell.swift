@@ -10,14 +10,12 @@ import UIKit
 class ChargeTypeTableViewCell: UITableViewCell {
     
     // MARK: -IBOutlets
-    @IBOutlet weak var slowChargeButton: UIButton!
-    @IBOutlet weak var rapidChargeButton: UIButton!
+    
+    @IBOutlet weak var chargeTypeSegmentedControl: UISegmentedControl!
     
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        slowChargeButton.setEnableBtnTheme()
-        rapidChargeButton.setEnableBtnTheme()
     }
 }

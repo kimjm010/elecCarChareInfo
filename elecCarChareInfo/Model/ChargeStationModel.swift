@@ -51,6 +51,12 @@ import MapKit
  */
 
 
+// 차종 모델
+struct CarType {
+    let name: String
+    var isSelected: Bool
+}
+
 // Option Model
 struct Option {
     let optionName: String
@@ -68,7 +74,7 @@ struct ChargeStation {
     let rapidCnt: Int
     let slowCnt: Int
     let coordinate: CLLocationCoordinate2D
-    let carType: String
+    let carType: CarType
 }
 
 
@@ -82,7 +88,8 @@ var dummyChargeStationData = [
                   rapidCnt: 1,
                   slowCnt: 4,
                   coordinate: CLLocationCoordinate2D(latitude: 37.5145037, longitude: 127.0410139),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라"),
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false)),
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",
                   stnPlace: "LH서울지사",
@@ -90,7 +97,8 @@ var dummyChargeStationData = [
                   rapidCnt: 1,
                   slowCnt: 0,
                   coordinate: CLLocationCoordinate2D(latitude: 37.4831587, longitude: 127.0853829),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라"),
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false)),
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",
                   stnPlace: "가람아파트",
@@ -98,7 +106,8 @@ var dummyChargeStationData = [
                   rapidCnt: 1,
                   slowCnt: 0,
                   coordinate: CLLocationCoordinate2D(latitude: 37.4718415, longitude: 127.0877141),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라"),
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false)),
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",
                   stnPlace: "강남구청 공영주차장",
@@ -106,7 +115,8 @@ var dummyChargeStationData = [
                   rapidCnt: 1,
                   slowCnt: 0,
                   coordinate: CLLocationCoordinate2D(latitude: 37.5175747, longitude: 127.0475074),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라"),
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false)),
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",
                   stnPlace: "강남데시앙파크",
@@ -114,7 +124,8 @@ var dummyChargeStationData = [
                   rapidCnt: 1,
                   slowCnt: 1,
                   coordinate: CLLocationCoordinate2D(latitude: 37.4610643, longitude: 127.1016045),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라"),
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false)),
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",
                   stnPlace: "강남데시앙포레",
@@ -122,7 +133,8 @@ var dummyChargeStationData = [
                   rapidCnt: 1,
                   slowCnt: 3,
                   coordinate: CLLocationCoordinate2D(latitude: 37.480856, longitude: 127.0921722),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라"),
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false)),
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",
                   stnPlace: "강남세브란스 병원",
@@ -130,7 +142,8 @@ var dummyChargeStationData = [
                   rapidCnt: 2,
                   slowCnt: 0,
                   coordinate: CLLocationCoordinate2D(latitude: 37.4920496, longitude: 127.0463487),
-                  carType: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라")
+                  carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
+                                   isSelected: false))
 ]
 
 
