@@ -12,6 +12,7 @@ import MapKit
 class ChargeStnInfoViewController: UIViewController {
     
     // MARK: - Vars
+    
     var chargeStn: ChargeStation?
     
     var annotation: MKAnnotation?
@@ -24,15 +25,20 @@ class ChargeStnInfoViewController: UIViewController {
     // MARK: - IBOutlets
     
     @IBOutlet weak var stnPlaceLabel: UILabel!
+    
     @IBOutlet weak var stnAddrLabel: UILabel!
+    
     @IBOutlet weak var distanceLabel: UILabel!
+    
     @IBOutlet weak var slowChargeLabel: UILabel!
+    
     @IBOutlet weak var rapidChargeLabel: UILabel!
+    
     @IBOutlet weak var findDirectionButton: UIButton!
+    
     @IBOutlet weak var addMarkButton: UIButton!
     
     
-
     // MARK: - IBActions
     
     @IBAction func addMarkButtonTapped(_ sender: Any) {
@@ -42,7 +48,6 @@ class ChargeStnInfoViewController: UIViewController {
     
     
     @IBAction func findDirectionButtonTapped(_ sender: Any) {
-        // TODO: ios 지도앱으로 바로 연결
         guard let annotation = annotation else { return }
         openInMap(to: annotation)
     }
