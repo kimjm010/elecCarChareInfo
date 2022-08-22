@@ -11,17 +11,6 @@ import MapKit
 
 class ChargeStnInfoViewController: UIViewController {
     
-    // MARK: - Vars
-    
-    var chargeStn: ChargeStation?
-    
-    var annotation: MKAnnotation?
-    
-    var calculatedDistance: Double?
-    
-    var userLocation: CLLocationCoordinate2D?
-    
-    
     // MARK: - IBOutlets
     
     @IBOutlet weak var stnPlaceLabel: UILabel!
@@ -37,6 +26,17 @@ class ChargeStnInfoViewController: UIViewController {
     @IBOutlet weak var findDirectionButton: UIButton!
     
     @IBOutlet weak var addMarkButton: UIButton!
+    
+    
+    // MARK: - Vars
+    
+    var chargeStn: ChargeStation?
+    
+    var annotation: MKAnnotation?
+    
+    var calculatedDistance: Double?
+    
+    var userLocation: CLLocationCoordinate2D?
     
     
     // MARK: - IBActions

@@ -12,6 +12,11 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
     
+    // MARK: - IBOutlets
+    
+    @IBOutlet var searchTableView: UITableView!
+    
+    
     // MARK: - Vars
     
     var filteredList = [ChargeStation]()
@@ -27,11 +32,6 @@ class SearchTableViewController: UITableViewController {
     }
     
     var cachedText: String?
-    
-    
-    // MARK: - IBOutlets
-    
-    @IBOutlet var searchTableView: UITableView!
     
     
     // MARK: - View Life Cycle

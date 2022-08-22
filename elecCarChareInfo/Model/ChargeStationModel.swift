@@ -60,7 +60,6 @@ struct CarType {
 // Option Model
 struct Option {
     let optionName: String
-    let optionImage: UIImage?
 }
 
 
