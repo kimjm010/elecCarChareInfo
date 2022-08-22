@@ -9,6 +9,11 @@ import UIKit
 
 class FilterViewController: UIViewController {
     
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var filterTableView: UITableView!
+    
+    
     // MARK: - Vars
     
     var carTypes: [CarType] = {
@@ -24,13 +29,6 @@ class FilterViewController: UIViewController {
     }()
     
     var filteredList = [ChargeStation]()
-    
-    
-    
-    
-    // MARK: - IBOutlets
-    
-    @IBOutlet weak var filterTableView: UITableView!
 
     
     // MARK: - IBActions

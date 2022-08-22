@@ -12,17 +12,27 @@ import MapKit
 
 class ChargeStationViewController: UIViewController {
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var menuCollectionView: UICollectionView!
+    
+    @IBOutlet weak var enterPlaceButton: UIButton!
+    
+    @IBOutlet weak var goToCurrentLocationButton: UIButton!
+    
+    
     // MARK: - Vars
     
-    var selectedChargeStation: ChargeStation?
+    private var selectedChargeStation: ChargeStation?
     
-    var selectedAnnotation: MKAnnotation?
+    private var selectedAnnotation: MKAnnotation?
     
-    var calculatedDistance: Double = 0.0
+    private var calculatedDistance: Double = 0.0
     
-    var userLocation: CLLocationCoordinate2D?
+    private var userLocation: CLLocationCoordinate2D?
     
-    var isDarkMode: Bool = false
+    private var allAnnotations: [MKAnnotation]?
     
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
@@ -36,23 +46,9 @@ class ChargeStationViewController: UIViewController {
         return m
     }()
     
-    private var allAnnotations: [MKAnnotation]?
-    
-    
-    // MARK: - IBOutlets
-    @IBOutlet weak var mapView: MKMapView!
-    
-    @IBOutlet weak var menuCollectionView: UICollectionView!
-    
-    @IBOutlet weak var enterPlaceButton: UIButton!
-    
-    @IBOutlet weak var goToCurrentLocationButton: UIButton!
-    
     // options 배열
-    var options = [
-        Option(optionName: "Filter", optionImage: UIImage(systemName: "slider.horizontal.3")),
-        Option(optionName: "Show Specific Station", optionImage: UIImage(systemName: "slider.horizontal.3")),
-        Option(optionName: "I'm Filter's friend", optionImage: UIImage(systemName: "slider.horizontal.3"))
+    private var options = [
+        Option(optionName: "Filter")
     ]
     
     
@@ -73,23 +69,16 @@ class ChargeStationViewController: UIViewController {
     }
     
     
-    
     // MARK: - View Life Cycle
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initializeData()
-        
         goToCurrentLocation()
-        
         checkLocationAuth()
-        
         initializeMapView()
-        
         registerMapAnnotationViews()
-        
     }
     
     
@@ -311,7 +300,7 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
 
 
 
-// MARK:  - MKMapViewDelegate
+// MARK:  - MKMapView Delegate
 
 extension ChargeStationViewController: MKMapViewDelegate {
     
@@ -454,11 +443,9 @@ extension ChargeStationViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! OptionsCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OptionsCollectionViewCell", for: indexPath) as! OptionsCollectionViewCell
         
-        cell.configure(option: options[indexPath.item]) {
-            cell.optionImageView.image = options[indexPath.item].optionImage
-        }
+        cell.configure(option: options[indexPath.item])
         
         return cell
     }
@@ -467,6 +454,7 @@ extension ChargeStationViewController: UICollectionViewDataSource {
 
 
 
+// MARK: - UICollectionView Delegate
 extension ChargeStationViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -479,26 +467,18 @@ extension ChargeStationViewController: UICollectionViewDelegate {
 
 
 
+// MARK: - UICollectionView Delegate FlowLayout
+
 extension ChargeStationViewController: UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OptionsCollectionViewCell", for: indexPath) as! OptionsCollectionViewCell
         
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+        cell.optionLabel.text = options[indexPath.item].optionName
+        cell.optionLabel.sizeToFit()
         
-        let bounds = collectionView.bounds
-        var width = bounds.width - (layout.sectionInset.left + layout.sectionInset.right)
-        
-        switch options.count {
-        case 2:
-            width = (width - (layout.minimumLineSpacing)) / 2
-            return CGSize(width: width, height: 20)
-        case 3:
-            width = (width - (layout.minimumLineSpacing)) / 3
-            return CGSize(width: width, height: 20)
-        default:
-            break
-        }
-        
-        return .zero
+        let cellWidth = cell.optionLabel.frame.width + 10
+        return CGSize(width: cellWidth, height: 25)
     }
 }
