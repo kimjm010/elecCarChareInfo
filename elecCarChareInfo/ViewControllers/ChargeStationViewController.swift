@@ -12,17 +12,7 @@ import MapKit
 
 class ChargeStationViewController: UIViewController {
     
-    // MARK: IBOutlets
-    @IBOutlet weak var mapView: MKMapView!
-    
-    @IBOutlet weak var menuCollectionView: UICollectionView!
-    
-    @IBOutlet weak var enterPlaceButton: UIButton!
-    
-    @IBOutlet weak var goToCurrentLocationButton: UIButton!
-    
-    
-    // MARK: Vars
+    // MARK: - Vars
     
     var selectedChargeStation: ChargeStation?
     
@@ -49,21 +39,39 @@ class ChargeStationViewController: UIViewController {
     private var allAnnotations: [MKAnnotation]?
     
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var menuCollectionView: UICollectionView!
+    
+    @IBOutlet weak var enterPlaceButton: UIButton!
+    
+    @IBOutlet weak var goToCurrentLocationButton: UIButton!
+    
     // options 배열
     var options = [
         Option(optionName: "Filter", optionImage: UIImage(systemName: "slider.horizontal.3")),
-        Option(optionName: "I'm not filter", optionImage: UIImage(systemName: "slider.horizontal.3")),
+        Option(optionName: "Show Specific Station", optionImage: UIImage(systemName: "slider.horizontal.3")),
         Option(optionName: "I'm Filter's friend", optionImage: UIImage(systemName: "slider.horizontal.3"))
     ]
     
     
-    // MARK: IBActions
+    // MARK: - IBActions
     
     /// 현재 위치로 이동합니다.
     /// - Parameter sender: 현재 위치 버튼
     @IBAction func goToCurrentLocation(_ sender: Any) {
         goToCurrentLocation()
     }
+    
+    
+    /// 특정 위치를 검색합니다.
+    /// - Parameter sender: enterPlaceButton
+    @IBAction func placeButtonTapped(_ sender: Any) {
+        let serchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
+        navigationController?.pushViewController(serchVC, animated: true)
+    }
+    
     
     
     // MARK: - View Life Cycle
@@ -464,35 +472,33 @@ extension ChargeStationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = UIStoryboard(name: "Main", bundle: nil)
         let filterVC = vc.instantiateViewController(withIdentifier: "FilterViewController")
-        filterVC.modalPresentationStyle = .fullScreen
-        present(filterVC, animated: true, completion: nil)
+        navigationController?.pushViewController(filterVC, animated: true)
     }
 }
 
 
 
 
-//extension ChargeStationViewController: UICollectionViewDelegateFlowLayout {
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        
-//        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
-//            return .zero
-//        }
-//        
-//        let bounds = collectionView.bounds
-//        var width = bounds.width - (flowLayout.sectionInset.left + flowLayout.sectionInset.right)
-//        
-//        let availableWidth = width / CGFloat(options.count)
-//        
-//        switch options.count {
-//        case 3:
-//            width = (availableWidth - (flowLayout.minimumInteritemSpacing)) / 2
-//            return CGSize(width: width, height: 20)
-//        default:
-//            break
-//        }
-//        return .zero
-//        
-//    }
-//}
+extension ChargeStationViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+        
+        let bounds = collectionView.bounds
+        var width = bounds.width - (layout.sectionInset.left + layout.sectionInset.right)
+        
+        switch options.count {
+        case 2:
+            width = (width - (layout.minimumLineSpacing)) / 2
+            return CGSize(width: width, height: 20)
+        case 3:
+            width = (width - (layout.minimumLineSpacing)) / 3
+            return CGSize(width: width, height: 20)
+        default:
+            break
+        }
+        
+        return .zero
+    }
+}
