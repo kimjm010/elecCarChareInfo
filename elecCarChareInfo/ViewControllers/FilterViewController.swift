@@ -23,24 +23,26 @@ class FilterViewController: UIViewController {
         return types
     }()
     
+    var filteredList = [ChargeStation]()
+    
+    
+    
     
     // MARK: - IBOutlets
     
     @IBOutlet weak var filterTableView: UITableView!
-    
-    @IBOutlet weak var chargeTypeControl: UISegmentedControl!
-    
-    
+
     
     // MARK: - IBActions
     
-    @IBAction func toggleChargeType(_ sender: UISegmentedControl!) {
-        
-        if sender.selectedSegmentIndex == 0 {
-            // TODO: 완속 충전소가 있는 곳만 보여주기 -> 완속 없는 곳은 필터에서 없애기
-        }
+    @IBAction func slowChargeBtnTapped(_ sender: Any) {
+        // TODO: 완속 충전소만 필터링 하기
     }
     
+    
+    @IBAction func rapidChargeBtnTapped(_ sender: Any) {
+        // TODO: 급속 충전소만 필터링 하기
+    }
     
 
     // MARK: - View Life Cycle
@@ -48,14 +50,13 @@ class FilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: nil, style: .done, target: self, action: #selector(closeVC))]
-        
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Done", style: .done, target: nil, action: #selector(closeVC))]
     }
     
     
     @objc
     private func closeVC() {
-        dismiss(animated: true)
+        // TODO: viewController dismiss하기 + filteredList 넘겨주기
     }
 }
 
