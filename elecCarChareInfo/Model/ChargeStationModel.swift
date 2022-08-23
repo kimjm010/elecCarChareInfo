@@ -57,6 +57,12 @@ struct CarType {
     var isSelected: Bool
 }
 
+
+enum CType {
+//    case
+}
+
+
 // Option Model
 struct Option {
     let optionName: String

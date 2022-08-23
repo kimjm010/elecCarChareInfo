@@ -110,6 +110,9 @@ class ChargeStationViewController: UIViewController {
     // MARK: - Go To Current Location
     
     private func goToCurrentLocation() {
+        
+        checkLocationAuth()
+        
         guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
          print(initCntrCoordinate.latitude, initCntrCoordinate.longitude)
          let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
@@ -455,6 +458,7 @@ extension ChargeStationViewController: UICollectionViewDataSource {
 
 
 // MARK: - UICollectionView Delegate
+
 extension ChargeStationViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

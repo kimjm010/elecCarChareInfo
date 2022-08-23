@@ -8,9 +8,16 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Storage'
+pod 'Firebase/Analytics'
+pod 'Firebase/Messaging'
+pod 'FirebaseFirestoreSwift'
+
 pod 'NVActivityIndicatorView/AppExtension'
-pod 'JGProgressHUD'
+
+pod 'ProgressHUD'
+
 pod 'Alamofire', '5.2'
+
   # Pods for elecCarChareInfo
 
 end
