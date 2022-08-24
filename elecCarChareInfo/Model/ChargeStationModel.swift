@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import CoreLocation
-import MapKit
 
 
 // Model 수정할 것
@@ -60,12 +59,6 @@ struct CarType {
 
 enum CType {
 //    case
-}
-
-
-// Option Model
-struct Option {
-    let optionName: String
 }
 
 

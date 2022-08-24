@@ -11,6 +11,7 @@ pod 'Firebase/Storage'
 pod 'Firebase/Analytics'
 pod 'Firebase/Messaging'
 pod 'FirebaseFirestoreSwift'
+pod 'Firebase/Database'
 
 pod 'NVActivityIndicatorView/AppExtension'
 
