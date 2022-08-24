@@ -8,14 +8,14 @@
 import UIKit
 import CoreLocation
 import MapKit
+import FirebaseDatabase
+import FirebaseAuth
 
 
 class ChargeStationViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
-    
-    @IBOutlet weak var menuCollectionView: UICollectionView!
     
     @IBOutlet weak var enterPlaceButton: UIButton!
     
@@ -46,11 +46,6 @@ class ChargeStationViewController: UIViewController {
         return m
     }()
     
-    // options 배열
-    private var options = [
-        Option(optionName: "Filter")
-    ]
-    
     
     // MARK: - IBActions
     
@@ -79,6 +74,10 @@ class ChargeStationViewController: UIViewController {
         checkLocationAuth()
         initializeMapView()
         registerMapAnnotationViews()
+        setTabBarAppearanceAsDefault()
+        
+        // TODO: Parse data 구현 할 것
+        Pasrse().pasreList()
     }
     
     
@@ -87,6 +86,7 @@ class ChargeStationViewController: UIViewController {
     private func initializeData() {
         goToCurrentLocationButton.setTitle("", for: .normal)
         goToCurrentLocationButton.setEnableBtnTheme()
+        mapView.showsCompass = false
     }
     
     
@@ -431,58 +431,5 @@ extension ChargeStationViewController: MKMapViewDelegate {
         }
         
         return MKOverlayRenderer(overlay: overlay)
-    }
-}
-
-
-
-
-// MARK: - UICollectionView DataSource
-
-extension ChargeStationViewController: UICollectionViewDataSource {
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return options.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OptionsCollectionViewCell", for: indexPath) as! OptionsCollectionViewCell
-        
-        cell.configure(option: options[indexPath.item])
-        
-        return cell
-    }
-}
-
-
-
-
-// MARK: - UICollectionView Delegate
-
-extension ChargeStationViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = UIStoryboard(name: "Main", bundle: nil)
-        let filterVC = vc.instantiateViewController(withIdentifier: "FilterViewController")
-        navigationController?.pushViewController(filterVC, animated: true)
-    }
-}
-
-
-
-
-// MARK: - UICollectionView Delegate FlowLayout
-
-extension ChargeStationViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OptionsCollectionViewCell", for: indexPath) as! OptionsCollectionViewCell
-        
-        cell.optionLabel.text = options[indexPath.item].optionName
-        cell.optionLabel.sizeToFit()
-        
-        let cellWidth = cell.optionLabel.frame.width + 10
-        return CGSize(width: cellWidth, height: 25)
     }
 }
