@@ -59,8 +59,9 @@ class ChargeStationViewController: UIViewController {
     /// 특정 위치를 검색합니다.
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
-        let serchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
-        navigationController?.pushViewController(serchVC, animated: true)
+        print(#function, "(()")
+        let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
+        navigationController?.pushViewController(searchVC, animated: true)
     }
     
     
@@ -75,6 +76,7 @@ class ChargeStationViewController: UIViewController {
         initializeMapView()
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
+        updateBtnUI()
         
         // TODO: Parse data 구현 할 것
         Pasrse().pasreList()

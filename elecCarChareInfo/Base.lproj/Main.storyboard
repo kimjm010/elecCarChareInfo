@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="59" id="R8U-C8-4tb">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentTableViewCell" rowHeight="59" id="R8U-C8-4tb" customClass="CommentTableViewCell" customModule="elecCarChareInfo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="59"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R8U-C8-4tb" id="py2-Me-RZy">
@@ -277,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dCi-6H-Jzw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371.01449275362324" y="-277.23214285714283"/>
+            <point key="canvasLocation" x="-371.01449275362324" y="-231.02678571428569"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="wWz-X0-lsU">
@@ -335,32 +335,27 @@
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fYl-zC-NTB">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     </mapView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="otb-0g-tdJ">
-                                        <rect key="frame" x="20" y="50" width="374" height="40"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNT-Pz-OGD">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
-                                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
-                                                <color key="tintColor" systemColor="systemGrayColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Please Enter Region / Station Name"/>
-                                                <connections>
-                                                    <action selector="placeButtonTapped:" destination="THJ-zv-IFy" eventType="touchUpInside" id="rPH-82-gY9"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNT-Pz-OGD">
+                                        <rect key="frame" x="20" y="96" width="374" height="40"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="OgI-7e-Cjl"/>
+                                            <constraint firstAttribute="height" constant="40" id="KR4-NU-j2y"/>
                                         </constraints>
-                                    </stackView>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Please Enter Region / Station Name"/>
+                                        <connections>
+                                            <action selector="placeButtonTapped:" destination="THJ-zv-IFy" eventType="touchUpInside" id="rPH-82-gY9"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="otb-0g-tdJ" firstAttribute="leading" secondItem="dMD-ae-g79" secondAttribute="leading" constant="20" symbolic="YES" id="76E-QN-Fpq"/>
+                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="96" id="C38-ob-Idh"/>
                                     <constraint firstAttribute="trailing" secondItem="fYl-zC-NTB" secondAttribute="trailing" id="C5U-6m-4SV"/>
-                                    <constraint firstAttribute="trailing" secondItem="otb-0g-tdJ" secondAttribute="trailing" constant="20" symbolic="YES" id="QA3-hm-I8R"/>
+                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="leading" secondItem="dMD-ae-g79" secondAttribute="leading" constant="20" symbolic="YES" id="LWJ-tv-9ct"/>
                                     <constraint firstItem="fYl-zC-NTB" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" id="RZ7-jG-ydD"/>
-                                    <constraint firstItem="otb-0g-tdJ" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="50" id="c3l-Ib-vTe"/>
+                                    <constraint firstAttribute="trailing" secondItem="UNT-Pz-OGD" secondAttribute="trailing" constant="20" symbolic="YES" id="owe-pD-YpY"/>
                                     <constraint firstAttribute="bottom" secondItem="fYl-zC-NTB" secondAttribute="bottom" id="pdi-dG-31B"/>
                                     <constraint firstItem="fYl-zC-NTB" firstAttribute="leading" secondItem="dMD-ae-g79" secondAttribute="leading" id="s7W-hG-Obc"/>
                                 </constraints>
@@ -400,7 +395,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQH-jS-d0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1292.753623188406" y="-276.5625"/>
+            <point key="canvasLocation" x="-1294.2028985507247" y="-230.35714285714283"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="hBZ-yL-2DD">
@@ -441,13 +436,14 @@
                             <outlet property="delegate" destination="Jj5-k5-VfU" id="yo3-yF-cX8"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="fxS-8y-i8D"/>
                     <connections>
                         <outlet property="searchTableView" destination="EYq-EK-IQu" id="IFe-wj-uRg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KNi-cj-FoO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1293" y="-1000"/>
+            <point key="canvasLocation" x="-2204" y="-949"/>
         </scene>
         <!--Show Route View Controller-->
         <scene sceneID="K9w-fZ-SD0">
@@ -475,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="opM-RQ-dTV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="550.72463768115949" y="-277.23214285714283"/>
+            <point key="canvasLocation" x="550.72463768115949" y="-231.02678571428569"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="wM8-Mr-mSf">
@@ -679,7 +675,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ncY-MZ-U5Z" kind="relationship" relationship="viewControllers" id="pNH-EJ-aVv"/>
+                        <segue destination="BZM-Oc-rJo" kind="relationship" relationship="viewControllers" id="xuj-1q-mRd"/>
                         <segue destination="QMp-dX-lLn" kind="relationship" relationship="viewControllers" id="qQ2-gD-jIW"/>
                         <segue destination="blc-E9-zc4" kind="relationship" relationship="viewControllers" id="2Pi-5u-LQk"/>
                     </connections>
@@ -687,27 +683,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxC-U3-WJN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5399" y="633"/>
-        </scene>
-        <!--ChargeStation-->
-        <scene sceneID="BKe-0S-uj7">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ncY-MZ-U5Z" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="ChargeStation" image="map" catalog="system" id="lbM-sc-o80">
-                        <color key="badgeColor" systemColor="labelColor"/>
-                    </tabBarItem>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7bL-OH-TEZ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="THJ-zv-IFy" kind="relationship" relationship="rootViewController" id="GHi-zp-B3q"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZOs-Lb-k1X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2202.898550724638" y="-276.5625"/>
         </scene>
         <!--Community-->
         <scene sceneID="wjS-wo-PyQ">
@@ -747,6 +722,25 @@
             </objects>
             <point key="canvasLocation" x="-2204" y="1385"/>
         </scene>
+        <!--ChargeStation-->
+        <scene sceneID="D8g-CB-UN0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BZM-Oc-rJo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="ChargeStation" image="map" catalog="system" id="PKL-Qg-mMZ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hK7-hc-zKn">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="THJ-zv-IFy" kind="relationship" relationship="rootViewController" id="ecg-iV-hg7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F4r-6C-AFh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2204.3478260869565" y="-230.35714285714283"/>
+        </scene>
     </scenes>
     <resources>
         <image name="car" catalog="system" width="128" height="93"/>
@@ -759,9 +753,6 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="star" catalog="system" width="128" height="116"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
