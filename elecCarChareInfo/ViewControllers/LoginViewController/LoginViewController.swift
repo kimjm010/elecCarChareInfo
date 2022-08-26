@@ -204,6 +204,10 @@ class LoginViewController: UIViewController {
         FirebaseUser.shared.loginUserWith(email: email, password: password) { [weak self] (error, isEmailVerified) in
             guard let self = self else { return }
             
+            #if DEBUG
+            print(error, isEmailVerified)
+            #endif
+            
             if error == nil {
                 if isEmailVerified {
                     self.gotoAppMain()
@@ -212,7 +216,7 @@ class LoginViewController: UIViewController {
                     self.resendEmailButton.isHidden = false
                 }
             } else {
-                ProgressHUD.showFailed("로그인 중 에러가 발생했습니다.")
+                ProgressHUD.showFailed("비밀번호가 일치하지 않습니다.")
             }
         }
     }

@@ -81,6 +81,21 @@
             </objects>
             <point key="canvasLocation" x="-1294.2028985507247" y="557.8125"/>
         </scene>
+        <!--Compose Comment View Controller-->
+        <scene sceneID="W05-9O-dwx">
+            <objects>
+                <viewController storyboardIdentifier="ComposeCommentViewController" id="ZBI-7D-uWa" customClass="ComposeCommentViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f46-5V-UUj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="BV4-GK-snT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tUx-hN-r0U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-430" y="558"/>
+        </scene>
         <!--Charge Stn Info View Controller-->
         <scene sceneID="HJn-Ik-ysL">
             <objects>
@@ -378,7 +393,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     </mapView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNT-Pz-OGD">
-                                        <rect key="frame" x="20" y="96" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="50" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="KR4-NU-j2y"/>
@@ -393,7 +408,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="96" id="C38-ob-Idh"/>
+                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="50" id="C38-ob-Idh"/>
                                     <constraint firstAttribute="trailing" secondItem="fYl-zC-NTB" secondAttribute="trailing" id="C5U-6m-4SV"/>
                                     <constraint firstItem="UNT-Pz-OGD" firstAttribute="leading" secondItem="dMD-ae-g79" secondAttribute="leading" constant="20" symbolic="YES" id="LWJ-tv-9ct"/>
                                     <constraint firstItem="fYl-zC-NTB" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" id="RZ7-jG-ydD"/>
@@ -403,11 +418,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9A-aH-Hcc">
-                                <rect key="frame" x="354" y="793" width="40" height="40"/>
+                                <rect key="frame" x="354" y="753" width="40" height="40"/>
                                 <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="4Kw-jB-fFL"/>
-                                    <constraint firstAttribute="height" constant="40" id="S3n-WH-ChK"/>
+                                    <constraint firstAttribute="height" constant="40" id="cqw-m7-lLX"/>
+                                    <constraint firstAttribute="width" constant="40" id="hMx-Uf-t6l"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <state key="normal" title="Button"/>
@@ -421,14 +436,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dMD-ae-g79" firstAttribute="leading" secondItem="e9p-un-QSQ" secondAttribute="leading" id="Kxp-Bc-Cel"/>
-                            <constraint firstItem="C9A-aH-Hcc" firstAttribute="bottom" secondItem="e9p-un-QSQ" secondAttribute="bottom" constant="20" id="UVG-B7-MPZ"/>
-                            <constraint firstItem="e9p-un-QSQ" firstAttribute="trailing" secondItem="C9A-aH-Hcc" secondAttribute="trailing" constant="20" id="dcu-UP-qC3"/>
+                            <constraint firstItem="e9p-un-QSQ" firstAttribute="trailing" secondItem="C9A-aH-Hcc" secondAttribute="trailing" constant="20" id="WAZ-9V-AfH"/>
                             <constraint firstItem="dMD-ae-g79" firstAttribute="top" secondItem="jPQ-md-Eof" secondAttribute="top" id="eKe-QW-760"/>
                             <constraint firstItem="dMD-ae-g79" firstAttribute="trailing" secondItem="e9p-un-QSQ" secondAttribute="trailing" id="ed1-vh-HQM"/>
+                            <constraint firstItem="e9p-un-QSQ" firstAttribute="bottom" secondItem="C9A-aH-Hcc" secondAttribute="bottom" constant="20" id="kGj-dC-Bu0"/>
                             <constraint firstAttribute="bottom" secondItem="dMD-ae-g79" secondAttribute="bottom" id="kk9-o2-Z5G"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eP3-jV-6E2"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="enterPlaceButton" destination="UNT-Pz-OGD" id="hYc-MT-ODj"/>
                         <outlet property="goToCurrentLocationButton" destination="C9A-aH-Hcc" id="tpl-3S-OPn"/>
@@ -518,7 +534,7 @@
         <!--Login View Controller-->
         <scene sceneID="wM8-Mr-mSf">
             <objects>
-                <viewController id="nBf-W4-AvT" customClass="LoginViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="nBf-W4-AvT" customClass="LoginViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zw7-n3-IIS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

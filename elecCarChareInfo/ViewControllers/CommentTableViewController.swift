@@ -14,6 +14,12 @@ class CommentTableViewController: UITableViewController {
     
     // MARK: - View Life Cycle
     
+    override func viewDidLoad() {
+        
+        // TODO: 추가는 되었는데 composeVC로 이동이 안됨
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "의견 작성", style: .plain, target: nil, action: #selector(gotoComposeVC))]
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -45,4 +51,13 @@ class CommentTableViewController: UITableViewController {
 //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.deselectRow(at: indexPath, animated: true)
 //    }
+    
+    // MARK: - Go To Compose Comment VC
+    
+    @objc
+    private func gotoComposeVC() {
+        let composeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ComposeCommentViewController")
+        navigationController?.pushViewController(composeVC, animated: true)
+        
+    }
 }

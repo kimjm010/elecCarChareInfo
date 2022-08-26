@@ -31,6 +31,7 @@ struct Comment: Codable {
                 
                 do {
                     let userObject = try decoder.decode(User.self, from: dictionary)
+                    return userObject
                 } catch {
                     #if DEBUG
                     print("User DEfaults에서 유저 디코딩 중 에러 발생!", error.localizedDescription)

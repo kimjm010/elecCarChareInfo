@@ -62,6 +62,10 @@ class ChargeStationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        #if DEBUG
+        print(User.currentUser?.email, "삭제가 안되었네요!")
+        #endif
+        
         initializeData()
         goToCurrentLocation()
         checkLocationAuth()

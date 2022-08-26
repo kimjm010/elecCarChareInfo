@@ -49,7 +49,8 @@ struct User: Codable, Equatable {
 
 
 
-// MARK: - User 객체를 UserDefaults에 저장하기
+// MARK: - User 객체를 UserDefaults에 저장합니다.
+
 func saveUserLocally(_ user: User) {
     let encoder = JSONEncoder()
     
@@ -62,3 +63,12 @@ func saveUserLocally(_ user: User) {
         #endif
     }
 }
+
+
+// MARK: - User객체를 UserDefaults에서 삭제합니다.
+
+func deleteUserLocally(_ user: User) {
+    userDefaults.removeObject(forKey: kCURRENTUSER)
+//    userDefaults.removeSuite(named: kCURRENTUSER)
+}
+
