@@ -39,6 +39,7 @@ class FirebaseUser {
         }
     }
     
+    
     // MARK: - Register
     
     /// 새로운 User객체를 등록합니다.
@@ -56,12 +57,14 @@ class FirebaseUser {
             if errror == nil {
                 // verification email 전송
                 authDataResult!.user.sendEmailVerification { (error) in
+                    #if DEBUG
                     print("확인 이메일 전송 에러: ", errror?.localizedDescription)
+                    #endif
                 }
                 
                 // User 객체 생성
                 if authDataResult != nil {
-                    let user = User(id: authDataResult!.user.uid, email: email, pushId: "")
+                    let user = User(id: authDataResult!.user.uid, email: email)
                     
                     saveUserLocally(user)
                     self.saveUserToFireStore(user)
@@ -72,6 +75,7 @@ class FirebaseUser {
     
     
     // MARK: - Resend Verification Email
+    
     func resendVerificationEmail(email: String, completion: @escaping (_ error: Error?) -> Void) {
         
         Auth.auth().currentUser?.reload(completion: { (error) in
@@ -84,6 +88,7 @@ class FirebaseUser {
     
     
     // MARK: -  Reset Password
+    
     func resetPasswordFor(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             completion(error)
@@ -91,12 +96,9 @@ class FirebaseUser {
     }
     
     
-    
     // MARK: - Save User To FireStore
     
-    /// JSON으로 변환 후 FireStore에 저장합니다.
-    ///
-    /// user 객체를 FireStore에 저장합니다.
+    /// User 객체를JSON으로 변환 후 FireStore에 저장합니다.
     /// - Parameter user: 저장할 user객체
     func saveUserToFireStore(_ user: User) {
         do {

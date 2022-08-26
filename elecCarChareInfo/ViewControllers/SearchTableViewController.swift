@@ -7,9 +7,8 @@
 
 import UIKit
 
-// TODO: search 결과 plact + addr 인것 같으니 확인 할 것
 
-
+// TODO: search 결과 place + addr 인것 같으니 확인 할 것
 class SearchTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -20,8 +19,8 @@ class SearchTableViewController: UITableViewController {
     // MARK: - Vars
     
     var filteredList = [ChargeStation]()
-    
     var searchController = UISearchController(searchResultsController: nil)
+    var cachedText: String?
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -30,8 +29,6 @@ class SearchTableViewController: UITableViewController {
     var isFiltering: Bool {
         return searchController.isActive && !(isSearchBarEmpty)
     }
-    
-    var cachedText: String?
     
     
     // MARK: - View Life Cycle
@@ -64,7 +61,7 @@ class SearchTableViewController: UITableViewController {
     }
     
 
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
@@ -96,7 +93,7 @@ class SearchTableViewController: UITableViewController {
 
 
 
-// MARK: - UISearchResultsUpdating
+// MARK: - UISearchResults Updating
 
 extension SearchTableViewController: UISearchResultsUpdating {
     
@@ -112,7 +109,7 @@ extension SearchTableViewController: UISearchResultsUpdating {
 
 
 
-// MARK: - UISearchBarDelegate
+// MARK: - UISearchBar Delegate
 
 extension SearchTableViewController: UISearchBarDelegate {
     

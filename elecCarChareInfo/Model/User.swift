@@ -13,17 +13,16 @@ import FirebaseFirestoreSwift
 struct User: Codable, Equatable {
     var id = ""
     var email: String
-    var pushId = ""
     
     /// 현재 로그인 된 User의 id를 리턴
     static var currentId: String {
         return Auth.auth().currentUser!.uid
     }
     
-    /// 
+    /// 현재 로그인 된 User를 UserDefaults에 저장하고 User객체를 디코딩함
     static var currentUser: User? {
         if Auth.auth().currentUser != nil {
-            if let dictionary = UserDefaults.standard.data(forKey: kCURRENTUSER) {
+            if let dictionary = userDefaults.data(forKey: kCURRENTUSER) {
                 
                 let decoder = JSONDecoder()
                 

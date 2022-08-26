@@ -9,16 +9,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Community Table View Controller-->
+        <!--Comment Table View Controller-->
         <scene sceneID="xrV-gT-qsk">
             <objects>
-                <tableViewController id="yij-CE-DLT" customClass="CommunityTableViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="wQl-ko-7WA">
+                <tableViewController id="yij-CE-DLT" customClass="CommentTableViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="wQl-ko-7WA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentTableViewCell" rowHeight="59" id="R8U-C8-4tb" customClass="CommentTableViewCell" customModule="elecCarChareInfo" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentTableViewCell" rowHeight="59" id="R8U-C8-4tb" customClass="CommentTableViewCell" customModule="elecCarChareInfo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="59"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R8U-C8-4tb" id="py2-Me-RZy">
@@ -63,6 +63,11 @@
                                         <constraint firstAttribute="bottom" secondItem="dtW-XF-O7Y" secondAttribute="bottom" constant="10" id="sfW-d9-OON"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="commentLabel" destination="fSc-W7-VB3" id="JIk-Tv-0wq"/>
+                                    <outlet property="dateLabel" destination="jdc-nd-y2y" id="afA-jm-fW2"/>
+                                    <outlet property="emailLabel" destination="GwH-s2-VGL" id="aYK-gD-VoK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -288,25 +293,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="PJf-bf-Y2B">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="jSP-21-Wef" style="IBUITableViewCellStyleDefault" id="PJf-bf-Y2B">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PJf-bf-Y2B" id="O89-t0-JFx">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="emailLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNg-IM-kQp">
-                                            <rect key="frame" x="20" y="13.5" width="374" height="17"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jSP-21-Wef">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="RNg-IM-kQp" firstAttribute="centerY" secondItem="O89-t0-JFx" secondAttribute="centerY" id="T5G-e9-rBU"/>
-                                        <constraint firstItem="RNg-IM-kQp" firstAttribute="leading" secondItem="O89-t0-JFx" secondAttribute="leadingMargin" id="Uha-Kj-2J4"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="RNg-IM-kQp" secondAttribute="trailing" id="rXA-ag-4Qj"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -320,6 +321,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BtP-U0-B2r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1294" y="1385"/>
+        </scene>
+        <!--About This App View Controller-->
+        <scene sceneID="PdJ-TX-dVW">
+            <objects>
+                <viewController storyboardIdentifier="AboutThisAppViewController" id="pjo-Uc-wEy" customClass="AboutThisAppViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="efv-WH-dtS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="VsC-hz-xD0">
+                                <rect key="frame" x="20" y="272" width="374" height="352.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appstore" translatesAutoresizingMaskIntoConstraints="NO" id="WOJ-dt-7jj">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="LNk-41-6kS"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="act-mK-pCY">
+                                        <rect key="frame" x="0.0" y="222" width="374" height="130.5"/>
+                                        <string key="text">This application show not only the electric car charge station but aslo the information of char types which are slow and rapid charge type  in order to inform relevant information to users  I hope you obtain specific information</string>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KEW-Vy-tGt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VsC-hz-xD0" firstAttribute="centerX" secondItem="efv-WH-dtS" secondAttribute="centerX" id="2dO-Vw-9xB"/>
+                            <constraint firstItem="VsC-hz-xD0" firstAttribute="leading" secondItem="efv-WH-dtS" secondAttribute="leading" constant="20" id="5oY-UM-bru"/>
+                            <constraint firstAttribute="trailing" secondItem="VsC-hz-xD0" secondAttribute="trailing" constant="20" id="EAA-Lq-krc"/>
+                            <constraint firstItem="VsC-hz-xD0" firstAttribute="centerY" secondItem="efv-WH-dtS" secondAttribute="centerY" id="OwM-Vy-RQj"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RSE-9U-Crh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-430.43478260869568" y="1384.8214285714284"/>
         </scene>
         <!--Charge Station View Controller-->
         <scene sceneID="KuO-76-7Hj">
@@ -443,7 +485,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KNi-cj-FoO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2204" y="-949"/>
+            <point key="canvasLocation" x="-371" y="-950"/>
         </scene>
         <!--Show Route View Controller-->
         <scene sceneID="K9w-fZ-SD0">
@@ -743,6 +785,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="appstore" width="1024" height="1024"/>
         <image name="car" catalog="system" width="128" height="93"/>
         <image name="chargeStn" width="32" height="32"/>
         <image name="charging_station_Rapid" width="32" height="32"/>

@@ -34,20 +34,19 @@ extension UIViewController {
     }
 
     
-    /// TabBar Controller의 배경색을 설정합니다.
-    /// tab bar의 배경색을 시스템 기본 배경색으로 설정하고, scrollEdgeAppearance와 일치시킵니다.
-    /// 일부 화면에서 tab bar가 투명해지는 현상을 해결할 수 있습니다.
-    func setTabBarAppearanceAsDefault() {
-        if #available(iOS 15.0, *) {
-            guard let tabBarController = self.tabBarController else { return }
-            
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .systemBackground
-            
-            tabBarController.tabBar.standardAppearance = appearance
-            tabBarController.tabBar.scrollEdgeAppearance = tabBarController.tabBar.standardAppearance
-        }
-    }
     
+    func alertLogOut(title: String, message: String, completion: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let okAction = UIAlertAction(title: "Log Out", style: .destructive, handler: completion)
+//        { (action) in
+//            // TODO: 계정 탈퇴 -> UserDefaults,Firebase에서 계정 삭제할 것
+//        }
+        alert.addAction(okAction)
+        
+        let cxlAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cxlAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }

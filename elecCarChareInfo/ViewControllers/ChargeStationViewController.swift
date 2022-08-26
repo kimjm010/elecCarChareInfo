@@ -16,33 +16,25 @@ class ChargeStationViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
-    
     @IBOutlet weak var enterPlaceButton: UIButton!
-    
     @IBOutlet weak var goToCurrentLocationButton: UIButton!
     
     
     // MARK: - Vars
     
     private var selectedChargeStation: ChargeStation?
-    
     private var selectedAnnotation: MKAnnotation?
-    
     private var calculatedDistance: Double = 0.0
-    
     private var userLocation: CLLocationCoordinate2D?
-    
     private var allAnnotations: [MKAnnotation]?
     
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
         let m = CLLocationManager()
-        
         guard let self = self else { return m }
         
         m.desiredAccuracy = kCLLocationAccuracyBest
         m.delegate = self
-        
         return m
     }()
     
@@ -59,7 +51,7 @@ class ChargeStationViewController: UIViewController {
     /// 특정 위치를 검색합니다.
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
-        print(#function, "(()")
+        // TODO: NavigationBar 없애고 enterPlaceButton 위로 올리기
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
         navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -128,7 +120,6 @@ class ChargeStationViewController: UIViewController {
     private func checkLocationAuth() {
         if CLLocationManager.locationServicesEnabled() {
             let status: CLAuthorizationStatus
-            
             status = locationManager.authorizationStatus
             
             switch status {
@@ -341,6 +332,12 @@ extension ChargeStationViewController: MKMapViewDelegate {
         }
         
         var annotationView: MKAnnotationView?
+        
+//        if let annotation = annotation as? MKClusterAnnotation {
+//            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
+//
+//            view.markerTintColor = UIColor.systemBlue
+//        }
         
         if let annotation = annotation as? ChargeAnnotation {
             annotationView = setupChargeStnAnnotationView(for: annotation, on: mapView)

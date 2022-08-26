@@ -12,6 +12,10 @@
 		F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B78D28A9388D00054965 /* ChargeAnnotation.swift */; };
 		F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */; };
 		F55F3AAE28B308B90008F6DB /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */; };
+		F56A2F7D28B84AB3004FD317 /* FirebaseCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */; };
+		F56A2F7F28B84E84004FD317 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F7E28B84E84004FD317 /* Comment.swift */; };
+		F56A2F8128B866AC004FD317 /* AboutThisAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F8028B866AC004FD317 /* AboutThisAppViewController.swift */; };
+		F56A2F8328B86895004FD317 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F8228B86895004FD317 /* UIViewController+Extensions.swift */; };
 		F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8B928A4DA2300515185 /* AppDelegate.swift */; };
 		F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */; };
 		F56BA8C128A4DA2300515185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56BA8BF28A4DA2300515185 /* Main.storyboard */; };
@@ -28,7 +32,7 @@
 		F5857EC928B623F300FB44A9 /* TempDataParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857EC828B623F300FB44A9 /* TempDataParsing.swift */; };
 		F5857ECD28B6247E00FB44A9 /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = F5857ECC28B6247D00FB44A9 /* data.csv */; };
 		F5857ED128B667EB00FB44A9 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */; };
-		F5857ED328B6680000FB44A9 /* CommunityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED228B6680000FB44A9 /* CommunityTableViewController.swift */; };
+		F5857ED328B6680000FB44A9 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */; };
 		F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED428B6688200FB44A9 /* Date+Formatter.swift */; };
 		F5BD06CF28AC863F001DF85F /* ChargeStnInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */; };
 		F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */; };
@@ -44,6 +48,10 @@
 		F522B78D28A9388D00054965 /* ChargeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotation.swift; sourceTree = "<group>"; };
 		F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotationView.swift; sourceTree = "<group>"; };
 		F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCommunity.swift; sourceTree = "<group>"; };
+		F56A2F7E28B84E84004FD317 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F56A2F8028B866AC004FD317 /* AboutThisAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutThisAppViewController.swift; sourceTree = "<group>"; };
+		F56A2F8228B86895004FD317 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		F56BA8B628A4DA2300515185 /* elecCarChareInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = elecCarChareInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56BA8B928A4DA2300515185 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +70,7 @@
 		F5857EC828B623F300FB44A9 /* TempDataParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempDataParsing.swift; sourceTree = "<group>"; };
 		F5857ECC28B6247D00FB44A9 /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
 		F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
-		F5857ED228B6680000FB44A9 /* CommunityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewController.swift; sourceTree = "<group>"; };
+		F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		F5857ED428B6688200FB44A9 /* Date+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatter.swift"; sourceTree = "<group>"; };
 		F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnInfoViewController.swift; sourceTree = "<group>"; };
 		F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
@@ -167,8 +175,9 @@
 				F56BA8D028A4EB5A00515185 /* ChargeStationViewController.swift */,
 				F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */,
 				F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */,
-				F5857ED228B6680000FB44A9 /* CommunityTableViewController.swift */,
+				F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */,
 				F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */,
+				F56A2F8028B866AC004FD317 /* AboutThisAppViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -178,6 +187,7 @@
 			children = (
 				F56BA8D328A4EC2600515185 /* ChargeStationModel.swift */,
 				F56BA8E128A5ED5A00515185 /* User.swift */,
+				F56A2F7E28B84E84004FD317 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -196,6 +206,7 @@
 			children = (
 				F570E31628B4A8A400E98B68 /* FCollectionReference.swift */,
 				F570E31928B4A99700E98B68 /* FirebaseUser.swift */,
+				F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -220,6 +231,7 @@
 		F5C4185F28AA04CF00BFBD96 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F56A2F8228B86895004FD317 /* UIViewController+Extensions.swift */,
 				F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */,
 				F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */,
 				F5857ED428B6688200FB44A9 /* Date+Formatter.swift */,
@@ -345,7 +357,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5857ED128B667EB00FB44A9 /* ProfileTableViewController.swift in Sources */,
+				F56A2F7F28B84E84004FD317 /* Comment.swift in Sources */,
 				F5C4186728AA276300BFBD96 /* CarTypeTableViewCell.swift in Sources */,
+				F56A2F7D28B84AB3004FD317 /* FirebaseCommunity.swift in Sources */,
 				F57F2B9A28B469E600A502F7 /* Constants.swift in Sources */,
 				F5857EC928B623F300FB44A9 /* TempDataParsing.swift in Sources */,
 				F5F8D6DF28B73C2A0084CD1F /* CommentTableViewCell.swift in Sources */,
@@ -354,14 +368,16 @@
 				F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */,
 				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
 				F570E31728B4A8A400E98B68 /* FCollectionReference.swift in Sources */,
+				F56A2F8328B86895004FD317 /* UIViewController+Extensions.swift in Sources */,
 				F5BD06CF28AC863F001DF85F /* ChargeStnInfoViewController.swift in Sources */,
 				F55F3AAE28B308B90008F6DB /* SearchTableViewController.swift in Sources */,
 				F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */,
-				F5857ED328B6680000FB44A9 /* CommunityTableViewController.swift in Sources */,
+				F5857ED328B6680000FB44A9 /* CommentTableViewController.swift in Sources */,
 				F56BA8BA28A4DA2300515185 /* AppDelegate.swift in Sources */,
 				F56BA8BC28A4DA2300515185 /* SceneDelegate.swift in Sources */,
 				F56BA8D128A4EB5A00515185 /* ChargeStationViewController.swift in Sources */,
 				F57F2B9528B4679700A502F7 /* LoginViewController.swift in Sources */,
+				F56A2F8128B866AC004FD317 /* AboutThisAppViewController.swift in Sources */,
 				F56BA8E228A5ED5A00515185 /* User.swift in Sources */,
 				F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */,
 				F570E31A28B4A99700E98B68 /* FirebaseUser.swift in Sources */,

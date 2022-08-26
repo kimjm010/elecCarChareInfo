@@ -9,15 +9,18 @@ import UIKit
 
 class CommentTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    
+    /// CustomCell을 구성합니다.
+    /// - Parameter comment: Comment 객체
+    func configure(comment: Comment, completion: () -> Void) {
+        commentLabel.text = comment.comment
+        dateLabel.text = comment.date
+        completion()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

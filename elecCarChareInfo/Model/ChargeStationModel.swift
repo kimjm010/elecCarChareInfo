@@ -145,4 +145,21 @@ var dummyChargeStationData = [
 ]
 
 
+var dummyComment = [
+    Comment(id: "",
+            comment: "안녕하세요1",
+            date: Date().commentDate),
+    Comment(id: "",
+            comment: "안녕하세요2",
+            date: Date().commentDate),
+    Comment(id: "",
+            comment: "안녕하세요3",
+            date: Date().commentDate),
+    Comment(id: "",
+            comment: "안녕하세요4",
+            date: Date().commentDate),
+    Comment(id: "",
+            comment: "안녕하세요5",
+            date: Date().commentDate)
+]
 
