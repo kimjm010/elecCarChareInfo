@@ -35,10 +35,10 @@ extension UIViewController {
 
     
     
-    func alertLogOut(title: String, message: String, completion: ((UIAlertAction) -> Void)?) {
+    func alertLogOut(title: String, okActionTitle: String, message: String, completion: ((UIAlertAction) -> Void)?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
-        let okAction = UIAlertAction(title: "Log Out", style: .destructive, handler: completion)
+        let okAction = UIAlertAction(title: okActionTitle, style: .destructive, handler: completion)
 //        { (action) in
 //            // TODO: 계정 탈퇴 -> UserDefaults,Firebase에서 계정 삭제할 것
 //        }

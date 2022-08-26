@@ -7,17 +7,17 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 
 class ProfileTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -47,7 +47,7 @@ class ProfileTableViewController: UITableViewController {
         
         return nil
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -58,15 +58,15 @@ class ProfileTableViewController: UITableViewController {
         case 1:
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Log Out"
+            } else {
+                cell.textLabel?.text = "Delete Account"
             }
-            
-            cell.textLabel?.text = "Deleter Account"
         case 2:
             cell.textLabel?.text = "About This App"
         default:
             break
         }
-
+        
         return cell
     }
     
@@ -76,21 +76,38 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        print(indexPath.section, indexPath.row)
+        
         // TODO: 계정 로그아웃 하기 -> 로그아웃만 실행
         //"전기차 충전소 관련 정보를 얻을 수 없는데, [~~앱]에서 로그아웃 하겠습니까?"
         //"Log Out 하시겠습니까?"
         switch indexPath.section {
         case 1:
             if indexPath.row == 0 {
-                alertLogOut(title: "[~~앱]에서 Log Out 하시겠습니까?", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 로그아웃 할까요?") { _ in
-                    // TODO: 계정 로그아웃 하기 -> 로그아웃만 실행
+                
+                alertLogOut(title: "[전기차충전소어디있어]에서 Log Out 하시겠습니까?", okActionTitle: "Log Out", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 로그아웃 할까요?") { [weak self] _ in
+                    guard let self = self else { return }
+                    do {
+                        try Auth.auth().signOut()
+                        self.gotoLoginVC()
+                    } catch {
+                        print(error.localizedDescription, "로그아웃 중 에러 발생")
+                    }
                 }
+            } else {
+                alertLogOut(title: "[전기차충전소어디있어]에서 계정을 삭제 하시겠습니까?", okActionTitle: "Delete Account", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 삭제할까요?") { [weak self] _ in
+                    guard let self = self else { return }
+                    guard let user = User.currentUser else { return }
+                    FirebaseUser.shared.deleteUserFromFireStore(user)
+                    self.gotoLoginVC()
+                    
+                }
+//                alertLogOut(title: "[전기차충전소어디있어]에서 계정을 삭제 하시겠습니까?", okActionTitle: "Delete Account", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 삭제할까요?") { _ in
+//                    // TODO: 계정 삭제 -> Local에서 삭제(UserDefaults, Firebase에서 삭제
+//
+//                    deleteUserLocally(Auth.auth().currentUser?.uid)
+//                }
             }
-            
-            alertLogOut(title: "[~~앱]에서 계정을 삭제 하시겠습니까?", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 삭제할까요?") { _ in
-                // TODO: 계정 삭제하기 -> User Defaults, Firebase에서 계정 삭제할 것
-            }
-            
         case 2:
             let appVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AboutThisAppViewController")
             present(appVC, animated: true, completion: nil)
@@ -99,4 +116,12 @@ class ProfileTableViewController: UITableViewController {
         }
     }
     
+    
+    // MARK: - Go To Login VC
+    
+    private func gotoLoginVC() {
+        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true, completion: nil)
+    }
 }

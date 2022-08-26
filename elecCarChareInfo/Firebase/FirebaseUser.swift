@@ -109,8 +109,23 @@ class FirebaseUser {
     }
     
     
-    // MARK: - Download User From Firebase
+    // MARK: - Delete User From FireStore
     
+    func deleteUserFromFireStore(_ user: User) {
+        
+        FirebaseReference(.user).document(user.id).delete { (error) in
+            if let error = error {
+                print("유저 삭제중 에러가 발생했습니다.", "!!!")
+            } else {
+                print("유저가 정상적으로 삭제되었습니다", "!!!")
+            }
+        }
+        
+        print(#function, "계정이 삭제되었습니다.", "파이어베이스에서 확인 할 것", "UserDefaults에서도 삭제 되었어요!", "(())&&^)", User.currentUser?.email)
+    }
+    
+    
+    // MARK: - Download User From Firebase
     
     /// Firebase에서 User데이터를 가져와서 Local에 있는 User 데이터를 업데이트 한다
     /// - Parameters:
@@ -142,6 +157,5 @@ class FirebaseUser {
                 #endif
             }
         }
-        
     }
 }

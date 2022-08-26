@@ -14,7 +14,7 @@ enum FCollectionReference: String {
     case comment
 }
 
-// MARK: - Firebase 내 최상위 폴더에 접근함. 폴더명은 User
+// MARK: - Firebase 내 최상위 폴더에 접근함. 폴더명은 user, comment
 func FirebaseReference(_ collectionReference: FCollectionReference) -> CollectionReference {
     return Firestore.firestore().collection(collectionReference.rawValue)
 }
