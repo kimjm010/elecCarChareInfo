@@ -332,11 +332,15 @@ extension ChargeStationViewController: MKMapViewDelegate {
         
         var annotationView: MKAnnotationView?
         
-//        if let annotation = annotation as? MKClusterAnnotation {
-//            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-//
-//            view.markerTintColor = UIColor.systemBlue
-//        }
+        // TODO: mapView에 비슷한 위치에 있는 충전소는 갯수로 표시하기
+        /*
+         if let annotation = annotation as? MKClusterAnnotation {
+             let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
+
+             view.markerTintColor = UIColor.systemBlue
+         }
+         */
+        
         
         if let annotation = annotation as? ChargeAnnotation {
             annotationView = setupChargeStnAnnotationView(for: annotation, on: mapView)

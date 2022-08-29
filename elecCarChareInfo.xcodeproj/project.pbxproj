@@ -11,6 +11,7 @@
 		F522B78928A8D4E000054965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F522B78828A8D4E000054965 /* MapKit.framework */; };
 		F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B78D28A9388D00054965 /* ChargeAnnotation.swift */; };
 		F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */; };
+		F540AF9C28BC408F00E08BA8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F540AF9B28BC408F00E08BA8 /* UIView+Extensions.swift */; };
 		F55F3AAE28B308B90008F6DB /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */; };
 		F56A2F7D28B84AB3004FD317 /* FirebaseCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */; };
 		F56A2F7F28B84E84004FD317 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F7E28B84E84004FD317 /* Comment.swift */; };
@@ -48,6 +49,7 @@
 		F522B78828A8D4E000054965 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F522B78D28A9388D00054965 /* ChargeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotation.swift; sourceTree = "<group>"; };
 		F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotationView.swift; sourceTree = "<group>"; };
+		F540AF9B28BC408F00E08BA8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCommunity.swift; sourceTree = "<group>"; };
 		F56A2F7E28B84E84004FD317 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				F56A2F8228B86895004FD317 /* UIViewController+Extensions.swift */,
 				F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */,
 				F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */,
+				F540AF9B28BC408F00E08BA8 /* UIView+Extensions.swift */,
 				F5857ED428B6688200FB44A9 /* Date+Formatter.swift */,
 			);
 			path = Extensions;
@@ -371,6 +374,7 @@
 				F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */,
 				F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */,
 				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
+				F540AF9C28BC408F00E08BA8 /* UIView+Extensions.swift in Sources */,
 				F570E31728B4A8A400E98B68 /* FCollectionReference.swift in Sources */,
 				F56A2F8328B86895004FD317 /* UIViewController+Extensions.swift in Sources */,
 				F5BD06CF28AC863F001DF85F /* ChargeStnInfoViewController.swift in Sources */,

@@ -14,6 +14,8 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var commentContainerView: UIView!
+    
     
     
     /// CustomCell을 구성합니다.

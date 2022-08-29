@@ -14,6 +14,7 @@ class ProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Profile"
     }
     
     // MARK: - Table view data source
@@ -76,15 +77,12 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        print(indexPath.section, indexPath.row)
-        
         // TODO: 계정 로그아웃 하기 -> 로그아웃만 실행
         //"전기차 충전소 관련 정보를 얻을 수 없는데, [~~앱]에서 로그아웃 하겠습니까?"
         //"Log Out 하시겠습니까?"
         switch indexPath.section {
         case 1:
             if indexPath.row == 0 {
-                
                 alertLogOut(title: "[전기차충전소어디있어]에서 Log Out 하시겠습니까?", okActionTitle: "Log Out", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 로그아웃 할까요?") { [weak self] _ in
                     guard let self = self else { return }
                     do {
@@ -104,9 +102,7 @@ class ProfileTableViewController: UITableViewController {
                 }
             }
         case 2:
-            gotoVC("AboutThisAppViewController")
-//            let appVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AboutThisAppViewController")
-//            present(appVC, animated: true, completion: nil)
+            gotoVC("AboutThisAppViewController", isPush: true)
         default:
             break
         }
@@ -115,9 +111,14 @@ class ProfileTableViewController: UITableViewController {
     
     // MARK: - Go To Login VC
     
-    private func gotoVC(_ vc: String) {
-        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: vc)
-        loginVC.modalPresentationStyle = .fullScreen
-        present(loginVC, animated: true, completion: nil)
+    private func gotoVC(_ vc: String, isPush: Bool = false) {
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: vc)
+        
+        if isPush {
+            navigationController?.pushViewController(viewController, animated: true)
+        } else {
+            viewController.modalPresentationStyle = .fullScreen
+            present(viewController, animated: true, completion: nil)
+        }
     }
 }
