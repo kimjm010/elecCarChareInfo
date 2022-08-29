@@ -21,12 +21,13 @@ class CommentTableViewController: UITableViewController {
         navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "의견 작성", style: .plain, target: self, action: #selector(gotoComposeVC))]
         
         navigationItem.title = "Community"
-        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tableView.reloadData()
         
         // TODO: CommentVC진입 시 Firebase Comment 데이터와 로컬 Comment 데이터 변화있으면 새롭게 fetch할 것
     }
@@ -36,14 +37,14 @@ class CommentTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: dummyComment 데이터 삭제할 것
-        return dummyComment.count
+        return FirebaseCommunity.shared.comments.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         
-        let comment = dummyComment[indexPath.row]
+        let comment = FirebaseCommunity.shared.comments[indexPath.row]
         cell.configure(comment: comment) {
             cell.emailLabel.text = Auth.auth().currentUser?.email
             
@@ -61,9 +62,10 @@ class CommentTableViewController: UITableViewController {
     
     @objc
     private func gotoComposeVC() {
-        print(#function)
-//        let composeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ComposeCommentViewController")
-        guard let composeVC1 = storyboard?.instantiateViewController(withIdentifier: "ComposeCommentViewController") else { return }
-        navigationController?.pushViewController(composeVC1, animated: true)
+        guard let composeVC = storyboard?.instantiateViewController(withIdentifier: "ComposeCommentViewController") else { return }
+        navigationController?.pushViewController(composeVC, animated: true)
     }
+    
+    
+    // MARK: - Download Comment Object From Firebase
 }

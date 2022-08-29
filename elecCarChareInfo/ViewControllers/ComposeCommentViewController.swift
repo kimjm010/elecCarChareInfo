@@ -58,7 +58,6 @@ class ComposeCommentViewController: UIViewController {
         FirebaseCommunity.shared.registerComment(email: userEmail, content: content, date: date) { error in
             if error == nil {
                 ProgressHUD.showSuccess("의견이 정상적으로 등록되었습니다.")
-                self.navigationController?.popViewController(animated: true)
             } else {
                 ProgressHUD.showFailed("의견이 정상적으로 등록되지 않았습니다. 잠시 후 다시 시도해주세요:)")
                 print(error?.localizedDescription)

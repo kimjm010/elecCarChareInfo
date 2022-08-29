@@ -45,7 +45,7 @@ class FirebaseCommunity {
         let comment = Comment(id: user.id, email: email, comment: content, date: date)
         saveCommentToFireStore(comment)
     }
-    
+      
     
     // MARK: - Download Comment From Firebase
     
