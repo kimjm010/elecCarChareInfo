@@ -26,63 +26,58 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Riv-9F-HAP">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="76"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commentLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSc-W7-VB3">
-                                                    <rect key="frame" x="20" y="8" width="374" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="0pm-5F-axH"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commentLabel max 2 lines" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSc-W7-VB3">
+                                                    <rect key="frame" x="8" y="8" width="358" height="38.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dtW-XF-O7Y">
-                                                    <rect key="frame" x="20" y="36" width="374" height="20"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtW-XF-O7Y">
+                                                    <rect key="frame" x="8" y="54.5" width="358" height="13.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="emailLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwH-s2-VGL">
-                                                            <rect key="frame" x="0.0" y="0.0" width="56.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="56.5" height="13.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4mr-go-ReK">
-                                                            <rect key="frame" x="64.5" y="0.0" width="249.5" height="20"/>
+                                                            <rect key="frame" x="56.5" y="0.0" width="249.5" height="13.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdc-nd-y2y">
-                                                            <rect key="frame" x="322" y="0.0" width="52" height="20"/>
+                                                            <rect key="frame" x="306" y="0.0" width="52" height="13.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="XvI-XP-x2Q"/>
-                                                    </constraints>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             <constraints>
-                                                <constraint firstItem="dtW-XF-O7Y" firstAttribute="top" secondItem="fSc-W7-VB3" secondAttribute="bottom" constant="8" symbolic="YES" id="8T3-nH-3TA"/>
-                                                <constraint firstItem="fSc-W7-VB3" firstAttribute="top" secondItem="Riv-9F-HAP" secondAttribute="top" constant="8" id="HNm-7t-R4g"/>
-                                                <constraint firstAttribute="trailing" secondItem="fSc-W7-VB3" secondAttribute="trailing" constant="20" symbolic="YES" id="at5-JE-tmL"/>
-                                                <constraint firstAttribute="bottom" secondItem="dtW-XF-O7Y" secondAttribute="bottom" constant="20" symbolic="YES" id="cFY-k6-ViJ"/>
-                                                <constraint firstItem="dtW-XF-O7Y" firstAttribute="leading" secondItem="Riv-9F-HAP" secondAttribute="leading" constant="20" symbolic="YES" id="pFk-wn-OVq"/>
-                                                <constraint firstAttribute="trailing" secondItem="dtW-XF-O7Y" secondAttribute="trailing" constant="20" symbolic="YES" id="s5b-9Z-HwI"/>
-                                                <constraint firstItem="fSc-W7-VB3" firstAttribute="leading" secondItem="Riv-9F-HAP" secondAttribute="leading" constant="20" symbolic="YES" id="xSh-5B-3Wo"/>
+                                                <constraint firstItem="fSc-W7-VB3" firstAttribute="top" secondItem="Riv-9F-HAP" secondAttribute="top" constant="8" id="1D0-YX-uts"/>
+                                                <constraint firstItem="fSc-W7-VB3" firstAttribute="leading" secondItem="Riv-9F-HAP" secondAttribute="leading" constant="8" id="9SY-Ct-8cf"/>
+                                                <constraint firstItem="dtW-XF-O7Y" firstAttribute="top" secondItem="fSc-W7-VB3" secondAttribute="bottom" constant="8" id="O1X-m1-cAU"/>
+                                                <constraint firstItem="dtW-XF-O7Y" firstAttribute="leading" secondItem="Riv-9F-HAP" secondAttribute="leading" constant="8" id="RGW-Ak-6qo"/>
+                                                <constraint firstAttribute="bottom" secondItem="dtW-XF-O7Y" secondAttribute="bottom" constant="8" id="VCG-wL-OKt"/>
+                                                <constraint firstAttribute="trailing" secondItem="fSc-W7-VB3" secondAttribute="trailing" constant="8" id="WIG-qF-1D0"/>
+                                                <constraint firstAttribute="trailing" secondItem="dtW-XF-O7Y" secondAttribute="trailing" constant="8" id="i0g-uO-gm2"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Riv-9F-HAP" secondAttribute="trailing" id="EoW-ff-DsD"/>
-                                        <constraint firstItem="Riv-9F-HAP" firstAttribute="leading" secondItem="py2-Me-RZy" secondAttribute="leading" id="IVc-sM-zob"/>
-                                        <constraint firstAttribute="bottom" secondItem="Riv-9F-HAP" secondAttribute="bottom" id="PDQ-ED-9Vg"/>
-                                        <constraint firstItem="Riv-9F-HAP" firstAttribute="top" secondItem="py2-Me-RZy" secondAttribute="top" id="RKj-nN-7JA"/>
+                                        <constraint firstAttribute="bottom" secondItem="Riv-9F-HAP" secondAttribute="bottom" id="TDs-hc-4Vn"/>
+                                        <constraint firstItem="Riv-9F-HAP" firstAttribute="top" secondItem="py2-Me-RZy" secondAttribute="top" id="ew3-jb-Ej7"/>
+                                        <constraint firstAttribute="trailing" secondItem="Riv-9F-HAP" secondAttribute="trailing" constant="20" symbolic="YES" id="sWC-UI-raO"/>
+                                        <constraint firstItem="Riv-9F-HAP" firstAttribute="leading" secondItem="py2-Me-RZy" secondAttribute="leading" constant="20" symbolic="YES" id="wTD-zn-pqc"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="commentContainerView" destination="Riv-9F-HAP" id="eaJ-dN-5bR"/>
                                     <outlet property="commentLabel" destination="fSc-W7-VB3" id="JIk-Tv-0wq"/>
                                     <outlet property="dateLabel" destination="jdc-nd-y2y" id="afA-jm-fW2"/>
                                     <outlet property="emailLabel" destination="GwH-s2-VGL" id="aYK-gD-VoK"/>
@@ -107,13 +102,36 @@
                     <view key="view" contentMode="scaleToFill" id="f46-5V-UUj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="한 줄 평을 작성해주세요:)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdP-bN-7KD">
+                                <rect key="frame" x="20" y="88" width="374" height="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="의견을 작성해주세요:)" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oke-sl-gnS">
+                                <rect key="frame" x="20" y="113" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="BV4-GK-snT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UdP-bN-7KD" firstAttribute="leading" secondItem="BV4-GK-snT" secondAttribute="leading" constant="20" id="e4U-Ss-yUa"/>
+                            <constraint firstItem="UdP-bN-7KD" firstAttribute="top" secondItem="BV4-GK-snT" secondAttribute="top" id="qEs-rc-Dl5"/>
+                            <constraint firstItem="BV4-GK-snT" firstAttribute="trailing" secondItem="UdP-bN-7KD" secondAttribute="trailing" constant="20" id="zK4-JM-aUN"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="FAI-C0-HKN"/>
+                    <connections>
+                        <outlet property="commentTextField" destination="Oke-sl-gnS" id="vdT-qP-cJ1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUx-hN-r0U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-430" y="558"/>
+            <point key="canvasLocation" x="479.71014492753625" y="557.8125"/>
         </scene>
         <!--Charge Stn Info View Controller-->
         <scene sceneID="HJn-Ik-ysL">
@@ -818,6 +836,24 @@
             </objects>
             <point key="canvasLocation" x="-2204.3478260869565" y="-230.35714285714283"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iPI-zm-I51">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="guM-md-f81" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="91y-2h-tTB">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZBI-7D-uWa" kind="relationship" relationship="rootViewController" id="M1m-6P-c3Y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TKv-bd-PvO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-430.43478260869568" y="557.8125"/>
+        </scene>
     </scenes>
     <resources>
         <image name="appstore" width="1024" height="1024"/>
@@ -848,6 +884,9 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

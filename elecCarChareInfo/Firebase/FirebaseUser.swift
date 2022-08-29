@@ -110,7 +110,7 @@ class FirebaseUser {
     
     
     // MARK: - Delete User From FireStore
-    
+    // TODO: 확인해야함!!!!
     func deleteUserFromFireStore(_ user: User) {
         
         let path = FirebaseReference(.user)
