@@ -50,6 +50,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonPressed(_ sender: Any) {
         if isDataInputedFor(type: isLogin ? "Login" : "Register") {
             isLogin ? loginUser() : registerUser()
+            
         } else {
             ProgressHUD.showFailed("모든 항목이 작성되어야 합니다.")
         }
@@ -203,10 +204,6 @@ class LoginViewController: UIViewController {
         
         FirebaseUser.shared.loginUserWith(email: email, password: password) { [weak self] (error, isEmailVerified) in
             guard let self = self else { return }
-            
-            #if DEBUG
-            print(error, isEmailVerified)
-            #endif
             
             if error == nil {
                 if isEmailVerified {

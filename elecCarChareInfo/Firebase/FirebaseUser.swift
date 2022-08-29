@@ -113,11 +113,20 @@ class FirebaseUser {
     
     func deleteUserFromFireStore(_ user: User) {
         
-        FirebaseReference(.user).document(user.id).delete { (error) in
+        let path = FirebaseReference(.user)
+        
+        path.getDocuments { (snapshot, error) in
             if let error = error {
-                print("유저 삭제중 에러가 발생했습니다.", "!!!")
-            } else {
-                print("유저가 정상적으로 삭제되었습니다", "!!!")
+                print(error)
+            }
+            
+            guard let snapshot = snapshot else { return }
+            for document in snapshot.documents {
+                guard var data = document["\(user.id)"] as? [String: String] else { return }
+                data["email"] = nil
+                data["id"] = nil
+                
+                path.document(user.id).updateData(["\(user.id)" : data])
             }
         }
         

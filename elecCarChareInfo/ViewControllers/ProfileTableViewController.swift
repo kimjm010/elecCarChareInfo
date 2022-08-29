@@ -89,7 +89,7 @@ class ProfileTableViewController: UITableViewController {
                     guard let self = self else { return }
                     do {
                         try Auth.auth().signOut()
-                        self.gotoLoginVC()
+                        self.gotoVC("LoginViewController")
                     } catch {
                         print(error.localizedDescription, "로그아웃 중 에러 발생")
                     }
@@ -99,18 +99,14 @@ class ProfileTableViewController: UITableViewController {
                     guard let self = self else { return }
                     guard let user = User.currentUser else { return }
                     FirebaseUser.shared.deleteUserFromFireStore(user)
-                    self.gotoLoginVC()
+                    self.gotoVC("LoginViewController")
                     
                 }
-//                alertLogOut(title: "[전기차충전소어디있어]에서 계정을 삭제 하시겠습니까?", okActionTitle: "Delete Account", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 삭제할까요?") { _ in
-//                    // TODO: 계정 삭제 -> Local에서 삭제(UserDefaults, Firebase에서 삭제
-//
-//                    deleteUserLocally(Auth.auth().currentUser?.uid)
-//                }
             }
         case 2:
-            let appVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AboutThisAppViewController")
-            present(appVC, animated: true, completion: nil)
+            gotoVC("AboutThisAppViewController")
+//            let appVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AboutThisAppViewController")
+//            present(appVC, animated: true, completion: nil)
         default:
             break
         }
@@ -119,8 +115,8 @@ class ProfileTableViewController: UITableViewController {
     
     // MARK: - Go To Login VC
     
-    private func gotoLoginVC() {
-        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+    private func gotoVC(_ vc: String) {
+        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: vc)
         loginVC.modalPresentationStyle = .fullScreen
         present(loginVC, animated: true, completion: nil)
     }

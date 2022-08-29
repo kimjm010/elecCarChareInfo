@@ -62,10 +62,6 @@ class ChargeStationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        #if DEBUG
-        print(User.currentUser?.email, "삭제가 안되었네요!")
-        #endif
-        
         initializeData()
         goToCurrentLocation()
         checkLocationAuth()
@@ -112,7 +108,6 @@ class ChargeStationViewController: UIViewController {
         checkLocationAuth()
         
         guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
-         print(initCntrCoordinate.latitude, initCntrCoordinate.longitude)
          let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
          mapView.setRegion(region, animated: true)
     }
