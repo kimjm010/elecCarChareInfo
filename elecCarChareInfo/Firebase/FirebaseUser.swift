@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import ProgressHUD
 
 
 class FirebaseUser {
@@ -31,8 +32,9 @@ class FirebaseUser {
                 
                 completion(error, true)
             } else {
+                ProgressHUD.showFailed("인증되지 않은 이메일입니다.")
                 #if DEBUG
-                print("이메일 인증 절차가 확인되지 않았습니다.")
+                print(error?.localizedDescription)
                 completion(error, false)
                 #endif
             }
@@ -113,24 +115,8 @@ class FirebaseUser {
     // TODO: 확인해야함!!!!
     func deleteUserFromFireStore(_ user: User) {
         
-        let path = FirebaseReference(.user)
-        
-        path.getDocuments { (snapshot, error) in
-            if let error = error {
-                print(error)
-            }
-            
-            guard let snapshot = snapshot else { return }
-            for document in snapshot.documents {
-                guard var data = document["\(user.id)"] as? [String: String] else { return }
-                data["email"] = nil
-                data["id"] = nil
-                
-                path.document(user.id).updateData(["\(user.id)" : data])
-            }
-        }
-        
-        print(#function, "계정이 삭제되었습니다.", "파이어베이스에서 확인 할 것", "UserDefaults에서도 삭제 되었어요!", "(())&&^)", User.currentUser?.email)
+        Auth.auth().currentUser?.delete()
+        FirebaseReference(.user).document(user.id).delete()
     }
     
     
@@ -143,8 +129,9 @@ class FirebaseUser {
     func downloadUserFromFirebase(userId: String, email: String? = nil) {
         FirebaseReference(.user).document(userId).getDocument { (querySnapshot, error) in
             guard let document = querySnapshot else {
+                ProgressHUD.showFailed("존재하지 않는 이메일입니다.")
                 #if DEBUG
-                print("document가 존재하지 않습니다.")
+                print("document가 존재하지 않습니다. 111", error?.localizedDescription)
                 #endif
                 return
             }
@@ -158,7 +145,7 @@ class FirebaseUser {
                 if let user = userObject {
                     saveUserLocally(user)
                 } else {
-                    print("Document가 존재하지 않습니다.")
+                    print("Document가 존재하지 않습니다.222", error?.localizedDescription)
                 }
             case .failure(let error):
                 #if DEBUG

@@ -37,14 +37,16 @@ class CommentTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // TODO: dummyComment 데이터 삭제할 것
-        return FirebaseCommunity.shared.comments.count
+//        return FirebaseCommunity.shared.comments.count
+        return dummyComment.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         
-        let comment = FirebaseCommunity.shared.comments[indexPath.row]
+//        let comment = FirebaseCommunity.shared.comments[indexPath.row]
+        let comment = dummyComment[indexPath.row]
         cell.configure(comment: comment) {
             cell.emailLabel.text = Auth.auth().currentUser?.email
             
