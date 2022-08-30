@@ -186,10 +186,12 @@ class LoginViewController: UIViewController {
                     ProgressHUD.showSuccess("확인 이메일을 전송했습니다.")
                     self.resendEmailButton.isHidden = false
                 } else {
-                    ProgressHUD.showFailed("이메일 전송이 불가합니다. 다른 이메일을 사용해 주십시오.")
+                    ProgressHUD.showFailed("이미 등록된 이메일입니다.")
+                    #if DEBUG
+                    print(error?.localizedDescription)
+                    #endif
                 }
             }
-            
         } else {
             ProgressHUD.showFailed("비밀번호가 일치하지 않습니다.")
         }
@@ -213,7 +215,10 @@ class LoginViewController: UIViewController {
                     self.resendEmailButton.isHidden = false
                 }
             } else {
-                ProgressHUD.showFailed("비밀번호가 일치하지 않습니다.")
+                ProgressHUD.showFailed("인증되지 않은 이메일입니다.")
+                #if DEBUG
+                print(error?.localizedDescription)
+                #endif
             }
         }
     }
@@ -229,6 +234,9 @@ class LoginViewController: UIViewController {
                 ProgressHUD.showSuccess("비밀번호 재 설정 이메일을 전송했습니다.")
             } else {
                 ProgressHUD.showFailed("비밀번호 재 설정 이메일을 전송하지 못했습니다.")
+                #if DEBUG
+                print(error?.localizedDescription)
+                #endif
             }
         }
     }
@@ -243,7 +251,10 @@ class LoginViewController: UIViewController {
                 ProgressHUD.showSuccess("인증 이메일을 다시 전송했습니다.")
             } else {
                 ProgressHUD.showFailed("인증 이메일을 전송하지 못했습니다.")
+                
+                #if DEBUG
                 print(error?.localizedDescription)
+                #endif
             }
         }
     }

@@ -64,6 +64,7 @@ class ComposeCommentViewController: UIViewController {
             }
         }
         
+        navigationController?.popViewController(animated: true)
         print(#function, "파이어 베이스에 커멘트가 저장되었습니다")
     }
 }
