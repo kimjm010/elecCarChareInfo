@@ -13,7 +13,7 @@ fileprivate let formatter = DateFormatter()
 
 extension Date {
     var commentDate: String {
-        formatter.dateFormat = "MM/dd yyyy"
+        formatter.dateFormat = "MM/dd yyyy HH:mm"
         return formatter.string(from: self)
     }
 }
