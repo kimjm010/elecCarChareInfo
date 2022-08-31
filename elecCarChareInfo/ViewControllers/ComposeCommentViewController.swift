@@ -8,8 +8,6 @@
 import UIKit
 import ProgressHUD
 
-// TODO: Comment 등록 후 ViewController 닫기 + textField 비우기
-
 
 class ComposeCommentViewController: UIViewController {
     

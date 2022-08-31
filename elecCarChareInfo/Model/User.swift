@@ -63,12 +63,3 @@ func saveUserLocally(_ user: User) {
         #endif
     }
 }
-
-
-// MARK: - User객체를 UserDefaults에서 삭제합니다.
-
-func deleteUserLocally(_ user: User) {
-    userDefaults.removeObject(forKey: kCURRENTUSER)
-//    userDefaults.removeSuite(named: kCURRENTUSER)
-}
-

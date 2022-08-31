@@ -76,6 +76,8 @@ struct ChargeStation {
 }
 
 
+
+
 // dummy Data
 // TODO: 추후 삭제 할 것
 var dummyChargeStationData = [

@@ -49,7 +49,7 @@ class CommentTableViewController: UITableViewController {
         
         let comment = comments[indexPath.row]
         cell.configure(comment: comment) {
-            cell.emailLabel.text = Auth.auth().currentUser?.email
+            cell.emailLabel.text = comment.email
             
             if indexPath.row % 2 == 0 {
                 cell.commentContainerView.setEvenComment()

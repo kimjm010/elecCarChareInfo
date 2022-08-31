@@ -12,6 +12,7 @@ import FirebaseFirestore
 enum FCollectionReference: String {
     case user
     case comment
+    case marked
 }
 
 // MARK: - Firebase 내 최상위 폴더에 접근함. 폴더명은 user, comment

@@ -19,13 +19,13 @@ class Pasrse {
         
         let lines: [String] = str.components(separatedBy: "}")
         #if DEBUG
-//        print(lines)
+        print(lines)
         #endif
         
         for str in lines.dropFirst() {
             let values: [String] = str.components(separatedBy: ",")
             #if DEBUG
-//            print(values)
+            print(values)
             #endif
         }
     }
