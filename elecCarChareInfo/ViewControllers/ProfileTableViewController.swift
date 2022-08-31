@@ -12,6 +12,8 @@ import FirebaseAuth
 
 class ProfileTableViewController: UITableViewController {
     
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Profile"
@@ -77,9 +79,6 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // TODO: 계정 로그아웃 하기 -> 로그아웃만 실행
-        //"전기차 충전소 관련 정보를 얻을 수 없는데, [~~앱]에서 로그아웃 하겠습니까?"
-        //"Log Out 하시겠습니까?"
         switch indexPath.section {
         case 1:
             if indexPath.row == 0 {

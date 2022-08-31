@@ -326,7 +326,9 @@
                         <outlet property="addMarkButton" destination="BfV-N2-AKG" id="AF7-7d-YzV"/>
                         <outlet property="distanceLabel" destination="aYH-ok-I2R" id="uEA-pf-Mab"/>
                         <outlet property="findDirectionButton" destination="7LR-aq-kQk" id="y3j-UJ-tPy"/>
+                        <outlet property="rapidChargeImageView" destination="xfN-qN-Eze" id="irc-8P-vGR"/>
                         <outlet property="rapidChargeLabel" destination="RX2-zd-lwV" id="oxw-k5-Ilx"/>
+                        <outlet property="slowChargeImageView" destination="13Y-sN-cow" id="rVN-Jm-aTD"/>
                         <outlet property="slowChargeLabel" destination="hCo-Jl-i3y" id="VWB-Qf-JPD"/>
                         <outlet property="stnAddrLabel" destination="xp5-8d-m2n" id="d25-Pg-Gh7"/>
                         <outlet property="stnPlaceLabel" destination="L8i-mb-8di" id="dNG-OW-JiU"/>

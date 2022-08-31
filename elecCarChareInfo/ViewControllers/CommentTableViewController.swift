@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 
 
-// TODO: Comment 파이어베이스에서 불러와서 Local에 배열로 저장 -> 변경 사항이 있을 경우 파이어베이스에서 다시 가져와서 저장함 -> 앱을 키거나 Comment VC로 진입할 때
 class CommentTableViewController: UITableViewController {
     
     // MARK: - Vars
@@ -19,11 +18,8 @@ class CommentTableViewController: UITableViewController {
     
     // MARK: - View Life Cycle
     
-    // TODO: CommentVC진입 시 Firebase Comment 데이터와 로컬 Comment 데이터 변화있으면 새롭게 fetch할 것
-    
     override func viewDidLoad() {
         
-        // TODO: 추가는 되었는데 composeVC로 이동이 안됨
         navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "의견 작성", style: .plain, target: self, action: #selector(gotoComposeVC))]
         
         navigationItem.title = "Community"

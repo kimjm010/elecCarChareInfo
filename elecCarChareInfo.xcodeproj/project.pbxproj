@@ -40,7 +40,6 @@
 		F5BD06CF28AC863F001DF85F /* ChargeStnInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */; };
 		F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */; };
 		F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */; };
-		F5C4186728AA276300BFBD96 /* CarTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */; };
 		F5F6D4FC28B8BFE1005630CA /* ComposeCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F6D4FB28B8BFE1005630CA /* ComposeCommentViewController.swift */; };
 		F5F8D6DF28B73C2A0084CD1F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F8D6DE28B73C2A0084CD1F /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -82,7 +81,6 @@
 		F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnInfoViewController.swift; sourceTree = "<group>"; };
 		F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
-		F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTypeTableViewCell.swift; sourceTree = "<group>"; };
 		F5F6D4FB28B8BFE1005630CA /* ComposeCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeCommentViewController.swift; sourceTree = "<group>"; };
 		F5F8D6DE28B73C2A0084CD1F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		FE6121C9F51CC113D67E685B /* Pods-elecCarChareInfo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-elecCarChareInfo.release.xcconfig"; path = "Target Support Files/Pods-elecCarChareInfo/Pods-elecCarChareInfo.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 		F56BA8D828A5E73500515185 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				F5C4186628AA276300BFBD96 /* CarTypeTableViewCell.swift */,
 				F5F8D6DE28B73C2A0084CD1F /* CommentTableViewCell.swift */,
 			);
 			path = Cells;
@@ -370,7 +367,6 @@
 			files = (
 				F5857ED128B667EB00FB44A9 /* ProfileTableViewController.swift in Sources */,
 				F56A2F7F28B84E84004FD317 /* Comment.swift in Sources */,
-				F5C4186728AA276300BFBD96 /* CarTypeTableViewCell.swift in Sources */,
 				F56A2F7D28B84AB3004FD317 /* FirebaseCommunity.swift in Sources */,
 				F57F2B9A28B469E600A502F7 /* Constants.swift in Sources */,
 				F5857EC928B623F300FB44A9 /* TempDataParsing.swift in Sources */,

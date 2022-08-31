@@ -14,28 +14,21 @@ class ChargeStnInfoViewController: UIViewController {
     // MARK: - IBOutlets
     
     @IBOutlet weak var stnPlaceLabel: UILabel!
-    
     @IBOutlet weak var stnAddrLabel: UILabel!
-    
     @IBOutlet weak var distanceLabel: UILabel!
-    
     @IBOutlet weak var slowChargeLabel: UILabel!
-    
     @IBOutlet weak var rapidChargeLabel: UILabel!
-    
     @IBOutlet weak var findDirectionButton: UIButton!
-    
     @IBOutlet weak var addMarkButton: UIButton!
+    @IBOutlet weak var slowChargeImageView: UIImageView!
+    @IBOutlet weak var rapidChargeImageView: UIImageView!
     
     
     // MARK: - Vars
     
     var chargeStn: ChargeStation?
-    
     var annotation: MKAnnotation?
-    
     var calculatedDistance: Double?
-    
     var userLocation: CLLocationCoordinate2D?
     
     
@@ -67,10 +60,16 @@ class ChargeStnInfoViewController: UIViewController {
         stnPlaceLabel.text = chargeStn?.stnPlace
         stnAddrLabel.text = chargeStn?.stnAddr
         distanceLabel.text = "\(calculatedDistance ?? 0)km"
-        slowChargeLabel.text = "완속: \(chargeStn?.slowCnt ?? 0)"
-        rapidChargeLabel.text = "급속: \(chargeStn?.rapidCnt ?? 0 )"
         findDirectionButton.setEnableBtnTheme()
         addMarkButton.setTitle("", for: .normal)
+        
+        slowChargeImageView.alpha = chargeStn?.slowCnt == 0 ? 0.3 : 1.0
+        slowChargeLabel.alpha = slowChargeImageView.alpha
+        rapidChargeImageView.alpha = chargeStn?.rapidCnt == 0 ? 0.3 : 1.0
+        rapidChargeLabel.alpha = rapidChargeImageView.alpha
+        
+        slowChargeLabel.text = "완속: \(chargeStn?.slowCnt ?? 0)"
+        rapidChargeLabel.text = "급속: \(chargeStn?.rapidCnt ?? 0 )"
     }
     
     
