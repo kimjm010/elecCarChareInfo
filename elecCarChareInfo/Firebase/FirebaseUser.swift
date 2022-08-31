@@ -113,7 +113,7 @@ class FirebaseUser {
     
     // MARK: - Delete User From FireStore
     // TODO: 확인해야함!!!!
-    func deleteUserFromFireStore(_ user: User) {
+    func deleteUserFromFirebase(_ user: User) {
         
         Auth.auth().currentUser?.delete()
         FirebaseReference(.user).document(user.id).delete()

@@ -144,7 +144,7 @@ class ChargeStationViewController: UIViewController {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
         
         let annotations: [ChargeAnnotation] = dummyChargeStationData.map { (charge) in
-            return ChargeAnnotation(coordinate: charge.coordinate,
+            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: charge.coordinate[0], longitude: charge.coordinate[1]),
                                     id: charge.id,
                                     title: charge.stnPlace,
                                     subtitle: charge.stnAddr,
@@ -395,7 +395,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
                                                       stnAddr: stnAddr,
                                                       rapidCnt: rapidCnt,
                                                       slowCnt: slowCnt,
-                                                      coordinate: chargeAnnotation.coordinate,
+                                                      coordinate: [chargeAnnotation.coordinate.latitude, chargeAnnotation.coordinate.longitude],
                                                       carType: carType)
             }
             

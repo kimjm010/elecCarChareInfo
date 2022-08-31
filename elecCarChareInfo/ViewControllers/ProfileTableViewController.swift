@@ -95,7 +95,7 @@ class ProfileTableViewController: UITableViewController {
                 alertLogOut(title: "[전기차충전소어디있어]에서 계정을 삭제 하시겠습니까?", okActionTitle: "Delete Account", message: "전기차 충전소 관련 정보를 얻을 수 없게됩니다. 그래도 삭제할까요?") { [weak self] _ in
                     guard let self = self else { return }
                     guard let user = User.currentUser else { return }
-                    FirebaseUser.shared.deleteUserFromFireStore(user)
+                    FirebaseUser.shared.deleteUserFromFirebase(user)
                     self.gotoVC("LoginViewController")
                     
                 }

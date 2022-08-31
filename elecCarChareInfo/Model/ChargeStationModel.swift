@@ -51,7 +51,7 @@ import CoreLocation
 
 
 // 차종 모델
-struct CarType {
+struct CarType: Codable {
     let name: String
     var isSelected: Bool
 }
@@ -59,20 +59,6 @@ struct CarType {
 
 enum CType {
 //    case
-}
-
-
-// 기본 충전소 데이터 모델
-// TODO: 추후 변경할 예정
-struct ChargeStation {
-    let id: String
-    let city: String
-    let stnPlace: String
-    let stnAddr: String
-    let rapidCnt: Int
-    let slowCnt: Int
-    let coordinate: CLLocationCoordinate2D
-    let carType: CarType
 }
 
 
@@ -87,7 +73,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 자곡동 자곡로3길 21",
                   rapidCnt: 1,
                   slowCnt: 4,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.5145037, longitude: 127.0410139),
+                  coordinate: [37.5145037, 127.0410139],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false)),
     ChargeStation(id: UUID().uuidString,
@@ -96,7 +82,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 선릉로 121길 12",
                   rapidCnt: 1,
                   slowCnt: 0,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.4831587, longitude: 127.0853829),
+                  coordinate: [37.4831587, 127.0853829],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false)),
     ChargeStation(id: UUID().uuidString,
@@ -105,7 +91,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 일원동 일원로 127",
                   rapidCnt: 1,
                   slowCnt: 0,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.4718415, longitude: 127.0877141),
+                  coordinate: [37.4718415, 127.0877141],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false)),
     ChargeStation(id: UUID().uuidString,
@@ -114,7 +100,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 삼성동 16-1",
                   rapidCnt: 1,
                   slowCnt: 0,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.5175747, longitude: 127.0475074),
+                  coordinate: [37.5175747, 127.0475074],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false)),
     ChargeStation(id: UUID().uuidString,
@@ -123,7 +109,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 세곡동 헌릉로590길 63",
                   rapidCnt: 1,
                   slowCnt: 1,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.4610643, longitude: 127.1016045),
+                  coordinate: [37.4610643, 127.1016045],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false)),
     ChargeStation(id: UUID().uuidString,
@@ -132,7 +118,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 수서동 광평로34길55",
                   rapidCnt: 1,
                   slowCnt: 3,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.480856, longitude: 127.0921722),
+                  coordinate: [37.480856, 127.0921722],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false)),
     ChargeStation(id: UUID().uuidString,
@@ -141,7 +127,7 @@ var dummyChargeStationData = [
                   stnAddr: "서울특별시 강남구 언주로 211",
                   rapidCnt: 2,
                   slowCnt: 0,
-                  coordinate: CLLocationCoordinate2D(latitude: 37.4920496, longitude: 127.0463487),
+                  coordinate: [37.4920496, 127.0463487],
                   carType: CarType(name: "SM3 Z.E,레이EV,소울EV,닛산리프,아이오닉EV,BMW i3,스파크EV,볼트EV,테슬라",
                                    isSelected: false))
 ]
