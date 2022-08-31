@@ -8,11 +8,5 @@
 import UIKit
 
 class AboutThisAppViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        
-    }
     
 }
