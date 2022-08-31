@@ -37,6 +37,7 @@
 		F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED428B6688200FB44A9 /* Date+Formatter.swift */; };
 		F5AF9E3328BEF8490090850C /* FirebaseMarked.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AF9E3228BEF8490090850C /* FirebaseMarked.swift */; };
 		F5AF9E3528BF1BEB0090850C /* MarkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AF9E3428BF1BEB0090850C /* MarkedList.swift */; };
+		F5AF9E3728BF22930090850C /* ChargeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AF9E3628BF22930090850C /* ChargeStation.swift */; };
 		F5BD06CF28AC863F001DF85F /* ChargeStnInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */; };
 		F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */; };
 		F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */; };
@@ -78,6 +79,7 @@
 		F5857ED428B6688200FB44A9 /* Date+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatter.swift"; sourceTree = "<group>"; };
 		F5AF9E3228BEF8490090850C /* FirebaseMarked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMarked.swift; sourceTree = "<group>"; };
 		F5AF9E3428BF1BEB0090850C /* MarkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedList.swift; sourceTree = "<group>"; };
+		F5AF9E3628BF22930090850C /* ChargeStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStation.swift; sourceTree = "<group>"; };
 		F5BD06CE28AC863F001DF85F /* ChargeStnInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStnInfoViewController.swift; sourceTree = "<group>"; };
 		F5C4186028AA04E500BFBD96 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		F5C4186228AA088600BFBD96 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				F56BA8E128A5ED5A00515185 /* User.swift */,
 				F56A2F7E28B84E84004FD317 /* Comment.swift */,
 				F5AF9E3428BF1BEB0090850C /* MarkedList.swift */,
+				F5AF9E3628BF22930090850C /* ChargeStation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */,
 				F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */,
 				F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */,
+				F5AF9E3728BF22930090850C /* ChargeStation.swift in Sources */,
 				F56BA8D428A4EC2600515185 /* ChargeStationModel.swift in Sources */,
 				F540AF9C28BC408F00E08BA8 /* UIView+Extensions.swift in Sources */,
 				F570E31728B4A8A400E98B68 /* FCollectionReference.swift in Sources */,

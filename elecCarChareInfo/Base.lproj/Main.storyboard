@@ -208,7 +208,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="J4H-uj-lx3">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="38"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6v6-jA-Fky">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" highlightedImage="star.fill" translatesAutoresizingMaskIntoConstraints="NO" id="6v6-jA-Fky">
                                                         <rect key="frame" x="0.0" y="-0.5" width="45" height="20"/>
                                                         <color key="tintColor" systemColor="systemGrayColor"/>
                                                     </imageView>
@@ -326,6 +326,7 @@
                         <outlet property="addMarkButton" destination="BfV-N2-AKG" id="AF7-7d-YzV"/>
                         <outlet property="distanceLabel" destination="aYH-ok-I2R" id="uEA-pf-Mab"/>
                         <outlet property="findDirectionButton" destination="7LR-aq-kQk" id="y3j-UJ-tPy"/>
+                        <outlet property="markedImageView" destination="6v6-jA-Fky" id="Kij-dR-DBC"/>
                         <outlet property="rapidChargeImageView" destination="xfN-qN-Eze" id="irc-8P-vGR"/>
                         <outlet property="rapidChargeLabel" destination="RX2-zd-lwV" id="oxw-k5-Ilx"/>
                         <outlet property="slowChargeImageView" destination="13Y-sN-cow" id="rVN-Jm-aTD"/>
@@ -869,6 +870,7 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

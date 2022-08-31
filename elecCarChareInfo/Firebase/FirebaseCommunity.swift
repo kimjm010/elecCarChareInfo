@@ -17,7 +17,7 @@ class FirebaseCommunity {
     
     /// Comment객체를 JSON으로 변환 후 FireStore에 저장합니다.
     /// - Parameter comment: 저장할 Comment 객체
-    func saveCommentToFireStore(_ comment: Comment) {
+    func saveCommentToFirebase(_ comment: Comment) {
         do {
             try FirebaseReference(.comment).document(comment.id).setData(from: comment)
         } catch {
@@ -40,6 +40,6 @@ class FirebaseCommunity {
         
         let comment = Comment(id: UUID().uuidString, email: user.email, comment: content, date: Date().commentDate)
         completion(nil)
-        saveCommentToFireStore(comment)
+        saveCommentToFirebase(comment)
     }
 }

@@ -5,8 +5,10 @@
 //  Created by Chris Kim on 8/17/22.
 //
 
+import Foundation
 import UIKit
 import MapKit
+import ProgressHUD
 
 
 class ChargeStnInfoViewController: UIViewController {
@@ -22,6 +24,7 @@ class ChargeStnInfoViewController: UIViewController {
     @IBOutlet weak var addMarkButton: UIButton!
     @IBOutlet weak var slowChargeImageView: UIImageView!
     @IBOutlet weak var rapidChargeImageView: UIImageView!
+    @IBOutlet weak var markedImageView: UIImageView!
     
     
     // MARK: - Vars
@@ -30,13 +33,38 @@ class ChargeStnInfoViewController: UIViewController {
     var annotation: MKAnnotation?
     var calculatedDistance: Double?
     var userLocation: CLLocationCoordinate2D?
+    var isSelected = false
     
     
     // MARK: - IBActions
     
     @IBAction func addMarkButtonTapped(_ sender: Any) {
         // TODO: 유저 즐겨찾기 리스트에 추가할 것
-        print(#function)
+        
+        isSelected = isSelected ? false : true
+        
+        guard let chargeStn = chargeStn else { return }
+        
+        FirebaseMarked.shared.registerChargeStation(email: User.currentUser!.email,
+                                                    city: chargeStn.city,
+                                                    stnPlace: chargeStn.stnPlace,
+                                                    stnAddr: chargeStn.stnAddr,
+                                                    rapidCnt: chargeStn.rapidCnt,
+                                                    slowCnt: chargeStn.slowCnt,
+                                                    coordinate: [chargeStn.coordinate[0],
+                                                                 chargeStn.coordinate[1]]) { [weak self] error in
+            guard let self = self else { return }
+            
+            if error == nil {
+                ProgressHUD.showSuccess("충전소가 정상적으로 즐겨찾기에 등록되었습니다.")
+            } else {
+                ProgressHUD.showFailed("충전소가 정상적으로 등록되지 않았습니다. 잠시 후 다시 시도해주세요:)")
+            }
+            
+            DispatchQueue.main.async {
+                self.markedImageView.isHighlighted = self.isSelected
+            }
+        }
     }
     
     
@@ -50,8 +78,15 @@ class ChargeStnInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initializeData()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        downloadMarkedChargeStationFromFirebase()
     }
     
     
@@ -79,7 +114,7 @@ class ChargeStnInfoViewController: UIViewController {
     /// - Parameter annotation: 목적지의 annotation 객체
     private func openInMap(to annotation: MKAnnotation) {
         guard let userLocation = userLocation else { return }
-
+        
         let source = MKMapItem(placemark: MKPlacemark(coordinate: userLocation))
         source.name = "Current Location"
         
@@ -89,5 +124,40 @@ class ChargeStnInfoViewController: UIViewController {
         
         MKMapItem.openMaps(with: [source, destination],
                            launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+    
+    
+    // MARK: - Download Marked Charge Station From Firebase
+    
+    private func downloadMarkedChargeStationFromFirebase() {
+        FirebaseReference(.marked).getDocuments { [weak self] (queryShapshot, error) in
+            guard let self = self else { return }
+            guard let document = queryShapshot?.documents else {
+                #if DEBUG
+                print(error?.localizedDescription)
+                #endif
+                
+                return
+            }
+            
+            let allMakredStations = document.compactMap { (queryDocumentSnapshot) -> ChargeStation? in
+                return try? queryDocumentSnapshot.data(as: ChargeStation.self)
+            }
+            
+            guard let chargeStn = self.chargeStn else {
+                #if DEBUG
+                print(error?.localizedDescription)
+                #endif
+                
+                return
+            }
+            
+            if allMakredStations.contains(where: { User.currentUser?.email == $0.email && $0.stnPlace == chargeStn.stnPlace }) {
+                DispatchQueue.main.async {
+                    self.markedImageView.isHighlighted = true
+                    self.isSelected = true
+                }
+            }
+        }
     }
 }
