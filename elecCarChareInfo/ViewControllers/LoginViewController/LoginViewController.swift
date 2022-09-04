@@ -14,29 +14,21 @@ class LoginViewController: UIViewController {
     
     // MARK: - IBOutlets
     
-    ///Label
+    /// Label
     @IBOutlet weak var emailLabel: UILabel!
-    
     @IBOutlet weak var passwordLabel: UILabel!
-    
     @IBOutlet weak var repeatPasswordLabel: UILabel!
-    
     @IBOutlet weak var signupLabel: UILabel!
     
     ///TextField
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var repeatPasswordTextField: UITextField!
     
     ///Button
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var signupButton: UIButton!
-    
     @IBOutlet weak var resendEmailButton: UIButton!
-    
     @IBOutlet weak var repeatPasswordSeparationView: UIView!
     
     
@@ -187,9 +179,6 @@ class LoginViewController: UIViewController {
                     self.resendEmailButton.isHidden = false
                 } else {
                     ProgressHUD.showFailed("이미 등록된 이메일입니다.")
-                    #if DEBUG
-                    print(error?.localizedDescription)
-                    #endif
                 }
             }
         } else {
@@ -216,9 +205,6 @@ class LoginViewController: UIViewController {
                 }
             } else {
                 ProgressHUD.showFailed("인증되지 않은 이메일입니다.")
-                #if DEBUG
-                print(error?.localizedDescription)
-                #endif
             }
         }
     }
@@ -234,9 +220,6 @@ class LoginViewController: UIViewController {
                 ProgressHUD.showSuccess("비밀번호 재 설정 이메일을 전송했습니다.")
             } else {
                 ProgressHUD.showFailed("비밀번호 재 설정 이메일을 전송하지 못했습니다.")
-                #if DEBUG
-                print(error?.localizedDescription)
-                #endif
             }
         }
     }
@@ -251,14 +234,9 @@ class LoginViewController: UIViewController {
                 ProgressHUD.showSuccess("인증 이메일을 다시 전송했습니다.")
             } else {
                 ProgressHUD.showFailed("인증 이메일을 전송하지 못했습니다.")
-                
-                #if DEBUG
-                print(error?.localizedDescription)
-                #endif
             }
         }
     }
-    
     
     
     // MARK: - Go To App Main View

@@ -21,7 +21,6 @@ class CommentTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "의견 작성", style: .plain, target: self, action: #selector(gotoComposeVC))]
-        
         navigationItem.title = "Community"
     }
     
