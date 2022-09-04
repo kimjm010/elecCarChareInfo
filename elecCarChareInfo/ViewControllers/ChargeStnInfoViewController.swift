@@ -40,8 +40,9 @@ class ChargeStnInfoViewController: UIViewController {
     
     @IBAction func addMarkButtonTapped(_ sender: Any) {
         // TODO: 유저 즐겨찾기 리스트에 추가할 것
-        
-        isSelected = isSelected ? false : true
+//        isSelected = isSelected ? false : true
+        isSelected.toggle()
+        print(isSelected)
         
         guard let chargeStn = chargeStn else { return }
         
@@ -56,7 +57,12 @@ class ChargeStnInfoViewController: UIViewController {
             guard let self = self else { return }
             
             if error == nil {
-                ProgressHUD.showSuccess("충전소가 정상적으로 즐겨찾기에 등록되었습니다.")
+                if self.isSelected {
+                    ProgressHUD.showSuccess("충전소가 정상적으로 즐겨찾기에 등록되었습니다.")
+                } else {
+                    ProgressHUD.showFailed("충전소가 정상적으로 즐겨찾기에서 삭제되었습니다.")
+                }
+                
             } else {
                 ProgressHUD.showFailed("충전소가 정상적으로 등록되지 않았습니다. 잠시 후 다시 시도해주세요:)")
             }

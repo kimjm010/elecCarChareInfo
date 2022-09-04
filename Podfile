@@ -17,8 +17,6 @@ pod 'NVActivityIndicatorView/AppExtension'
 
 pod 'ProgressHUD'
 
-pod 'Alamofire', '5.2'
-
   # Pods for elecCarChareInfo
 
 end
