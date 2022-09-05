@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 
 
 struct ChargeStation: Codable {
+    
     var id: String
     var email: String?
     var city: String = ""
@@ -18,8 +19,7 @@ struct ChargeStation: Codable {
     var stnAddr: String
     var rapidCnt: Int
     var slowCnt: Int
-    var coordinate: [Double]
-    var carType: CarType?
+    var coordinate: [Double]? = nil
     
     
     static var currentId: String {

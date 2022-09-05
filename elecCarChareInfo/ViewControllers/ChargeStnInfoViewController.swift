@@ -44,7 +44,8 @@ class ChargeStnInfoViewController: UIViewController {
         isSelected.toggle()
         print(isSelected)
         
-        guard let chargeStn = chargeStn else { return }
+        guard let chargeStn = chargeStn,
+            let coordinate = chargeStn.coordinate else { return }
         
         FirebaseMarked.shared.registerChargeStation(email: User.currentUser!.email,
                                                     city: chargeStn.city,
@@ -52,8 +53,8 @@ class ChargeStnInfoViewController: UIViewController {
                                                     stnAddr: chargeStn.stnAddr,
                                                     rapidCnt: chargeStn.rapidCnt,
                                                     slowCnt: chargeStn.slowCnt,
-                                                    coordinate: [chargeStn.coordinate[0],
-                                                                 chargeStn.coordinate[1]]) { [weak self] error in
+                                                    coordinate: [coordinate[0],
+                                                                 coordinate[1]]) { [weak self] error in
             guard let self = self else { return }
             
             if error == nil {

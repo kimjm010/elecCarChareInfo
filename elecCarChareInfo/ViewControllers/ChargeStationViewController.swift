@@ -10,6 +10,15 @@ import CoreLocation
 import MapKit
 import FirebaseDatabase
 import FirebaseAuth
+import RealmSwift
+
+
+struct ChargeData: Codable {
+    let id: String
+    let email: String
+    let stnPlace: String
+    let stnAddr: String
+}
 
 
 class ChargeStationViewController: UIViewController {
@@ -58,7 +67,7 @@ class ChargeStationViewController: UIViewController {
     
     
     // MARK: - View Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,7 +80,7 @@ class ChargeStationViewController: UIViewController {
         updateBtnUI()
         
         // TODO: Parse data 구현 할 것
-        Pasrse().pasreList()
+//        Pasrse().pasreList()
     }
     
     
@@ -108,8 +117,8 @@ class ChargeStationViewController: UIViewController {
         checkLocationAuth()
         
         guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
-         let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-         mapView.setRegion(region, animated: true)
+        let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        mapView.setRegion(region, animated: true)
     }
     
     
@@ -144,14 +153,22 @@ class ChargeStationViewController: UIViewController {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
         
         let annotations: [ChargeAnnotation] = dummyChargeStationData.map { (charge) in
-            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: charge.coordinate[0], longitude: charge.coordinate[1]),
+            guard let coordinates = charge.coordinate else {
+                return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+                                        id: charge.id,
+                                        title: charge.stnPlace,
+                                        subtitle: charge.stnAddr,
+                                        city: charge.city,
+                                        rapidCnt: charge.rapidCnt,
+                                        slowCnt: charge.slowCnt)
+            }
+            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0], longitude: coordinates[1]),
                                     id: charge.id,
                                     title: charge.stnPlace,
                                     subtitle: charge.stnAddr,
                                     city: charge.city,
                                     rapidCnt: charge.rapidCnt,
-                                    slowCnt: charge.slowCnt,
-                                    carType: charge.carType)
+                                    slowCnt: charge.slowCnt)
         }
         
         mapView.addAnnotations(annotations)
@@ -168,15 +185,15 @@ class ChargeStationViewController: UIViewController {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(addressString) { (placemarks, error) in
             if error == nil {
-
+                
                 if let placemark = placemarks?[0] {
                     let location = placemark.location!
-
+                    
                     completion(location.coordinate, nil)
                     return
                 }
             }
-
+            
             completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
@@ -202,9 +219,9 @@ class ChargeStationViewController: UIViewController {
             guard let self = self else { return }
             
             if let error = error {
-                #if DEBUG
+#if DEBUG
                 print(error.localizedDescription, "Add Route response에서 에러 발생")
-                #endif
+#endif
                 
                 return
             }
@@ -333,13 +350,17 @@ extension ChargeStationViewController: MKMapViewDelegate {
         var annotationView: MKAnnotationView?
         
         // TODO: mapView에 비슷한 위치에 있는 충전소는 갯수로 표시하기
-        /*
-         if let annotation = annotation as? MKClusterAnnotation {
-             let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-
-             view.markerTintColor = UIColor.systemBlue
-         }
-         */
+        
+        if let annotation = annotation as? MKClusterAnnotation {
+            
+            
+            
+            
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
+            
+            view.markerTintColor = UIColor.systemBlue
+        }
+         
         
         
         if let annotation = annotation as? ChargeAnnotation {
@@ -386,8 +407,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
                       let stnPlace = chargeAnnotation.title,
                       let stnAddr = chargeAnnotation.subtitle,
                       let rapidCnt = chargeAnnotation.rapidCnt,
-                      let slowCnt = chargeAnnotation.slowCnt,
-                      let carType = chargeAnnotation.carType else { return }
+                      let slowCnt = chargeAnnotation.slowCnt else { return }
                 selectedAnnotation = chargeAnnotation
                 selectedChargeStation = ChargeStation(id: chargeAnnotation.id,
                                                       city: city,
@@ -395,12 +415,11 @@ extension ChargeStationViewController: MKMapViewDelegate {
                                                       stnAddr: stnAddr,
                                                       rapidCnt: rapidCnt,
                                                       slowCnt: slowCnt,
-                                                      coordinate: [chargeAnnotation.coordinate.latitude, chargeAnnotation.coordinate.longitude],
-                                                      carType: carType)
+                                                      coordinate: [chargeAnnotation.coordinate.latitude, chargeAnnotation.coordinate.longitude])
             }
             
             if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoViewController") as? ChargeStnInfoViewController {
-
+                
                 infoVC.chargeStn = selectedChargeStation
                 infoVC.annotation = selectedAnnotation
                 infoVC.calculatedDistance = calculatedDistance
@@ -411,7 +430,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
                 presentationController?.permittedArrowDirections = .any
                 presentationController?.sourceRect = control.frame
                 presentationController?.sourceView = control
-
+                
                 present(infoVC, animated: true, completion: nil)
             }
         }

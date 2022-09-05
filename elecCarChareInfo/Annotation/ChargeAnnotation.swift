@@ -34,8 +34,6 @@ class ChargeAnnotation: NSObject, MKAnnotation {
     
     var slowCnt: Int?
     
-    var carType: CarType?
-    
     
     init(coordinate: CLLocationCoordinate2D,
          id: String,
@@ -43,8 +41,7 @@ class ChargeAnnotation: NSObject, MKAnnotation {
          subtitle: String?,
          city: String?,
          rapidCnt: Int?,
-         slowCnt: Int?,
-         carType: CarType?) {
+         slowCnt: Int?) {
         self.coordinate = coordinate
         self.id = UUID().uuidString
         self.title = title
@@ -52,6 +49,5 @@ class ChargeAnnotation: NSObject, MKAnnotation {
         self.city = city
         self.rapidCnt = rapidCnt
         self.slowCnt = slowCnt
-        self.carType = carType
     }
 }
