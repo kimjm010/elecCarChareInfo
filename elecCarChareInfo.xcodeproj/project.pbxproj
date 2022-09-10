@@ -30,7 +30,6 @@
 		F57F2B9128B45A8900A502F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */; };
 		F57F2B9528B4679700A502F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57F2B9428B4679700A502F7 /* LoginViewController.swift */; };
 		F57F2B9A28B469E600A502F7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57F2B9928B469E600A502F7 /* Constants.swift */; };
-		F5857EC928B623F300FB44A9 /* TempDataParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857EC828B623F300FB44A9 /* TempDataParsing.swift */; };
 		F5857ECD28B6247E00FB44A9 /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = F5857ECC28B6247D00FB44A9 /* data.csv */; };
 		F5857ED128B667EB00FB44A9 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */; };
 		F5857ED328B6680000FB44A9 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */; };
@@ -72,7 +71,6 @@
 		F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F57F2B9428B4679700A502F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F57F2B9928B469E600A502F7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F5857EC828B623F300FB44A9 /* TempDataParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempDataParsing.swift; sourceTree = "<group>"; };
 		F5857ECC28B6247D00FB44A9 /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
 		F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				F57F2B9928B469E600A502F7 /* Constants.swift */,
-				F5857EC828B623F300FB44A9 /* TempDataParsing.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -372,7 +369,6 @@
 				F56A2F7F28B84E84004FD317 /* Comment.swift in Sources */,
 				F56A2F7D28B84AB3004FD317 /* FirebaseCommunity.swift in Sources */,
 				F57F2B9A28B469E600A502F7 /* Constants.swift in Sources */,
-				F5857EC928B623F300FB44A9 /* TempDataParsing.swift in Sources */,
 				F5F8D6DF28B73C2A0084CD1F /* CommentTableViewCell.swift in Sources */,
 				F5F6D4FC28B8BFE1005630CA /* ComposeCommentViewController.swift in Sources */,
 				F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */,

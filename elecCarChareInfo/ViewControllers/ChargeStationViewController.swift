@@ -10,7 +10,6 @@ import CoreLocation
 import MapKit
 import FirebaseDatabase
 import FirebaseAuth
-import RealmSwift
 
 
 struct ChargeData: Codable {
@@ -36,6 +35,7 @@ class ChargeStationViewController: UIViewController {
     private var calculatedDistance: Double = 0.0
     private var userLocation: CLLocationCoordinate2D?
     private var allAnnotations: [MKAnnotation]?
+    private var ref: DatabaseReference!
     
     /// CLLocationManager 관리 객체
     lazy var locationManager: CLLocationManager = { [weak self] in
@@ -81,6 +81,7 @@ class ChargeStationViewController: UIViewController {
         
         // TODO: Parse data 구현 할 것
 //        Pasrse().pasreList()
+        
     }
     
     
