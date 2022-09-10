@@ -10,60 +10,6 @@ import UIKit
 import CoreLocation
 
 
-// Model 수정할 것
-/*
- struct ChargeStation: Codable {
- struct Data: Codable {
- let metro: String
- let city: String
- let stnPlace: String
- let stnAddr: String
- let rapidCnt: Int
- let slowCnt: Int
- let carType: String
- }
- 
- let data: [Data]
- }
- 
- struct ChargeStn: Codable {
- var id = ""
- 
- let chargeStn: ChargeStation.Data
- 
- let latitude: Double
- 
- let longitude: Double
- 
- var coordinate: CLLocationCoordinate2D {
- return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
- }
- 
- var annotation: MKAnnotation {
- return ChargeStnAnnotation(coordinate: coordinate,
- stnId: id,
- title: chargeStn.stnPlace,
- subtitle: chargeStn.stnAddr)
- }
- }
- 
- */
-
-
-// 차종 모델
-struct CarType: Codable {
-    let name: String
-    var isSelected: Bool
-}
-
-
-enum CType {
-//    case
-}
-
-
-
-
 // dummy Data
 // TODO: 추후 삭제 할 것
 var dummyChargeStationData = [

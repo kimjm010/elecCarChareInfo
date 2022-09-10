@@ -45,6 +45,5 @@ struct ChargeStation: Codable {
         }
         
         return nil
-        
     }
 }
