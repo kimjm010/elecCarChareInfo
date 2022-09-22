@@ -8,7 +8,7 @@
 import UIKit
 
 
-// TODO: search 결과 place + addr 인것 같으니 확인 할 것
+#warning("Todo: - search 결과 place + addr 인것 같으니 확인 할 것")
 class SearchTableViewController: UITableViewController {
     
     // MARK: - IBOutlets

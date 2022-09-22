@@ -60,7 +60,8 @@ class ChargeStationViewController: UIViewController {
     /// 특정 위치를 검색합니다.
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
-        // TODO: NavigationBar 없애고 enterPlaceButton 위로 올리기
+        #warning("Todo: - NavigationBar 없애고 enterPlaceButton 위로 올리기")
+        #warning("Todo: - mapView Nav컨트롤러 임베드 풀고 진행해보기")
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
         navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -79,7 +80,7 @@ class ChargeStationViewController: UIViewController {
         setTabBarAppearanceAsDefault()
         updateBtnUI()
         
-        // TODO: Parse data 구현 할 것
+        #warning("Todo: - Parse data 구현 할 것 -> 서버에 데이터 저장해서 API 통신해서 가져올 것")
 //        Pasrse().pasreList()
         
     }
@@ -223,7 +224,6 @@ class ChargeStationViewController: UIViewController {
 #if DEBUG
                 print(error.localizedDescription, "Add Route response에서 에러 발생")
 #endif
-                
                 return
             }
             

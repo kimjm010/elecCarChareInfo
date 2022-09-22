@@ -10,6 +10,7 @@ import Firebase
 
 
 class FirebaseCommunity {
+    
     static let shared = FirebaseCommunity()
     private init() { }
     
@@ -34,11 +35,12 @@ class FirebaseCommunity {
                          content: String,
                          date: String,
                          completion: @escaping (_ error: Error?) -> Void) {
-        guard let user = User.currentUser else {
-            return
-        }
+        guard let user = User.currentUser else { return }
         
-        let comment = Comment(id: UUID().uuidString, email: user.email, comment: content, date: Date().commentDate)
+        let comment = Comment(id: UUID().uuidString,
+                              email: user.email,
+                              comment: content,
+                              date: Date().commentDate)
         completion(nil)
         saveCommentToFirebase(comment)
     }

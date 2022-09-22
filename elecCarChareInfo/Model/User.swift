@@ -41,7 +41,7 @@ struct User: Codable, Equatable {
     }
     
     
-    /// 유저가 서로 같은이 확인
+    /// 같은 유저인지 확인
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id
     }
