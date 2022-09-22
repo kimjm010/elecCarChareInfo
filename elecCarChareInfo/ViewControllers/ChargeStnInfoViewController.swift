@@ -39,8 +39,6 @@ class ChargeStnInfoViewController: UIViewController {
     // MARK: - IBActions
     
     @IBAction func addMarkButtonTapped(_ sender: Any) {
-        // TODO: 유저 즐겨찾기 리스트에 추가할 것
-//        isSelected = isSelected ? false : true
         isSelected.toggle()
         print(isSelected)
         

@@ -11,6 +11,7 @@ import ProgressHUD
 
 
 class FirebaseMarked {
+    
     static let shared = FirebaseMarked()
     private init() { }
     

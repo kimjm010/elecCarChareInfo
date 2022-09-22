@@ -39,9 +39,6 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         let okAction = UIAlertAction(title: okActionTitle, style: .destructive, handler: completion)
-//        { (action) in
-//            // TODO: 계정 탈퇴 -> UserDefaults,Firebase에서 계정 삭제할 것
-//        }
         alert.addAction(okAction)
         
         let cxlAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

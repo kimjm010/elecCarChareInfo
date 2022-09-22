@@ -10,8 +10,7 @@ import UIKit
 import CoreLocation
 
 
-// dummy Data
-// TODO: 추후 삭제 할 것
+#warning("Todo: - 추후 삭제 할 것")
 var dummyChargeStationData = [
     ChargeStation(id: UUID().uuidString,
                   city: "강남구",

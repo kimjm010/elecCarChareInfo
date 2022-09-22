@@ -28,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     
-    
     // MARK: - Auto Login
     
     func autoLogin() {
