@@ -60,8 +60,8 @@ class ChargeStationViewController: UIViewController {
     /// 특정 위치를 검색합니다.
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
-        #warning("Todo: - NavigationBar 없애고 enterPlaceButton 위로 올리기")
-        #warning("Todo: - mapView Nav컨트롤러 임베드 풀고 진행해보기")
+#warning("Todo: - NavigationBar 없애고 enterPlaceButton 위로 올리기")
+#warning("Todo: - mapView Nav컨트롤러 임베드 풀고 진행해보기")
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
         navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -80,8 +80,8 @@ class ChargeStationViewController: UIViewController {
         setTabBarAppearanceAsDefault()
         updateBtnUI()
         
-        #warning("Todo: - Parse data 구현 할 것 -> 서버에 데이터 저장해서 API 통신해서 가져올 것")
-//        Pasrse().pasreList()
+#warning("Todo: - Parse data 구현 할 것 -> 서버에 데이터 저장해서 API 통신해서 가져올 것")
+        //        Pasrse().pasreList()
         
     }
     
@@ -128,23 +128,26 @@ class ChargeStationViewController: UIViewController {
     
     /// User's Location Authorization확인
     private func checkLocationAuth() {
+        #warning("Todo: - This method can cause UI unresponsiveness if invoked on the main thread. Instead, consider waiting for the `-locationManagerDidChangeAuthorization:` callback and checking `authorizationStatus` first. => 에러메세지 해결할 것")
         if CLLocationManager.locationServicesEnabled() {
             let status: CLAuthorizationStatus
-            status = locationManager.authorizationStatus
+            status = self.locationManager.authorizationStatus
             
             switch status {
             case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
+                self.locationManager.requestWhenInUseAuthorization()
             case .restricted, .denied:
-                alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                                  message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                                  completion: nil)
+                print(#function, #file, #line, "여기서 에러 발생이여")
+                self.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                                       message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                                       completion: nil)
             case .authorizedAlways, .authorizedWhenInUse:
-                updateLocation()
+                self.updateLocation()
             default:
                 break
             }
         }
+        
     }
     
     
@@ -275,8 +278,26 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
             updateLocation()
         default:
             alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                              completion: nil)
+                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { _ in
+                if CLLocationManager.locationServicesEnabled() {
+                    let status: CLAuthorizationStatus
+                    status = self.locationManager.authorizationStatus
+                    
+                    switch status {
+                    case .notDetermined:
+                        self.locationManager.requestWhenInUseAuthorization()
+                    case .restricted, .denied:
+                        print(#function, #file, #line, "여기서 에러 발생이여")
+                        self.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                                               message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                                               completion: nil)
+                    case .authorizedAlways, .authorizedWhenInUse:
+                        self.updateLocation()
+                    default:
+                        break
+                    }
+                }
+            }
         }
     }
     
@@ -361,7 +382,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
             
             view.markerTintColor = UIColor.systemBlue
         }
-         
+        
         
         
         if let annotation = annotation as? ChargeAnnotation {
