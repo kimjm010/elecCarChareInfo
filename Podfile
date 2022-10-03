@@ -8,10 +8,9 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'Firebase/Storage'
-pod 'Firebase/Analytics'
-pod 'Firebase/Messaging'
 pod 'FirebaseFirestoreSwift'
 pod 'Firebase/Database'
+pod 'Alamofire'
 
 pod 'NVActivityIndicatorView/AppExtension'
 

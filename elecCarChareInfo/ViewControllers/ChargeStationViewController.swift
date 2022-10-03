@@ -60,8 +60,8 @@ class ChargeStationViewController: UIViewController {
     /// 특정 위치를 검색합니다.
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
-        #warning("Todo: - NavigationBar 없애고 enterPlaceButton 위로 올리기")
-        #warning("Todo: - mapView Nav컨트롤러 임베드 풀고 진행해보기")
+#warning("Todo: - NavigationBar 없애고 enterPlaceButton 위로 올리기")
+#warning("Todo: - mapView Nav컨트롤러 임베드 풀고 진행해보기")
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
         navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -74,14 +74,13 @@ class ChargeStationViewController: UIViewController {
         
         initializeData()
         goToCurrentLocation()
-        checkLocationAuth()
         initializeMapView()
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
         updateBtnUI()
         
-        #warning("Todo: - Parse data 구현 할 것 -> 서버에 데이터 저장해서 API 통신해서 가져올 것")
-//        Pasrse().pasreList()
+#warning("Todo: - Parse data 구현 할 것 -> 서버에 데이터 저장해서 API 통신해서 가져올 것")
+        //        Pasrse().pasreList()
         
     }
     
@@ -116,8 +115,6 @@ class ChargeStationViewController: UIViewController {
     
     private func goToCurrentLocation() {
         
-        checkLocationAuth()
-        
         guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
         let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
         mapView.setRegion(region, animated: true)
@@ -130,20 +127,47 @@ class ChargeStationViewController: UIViewController {
     private func checkLocationAuth() {
         if CLLocationManager.locationServicesEnabled() {
             let status: CLAuthorizationStatus
-            status = locationManager.authorizationStatus
+            status = self.locationManager.authorizationStatus
             
             switch status {
             case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
+                self.locationManager.requestWhenInUseAuthorization()
             case .restricted, .denied:
-                alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                                  message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                                  completion: nil)
+                print(#function, #file, #line, "여기서 에러 발생이여")
+                self.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                                       message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                                       completion: nil)
             case .authorizedAlways, .authorizedWhenInUse:
-                updateLocation()
+                self.updateLocation()
             default:
                 break
             }
+        }
+    }
+    
+    
+    // MARK: - Convert Placemark into Coordinate
+    
+    /// 주소를 Coordinate 객체로 변환하는 메소드
+    /// - Parameters:
+    ///   - addressString: 변환할 주소
+    ///   - completion: 변환 성공 시 (CLLocationCoordinate2D, NSError?)을 담은 completion handler가 호출됨
+    private func getCoordinate(_ addressString: String, completion: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+            if error == nil {
+                
+                if let placemark = placemarks?[0] {
+                    let location = placemark.location!
+                    
+                    completion(location.coordinate, nil)
+                    return
+                }
+            }
+            
+            print(#fileID, #function, #line, "- \(error?.localizedDescription)")
+            
+            completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
     }
     
@@ -174,30 +198,6 @@ class ChargeStationViewController: UIViewController {
         }
         
         mapView.addAnnotations(annotations)
-    }
-    
-    
-    // MARK: - Convert Placemark into Coordinate
-    
-    /// 주소를 Coordinate 객체로 변환하는 메소드
-    /// - Parameters:
-    ///   - addressString: 변환할 주소
-    ///   - completion: 변환 성공 시 (CLLocationCoordinate2D, NSError?)을 담은 completion handler가 호출됨
-    private func getCoordinate(_ addressString: String, completion: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
-            if error == nil {
-                
-                if let placemark = placemarks?[0] {
-                    let location = placemark.location!
-                    
-                    completion(location.coordinate, nil)
-                    return
-                }
-            }
-            
-            completion(kCLLocationCoordinate2DInvalid, error as NSError?)
-        }
     }
     
     
@@ -275,8 +275,11 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
             updateLocation()
         default:
             alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                              completion: nil)
+                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { [weak self] _ in
+                guard let self = self else { return }
+                print(#fileID, #function, #line, "- ")
+                self.checkLocationAuth()
+            }
         }
     }
     
@@ -361,7 +364,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
             
             view.markerTintColor = UIColor.systemBlue
         }
-         
+        
         
         
         if let annotation = annotation as? ChargeAnnotation {

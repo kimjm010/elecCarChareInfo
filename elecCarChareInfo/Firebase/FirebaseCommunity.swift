@@ -14,7 +14,7 @@ class FirebaseCommunity {
     static let shared = FirebaseCommunity()
     private init() { }
     
-    // MARK: - Save Comment To FireStore
+    // MARK: - Save Comment
     
     /// Comment객체를 JSON으로 변환 후 FireStore에 저장합니다.
     /// - Parameter comment: 저장할 Comment 객체
