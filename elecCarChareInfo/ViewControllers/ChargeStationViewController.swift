@@ -125,6 +125,7 @@ class ChargeStationViewController: UIViewController {
     
     /// User's Location Authorization확인
     private func checkLocationAuth() {
+        #warning("Todo: - This method can cause UI unresponsiveness if invoked on the main thread. Instead, consider waiting for the `-locationManagerDidChangeAuthorization:` callback and checking `authorizationStatus` first. => 에러메세지 해결할 것")
         if CLLocationManager.locationServicesEnabled() {
             let status: CLAuthorizationStatus
             status = self.locationManager.authorizationStatus
@@ -143,6 +144,7 @@ class ChargeStationViewController: UIViewController {
                 break
             }
         }
+        
     }
     
     
