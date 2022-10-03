@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         autoLogin()
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        ParseChargeStation.shared.tempChangeData()
+        ParseChargeStation.shared.changeData()
         
         
 //        ParseChargeStation.shared.parseData { (data) in

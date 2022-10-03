@@ -12,14 +12,6 @@ import FirebaseDatabase
 import FirebaseAuth
 
 
-struct ChargeData: Codable {
-    let id: String
-    let email: String
-    let stnPlace: String
-    let stnAddr: String
-}
-
-
 class ChargeStationViewController: UIViewController {
     
     // MARK: - IBOutlets
@@ -60,10 +52,10 @@ class ChargeStationViewController: UIViewController {
     /// 특정 위치를 검색합니다.
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
-#warning("Todo: - NavigationBar 없애고 enterPlaceButton 위로 올리기")
-#warning("Todo: - mapView Nav컨트롤러 임베드 풀고 진행해보기")
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
-        navigationController?.pushViewController(searchVC, animated: true)
+        
+        print(#fileID, #function, #line, "- ")
+        #warning("Todo: - Navigation 스택에 없는 경우 화면 전환")
     }
     
     
@@ -78,10 +70,7 @@ class ChargeStationViewController: UIViewController {
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
         updateBtnUI()
-        
-#warning("Todo: - Parse data 구현 할 것 -> 서버에 데이터 저장해서 API 통신해서 가져올 것")
-        //        Pasrse().pasreList()
-        
+        addCoordinateToChargeStnlist()
     }
     
     
@@ -125,7 +114,6 @@ class ChargeStationViewController: UIViewController {
     
     /// User's Location Authorization확인
     private func checkLocationAuth() {
-        #warning("Todo: - This method can cause UI unresponsiveness if invoked on the main thread. Instead, consider waiting for the `-locationManagerDidChangeAuthorization:` callback and checking `authorizationStatus` first. => 에러메세지 해결할 것")
         if CLLocationManager.locationServicesEnabled() {
             let status: CLAuthorizationStatus
             status = self.locationManager.authorizationStatus
@@ -144,7 +132,23 @@ class ChargeStationViewController: UIViewController {
                 break
             }
         }
-        
+    }
+    
+    
+    // MARK: - Add Coordinate Data to ParseChargeStation.chargeStnList
+    
+    private func addCoordinateToChargeStnlist() {
+        for i in 0..<ParseChargeStation.chargeStnList.count {
+            var data = ParseChargeStation.chargeStnList[i]
+            getCoordinate(data.stnAddr) { (location, error) in
+                if error != nil {
+                    data.coordinate = [location.latitude, location.longitude]
+                }
+            }
+            
+            #warning("Todo: - 데이터가 nil이다 확인할 것")
+//            print(#fileID, #function, #line, "- \(ParseChargeStation.chargeStnList[i].coordinate)")
+        }
     }
     
     
@@ -163,11 +167,11 @@ class ChargeStationViewController: UIViewController {
                     let location = placemark.location!
                     
                     completion(location.coordinate, nil)
+                    print(#fileID, #function, #line, "- \(location.coordinate.latitude) \(location.coordinate.longitude)")
                     return
                 }
             }
             
-            print(#fileID, #function, #line, "- \(error?.localizedDescription)")
             
             completion(kCLLocationCoordinate2DInvalid, error as NSError?)
         }
@@ -180,7 +184,7 @@ class ChargeStationViewController: UIViewController {
     private func registerMapAnnotationViews() {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
         
-        let annotations: [ChargeAnnotation] = dummyChargeStationData.map { (charge) in
+        let annotations: [ChargeAnnotation] = ParseChargeStation.chargeStnList.map { (charge) in
             guard let coordinates = charge.coordinate else {
                 return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
                                         id: charge.id,

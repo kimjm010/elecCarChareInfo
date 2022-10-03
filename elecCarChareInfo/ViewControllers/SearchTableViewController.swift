@@ -53,7 +53,7 @@ class SearchTableViewController: UITableViewController {
     
     
     private func filterContentForSearchText(_ searchText: String) {
-        filteredList = dummyChargeStationData.filter { (chargeStn) -> Bool in
+        filteredList = ParseChargeStation.chargeStnList.filter { (chargeStn) -> Bool in
             return chargeStn.stnPlace.lowercased().contains(searchText.lowercased())
         }
         
@@ -68,7 +68,7 @@ class SearchTableViewController: UITableViewController {
             return filteredList.count
         }
         
-        return dummyChargeStationData.count
+        return ParseChargeStation.chargeStnList.count
     }
 
     
@@ -81,7 +81,7 @@ class SearchTableViewController: UITableViewController {
             target = filteredList[indexPath.row]
         }
         
-        target = dummyChargeStationData[indexPath.row]
+        target = ParseChargeStation.chargeStnList[indexPath.row]
         
         cell.textLabel?.text = target.stnPlace
         cell.detailTextLabel?.text = target.stnAddr
