@@ -30,47 +30,39 @@ class ParseChargeStation {
     
     private let urlStr = "http://localhost:3000/data/"
     
-    // #1 data 가져와서 Charge Station으로 변환하기
+    // MARK: - Parse data From Server
     
     func parseData(completion: @escaping (_ result: Data) -> Void) {
         AF.request(urlStr).response { (response) in
             switch response.result {
             case .success(let data):
                 completion(data!)
-                print(#fileID, #function, #line, "- ")
             case .failure(let error):
-                ProgressHUD.showFailed("Fail to parse data From server.\n Please try it again.")
+                ProgressHUD.showFailed("Fail to parse data From server.\n Please try it again.\n \(error.localizedDescription)")
             }
         }
     }
     
     
-    func tempChangeData() {
-        ParseChargeStation.shared.parseData { [weak self] (data) in
-            guard let self = self else { return }
-            
+    // MARK: - Store the changed data to ParseChargeStation.chargeStnList
+    
+    func changeData() {
+        ParseChargeStation.shared.parseData { (data) in
             do {
                 let result = try JSONDecoder().decode([TempChargeStn].self, from: data)
+                ParseChargeStation.chargeStnList = ParseChargeStation.shared.changeChargeStationData(from: result)
                 
-                
-                // #2 Coordination 추가해서 ChargeStationModel로 변환
-                let newdata = ParseChargeStation.shared.changeChargeStationData(from: result)
-                
-                for i in 0..<newdata.count {
-                    print(#fileID, #function, #line, "- \(newdata[i].stnAddr)")
-                }
             } catch {
-                print(#fileID, #function, #line, "- \(error.localizedDescription)")
+                ProgressHUD.showFailed("Cannot fetch Data from Server.\n Please try again later.")
             }
         }
     }
     
     
-    // MARK: - Change ChargeStation Model
+    // MARK: - Change Data Type to ChargeStation Array
     
     private func changeChargeStationData(from originalData: [TempChargeStn]) -> [ChargeStation] {
         var stationList = [ChargeStation]()
-        var location = [0.0, 0.0]
         
         for i in 0..<originalData.count {
             let original = originalData[i]
