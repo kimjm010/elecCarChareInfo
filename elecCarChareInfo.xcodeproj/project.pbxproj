@@ -11,6 +11,7 @@
 		F522B78928A8D4E000054965 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F522B78828A8D4E000054965 /* MapKit.framework */; };
 		F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B78D28A9388D00054965 /* ChargeAnnotation.swift */; };
 		F522B79128A93AEB00054965 /* ChargeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */; };
+		F535C8EA28EAF32800BC03BB /* ParseChargeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F535C8E928EAF32800BC03BB /* ParseChargeStation.swift */; };
 		F540AF9C28BC408F00E08BA8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F540AF9B28BC408F00E08BA8 /* UIView+Extensions.swift */; };
 		F55F3AAE28B308B90008F6DB /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */; };
 		F56A2F7D28B84AB3004FD317 /* FirebaseCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */; };
@@ -29,7 +30,6 @@
 		F57F2B9128B45A8900A502F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */; };
 		F57F2B9528B4679700A502F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57F2B9428B4679700A502F7 /* LoginViewController.swift */; };
 		F57F2B9A28B469E600A502F7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57F2B9928B469E600A502F7 /* Constants.swift */; };
-		F5857ECD28B6247E00FB44A9 /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = F5857ECC28B6247D00FB44A9 /* data.csv */; };
 		F5857ED128B667EB00FB44A9 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */; };
 		F5857ED328B6680000FB44A9 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */; };
 		F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED428B6688200FB44A9 /* Date+Formatter.swift */; };
@@ -49,6 +49,7 @@
 		F522B78828A8D4E000054965 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F522B78D28A9388D00054965 /* ChargeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotation.swift; sourceTree = "<group>"; };
 		F522B79028A93AEB00054965 /* ChargeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeAnnotationView.swift; sourceTree = "<group>"; };
+		F535C8E928EAF32800BC03BB /* ParseChargeStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseChargeStation.swift; sourceTree = "<group>"; };
 		F540AF9B28BC408F00E08BA8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		F55F3AAD28B308B90008F6DB /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		F56A2F7C28B84AB3004FD317 /* FirebaseCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCommunity.swift; sourceTree = "<group>"; };
@@ -69,7 +70,6 @@
 		F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F57F2B9428B4679700A502F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F57F2B9928B469E600A502F7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F5857ECC28B6247D00FB44A9 /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
 		F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		F5857ED428B6688200FB44A9 /* Date+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatter.swift"; sourceTree = "<group>"; };
@@ -167,7 +167,6 @@
 				F56BA8C228A4DA2300515185 /* Assets.xcassets */,
 				F56BA8C728A4DA2300515185 /* Info.plist */,
 				F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */,
-				F5857ECC28B6247D00FB44A9 /* data.csv */,
 			);
 			path = elecCarChareInfo;
 			sourceTree = "<group>";
@@ -194,6 +193,7 @@
 				F56A2F7E28B84E84004FD317 /* Comment.swift */,
 				F5AF9E3428BF1BEB0090850C /* MarkedList.swift */,
 				F5AF9E3628BF22930090850C /* ChargeStation.swift */,
+				F535C8E928EAF32800BC03BB /* ParseChargeStation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,7 +307,6 @@
 			files = (
 				F56BA8C628A4DA2300515185 /* LaunchScreen.storyboard in Resources */,
 				F57F2B9128B45A8900A502F7 /* GoogleService-Info.plist in Resources */,
-				F5857ECD28B6247E00FB44A9 /* data.csv in Resources */,
 				F56BA8C328A4DA2300515185 /* Assets.xcassets in Resources */,
 				F56BA8C128A4DA2300515185 /* Main.storyboard in Resources */,
 			);
@@ -388,6 +387,7 @@
 				F57F2B9528B4679700A502F7 /* LoginViewController.swift in Sources */,
 				F56BA8E228A5ED5A00515185 /* User.swift in Sources */,
 				F5C4186328AA088600BFBD96 /* UIViewController+Alert.swift in Sources */,
+				F535C8EA28EAF32800BC03BB /* ParseChargeStation.swift in Sources */,
 				F570E31A28B4A99700E98B68 /* FirebaseUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

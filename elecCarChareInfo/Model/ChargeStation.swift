@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import ProgressHUD
 
 
 struct ChargeStation: Codable {

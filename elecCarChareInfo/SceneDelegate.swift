@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import ProgressHUD
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -25,6 +26,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         autoLogin()
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        ParseChargeStation.shared.tempChangeData()
+        
+        
+//        ParseChargeStation.shared.parseData { (data) in
+//            
+//            print(#fileID, #function, #line, "- \(data)")
+//            do {
+//                let result = try JSONDecoder().decode(ChargeStation.self, from: data)
+//            } catch {
+//                ProgressHUD.showFailed("Unable to fetch charge information data from server.\n Please try it again.")
+//            }
+//        }
     }
 
     

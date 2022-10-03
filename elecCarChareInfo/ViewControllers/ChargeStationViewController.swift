@@ -74,7 +74,6 @@ class ChargeStationViewController: UIViewController {
         
         initializeData()
         goToCurrentLocation()
-        checkLocationAuth()
         initializeMapView()
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
@@ -116,8 +115,6 @@ class ChargeStationViewController: UIViewController {
     
     private func goToCurrentLocation() {
         
-        checkLocationAuth()
-        
         guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
         let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
         mapView.setRegion(region, animated: true)
@@ -151,6 +148,32 @@ class ChargeStationViewController: UIViewController {
     }
     
     
+    // MARK: - Convert Placemark into Coordinate
+    
+    /// 주소를 Coordinate 객체로 변환하는 메소드
+    /// - Parameters:
+    ///   - addressString: 변환할 주소
+    ///   - completion: 변환 성공 시 (CLLocationCoordinate2D, NSError?)을 담은 completion handler가 호출됨
+    private func getCoordinate(_ addressString: String, completion: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+            if error == nil {
+                
+                if let placemark = placemarks?[0] {
+                    let location = placemark.location!
+                    
+                    completion(location.coordinate, nil)
+                    return
+                }
+            }
+            
+            print(#fileID, #function, #line, "- \(error?.localizedDescription)")
+            
+            completion(kCLLocationCoordinate2DInvalid, error as NSError?)
+        }
+    }
+    
+    
     // MARK: - Annotation Views
     
     /// 지도에서 사용할 annotation View 타입을 등록합니다.
@@ -177,30 +200,6 @@ class ChargeStationViewController: UIViewController {
         }
         
         mapView.addAnnotations(annotations)
-    }
-    
-    
-    // MARK: - Convert Placemark into Coordinate
-    
-    /// 주소를 Coordinate 객체로 변환하는 메소드
-    /// - Parameters:
-    ///   - addressString: 변환할 주소
-    ///   - completion: 변환 성공 시 (CLLocationCoordinate2D, NSError?)을 담은 completion handler가 호출됨
-    private func getCoordinate(_ addressString: String, completion: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
-            if error == nil {
-                
-                if let placemark = placemarks?[0] {
-                    let location = placemark.location!
-                    
-                    completion(location.coordinate, nil)
-                    return
-                }
-            }
-            
-            completion(kCLLocationCoordinate2DInvalid, error as NSError?)
-        }
     }
     
     
@@ -278,25 +277,10 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
             updateLocation()
         default:
             alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { _ in
-                if CLLocationManager.locationServicesEnabled() {
-                    let status: CLAuthorizationStatus
-                    status = self.locationManager.authorizationStatus
-                    
-                    switch status {
-                    case .notDetermined:
-                        self.locationManager.requestWhenInUseAuthorization()
-                    case .restricted, .denied:
-                        print(#function, #file, #line, "여기서 에러 발생이여")
-                        self.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                                               message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                                               completion: nil)
-                    case .authorizedAlways, .authorizedWhenInUse:
-                        self.updateLocation()
-                    default:
-                        break
-                    }
-                }
+                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { [weak self] _ in
+                guard let self = self else { return }
+                print(#fileID, #function, #line, "- ")
+                self.checkLocationAuth()
             }
         }
     }
