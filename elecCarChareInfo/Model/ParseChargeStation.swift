@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 import ProgressHUD
 import CoreLocation
+import Combine
 
 
 struct ServerChargeStation: Codable {
@@ -22,12 +23,17 @@ struct ServerChargeStation: Codable {
 }
 
 
-class ParseChargeStation {
+class ParseChargeStation : ObservableObject {
     static let shared = ParseChargeStation()
     private init() { }
     
     // Charge Station List
-    static var chargeStnList = [LocalChargeStation]()
+//    static var chargeStnList = [LocalChargeStation]()
+    
+//    @Published
+    
+    // Rx에서 BehaviorSubject, BehaviorRelay
+    var chargeStnList = CurrentValueSubject<[LocalChargeStation], Never>([])
     
     private let urlStr = "https://eleccar-charge-station.herokuapp.com/data"
     
@@ -55,19 +61,30 @@ class ParseChargeStation {
             
             do {
                 let result = try JSONDecoder().decode([ServerChargeStation].self, from: data)
-                ParseChargeStation.chargeStnList = ParseChargeStation.shared.changeChargeStationData(from: result)
+//                ParseChargeStation.chargeStnList = ParseChargeStation.shared.changeChargeStationData(from: result)
+                let fetchedLocalCargeStations : [LocalChargeStation] = ParseChargeStation.shared.changeChargeStationData(from: result)
                 
-                for i in 0..<ParseChargeStation.chargeStnList.count {
-                    self.getCoordinate(ParseChargeStation.chargeStnList[i].stnAddr) { (location, error) in
-                        ParseChargeStation.chargeStnList[i].coordinate = [location.latitude, location.longitude]
-                        
-                        #if DEBUG
-                        print(#fileID, #function, #line, "- \(ParseChargeStation.chargeStnList[i].coordinate) \(ParseChargeStation.chargeStnList[i].stnAddr)")
-                        #endif
-                    }
-                }
+                //
                 
-                print(#fileID, #function, #line, "- \(ParseChargeStation.chargeStnList.count)")
+                self.addCoordicatesToArray(to: fetchedLocalCargeStations, allDone: { [weak self] in
+                    // 완성된 데이터 보내기
+                    self?.chargeStnList.send($0)
+                })
+                
+//                var finishLocalStations = fetchedLocalCargeStations
+//
+//                for (index, aStation) in fetchedLocalCargeStations.enumerated() {
+//
+//                    self.getCoordinate(aStation.stnAddr) { (location, error) in
+//                        finishLocalStations[index].coordinate = [location.latitude, location.longitude]
+//                        #if DEBUG
+//                        print(#fileID, #function, #line, "- \(finishLocalStations[index].coordinate) \(finishLocalStations[index].stnAddr)")
+//                        #endif
+//                        // 완성된 데이터 보내기
+//                        self.chargeStnList.send(finishLocalStations)
+//                    }
+//                }
+                print(#fileID, #function, #line, "- \(self.chargeStnList.value.count)")
             } catch {
                 ProgressHUD.showFailed("Cannot fetch Data from Server.\n Please try again later.")
             }
@@ -76,6 +93,10 @@ class ParseChargeStation {
     
     
     // MARK: - Change Data Type to ChargeStation Array
+    
+    
+    
+    
     
     private func changeChargeStationData(from originalData: [ServerChargeStation]) -> [LocalChargeStation] {
         var stationList = [LocalChargeStation]()
@@ -96,6 +117,35 @@ class ParseChargeStation {
     
     
     // MARK: - Convert Placemark into Coordinate
+    
+    
+    private func addCoordicatesToArray(to array: [LocalChargeStation], allDone: (([LocalChargeStation]) -> Void)? = nil) {
+        
+        var tempArray = array
+        
+        var finishedArray : [LocalChargeStation] = []
+        
+        for (index, aStation) in array.enumerated() {
+            
+            self.getCoordinate(aStation.stnAddr) { (location, error) in
+                tempArray[index].coordinate = [location.latitude, location.longitude]
+                
+                #if DEBUG
+                print(#fileID, #function, #line, "- \(tempArray[index].coordinate) \(tempArray[index].stnAddr)")
+                #endif
+                
+                // 하나에 대한 데이터 완성됨
+                finishedArray.append(tempArray[index])
+                
+                // 모든 데이터가 준비되면 알리기
+                if finishedArray.count == array.count {
+                   allDone?(finishedArray)
+                }
+            }
+            #warning("TODO : - 모든 데이터 준비되면 알리기")
+        }
+    }
+    
     
     /// 주소를 Coordinate 객체로 변환하는 메소드
     /// - Parameters:
