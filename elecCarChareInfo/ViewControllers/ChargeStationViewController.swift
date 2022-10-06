@@ -22,7 +22,7 @@ class ChargeStationViewController: UIViewController {
     
     // MARK: - Vars
     
-    private var selectedChargeStation: ChargeStation?
+    private var selectedChargeStation: LocalChargeStation?
     private var selectedAnnotation: MKAnnotation?
     private var calculatedDistance: Double = 0.0
     private var userLocation: CLLocationCoordinate2D?
@@ -53,9 +53,8 @@ class ChargeStationViewController: UIViewController {
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
-        
-        print(#fileID, #function, #line, "- ")
-        #warning("Todo: - Navigation 스택에 없는 경우 화면 전환")
+
+        navigationController?.pushViewController(searchVC, animated: true)
     }
     
     
@@ -70,7 +69,13 @@ class ChargeStationViewController: UIViewController {
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
         updateBtnUI()
-        addCoordinateToChargeStnlist()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(#fileID, #function, #line, "- \(ParseChargeStation.chargeStnList)")
     }
     
     
@@ -105,7 +110,9 @@ class ChargeStationViewController: UIViewController {
     private func goToCurrentLocation() {
         
         guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
-        let region = MKCoordinateRegion(center: initCntrCoordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        let region = MKCoordinateRegion(center: initCntrCoordinate,
+                                        latitudinalMeters: 5000,
+                                        longitudinalMeters: 5000)
         mapView.setRegion(region, animated: true)
     }
     
@@ -122,7 +129,6 @@ class ChargeStationViewController: UIViewController {
             case .notDetermined:
                 self.locationManager.requestWhenInUseAuthorization()
             case .restricted, .denied:
-                print(#function, #file, #line, "여기서 에러 발생이여")
                 self.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
                                        message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
                                        completion: nil)
@@ -135,56 +141,34 @@ class ChargeStationViewController: UIViewController {
     }
     
     
-    // MARK: - Add Coordinate Data to ParseChargeStation.chargeStnList
-    
-    private func addCoordinateToChargeStnlist() {
-        for i in 0..<ParseChargeStation.chargeStnList.count {
-            var data = ParseChargeStation.chargeStnList[i]
-            getCoordinate(data.stnAddr) { (location, error) in
-                if error != nil {
-                    data.coordinate = [location.latitude, location.longitude]
-                }
-            }
-            
-            #warning("Todo: - 데이터가 nil이다 확인할 것")
-//            print(#fileID, #function, #line, "- \(ParseChargeStation.chargeStnList[i].coordinate)")
-        }
-    }
-    
-    
-    // MARK: - Convert Placemark into Coordinate
-    
-    /// 주소를 Coordinate 객체로 변환하는 메소드
-    /// - Parameters:
-    ///   - addressString: 변환할 주소
-    ///   - completion: 변환 성공 시 (CLLocationCoordinate2D, NSError?)을 담은 completion handler가 호출됨
-    private func getCoordinate(_ addressString: String, completion: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
-            if error == nil {
-                
-                if let placemark = placemarks?[0] {
-                    let location = placemark.location!
-                    
-                    completion(location.coordinate, nil)
-                    print(#fileID, #function, #line, "- \(location.coordinate.latitude) \(location.coordinate.longitude)")
-                    return
-                }
-            }
-            
-            
-            completion(kCLLocationCoordinate2DInvalid, error as NSError?)
-        }
-    }
-    
-    
     // MARK: - Annotation Views
     
     /// 지도에서 사용할 annotation View 타입을 등록합니다.
     private func registerMapAnnotationViews() {
-        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
+        mapView.register(MKAnnotationView.self,
+                         forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
         
-        let annotations: [ChargeAnnotation] = ParseChargeStation.chargeStnList.map { (charge) in
+//        let annotations: [ChargeAnnotation] = ParseChargeStation.chargeStnList.map { (charge) in
+//            guard let coordinates = charge.coordinate else {
+//                return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+//                                        id: charge.id,
+//                                        title: charge.stnPlace,
+//                                        subtitle: charge.stnAddr,
+//                                        city: charge.city,
+//                                        rapidCnt: charge.rapidCnt,
+//                                        slowCnt: charge.slowCnt)
+//            }
+//            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0],
+//                                                                       longitude: coordinates[1]),
+//                                    id: charge.id,
+//                                    title: charge.stnPlace,
+//                                    subtitle: charge.stnAddr,
+//                                    city: charge.city,
+//                                    rapidCnt: charge.rapidCnt,
+//                                    slowCnt: charge.slowCnt)
+//        }
+        
+        let annotations: [ChargeAnnotation] = dummyChargeStationData.map { (charge) in
             guard let coordinates = charge.coordinate else {
                 return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
                                         id: charge.id,
@@ -194,7 +178,8 @@ class ChargeStationViewController: UIViewController {
                                         rapidCnt: charge.rapidCnt,
                                         slowCnt: charge.slowCnt)
             }
-            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0], longitude: coordinates[1]),
+            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0],
+                                                                       longitude: coordinates[1]),
                                     id: charge.id,
                                     title: charge.stnPlace,
                                     subtitle: charge.stnAddr,
@@ -358,20 +343,15 @@ extension ChargeStationViewController: MKMapViewDelegate {
         }
         
         var annotationView: MKAnnotationView?
-        
+
         // TODO: mapView에 비슷한 위치에 있는 충전소는 갯수로 표시하기
-        
+
         if let annotation = annotation as? MKClusterAnnotation {
-            
-            
-            
-            
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier, for: annotation) as! MKMarkerAnnotationView
-            
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier,
+                                                             for: annotation) as! MKMarkerAnnotationView
+
             view.markerTintColor = UIColor.systemBlue
         }
-        
-        
         
         if let annotation = annotation as? ChargeAnnotation {
             annotationView = setupChargeStnAnnotationView(for: annotation, on: mapView)
@@ -387,9 +367,11 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - annotation: annotation
     ///   - mapView: annotation 표시할 mapView
     /// - Returns: annotationView
-    private func setupChargeStnAnnotationView(for annotation: ChargeAnnotation, on mapView: MKMapView) -> MKAnnotationView {
+    private func setupChargeStnAnnotationView(for annotation: ChargeAnnotation,
+                                              on mapView: MKMapView) -> MKAnnotationView {
         let reuseIdentifier = NSStringFromClass(ChargeAnnotation.self)
-        let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
+        let view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier,
+                                                         for: annotation)
         
         let image = #imageLiteral(resourceName: "chargeStn")
         view.image = image
@@ -409,7 +391,8 @@ extension ChargeStationViewController: MKMapViewDelegate {
     ///   - mapView: annotation View가 표시된 mapView
     ///   - view: callout의 annotation View
     ///   - control: tap 이벤트가 발생한 컨트롤
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
         if let annotation = view.annotation, annotation.isKind(of: ChargeAnnotation.self) {
             
             if let chargeAnnotation = annotation as? ChargeAnnotation {
@@ -419,13 +402,14 @@ extension ChargeStationViewController: MKMapViewDelegate {
                       let rapidCnt = chargeAnnotation.rapidCnt,
                       let slowCnt = chargeAnnotation.slowCnt else { return }
                 selectedAnnotation = chargeAnnotation
-                selectedChargeStation = ChargeStation(id: chargeAnnotation.id,
+                selectedChargeStation = LocalChargeStation(id: chargeAnnotation.id,
                                                       city: city,
                                                       stnPlace: stnPlace,
                                                       stnAddr: stnAddr,
                                                       rapidCnt: rapidCnt,
                                                       slowCnt: slowCnt,
-                                                      coordinate: [chargeAnnotation.coordinate.latitude, chargeAnnotation.coordinate.longitude])
+                                                      coordinate: [chargeAnnotation.coordinate.latitude,
+                                                                   chargeAnnotation.coordinate.longitude])
             }
             
             if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoViewController") as? ChargeStnInfoViewController {

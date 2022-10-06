@@ -5,9 +5,10 @@
 //  Created by Chris Kim on 8/31/22.
 //
 
+import FirebaseFirestoreSwift
+import ProgressHUD
 import Foundation
 import Firebase
-import FirebaseFirestoreSwift
 
 
 struct MarkedList: Codable {
@@ -27,9 +28,7 @@ struct MarkedList: Codable {
                     let userObject = try decoder.decode(User.self, from: dictionary)
                     return userObject
                 } catch {
-                    #if DEBUG
-                    print("UserDefaults에서 유저 디코딩 중 에럽 발생", #function, error.localizedDescription)
-                    #endif
+                    ProgressHUD.showFailed("Error occurred while decoding from User Defaults.\n Please try application later.")
                 }
             }
         }

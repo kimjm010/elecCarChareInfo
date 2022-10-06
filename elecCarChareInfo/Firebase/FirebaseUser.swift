@@ -5,9 +5,10 @@
 //  Created by Chris Kim on 8/23/22.
 //
 
-import Foundation
-import Firebase
 import ProgressHUD
+import Foundation
+import ProgressHUD
+import Firebase
 
 
 class FirebaseUser {
@@ -33,10 +34,6 @@ class FirebaseUser {
                 completion(error, true)
             } else {
                 ProgressHUD.showFailed("인증되지 않은 이메일입니다.")
-                #if DEBUG
-                print(error?.localizedDescription)
-                completion(error, false)
-                #endif
             }
         }
     }
@@ -59,9 +56,7 @@ class FirebaseUser {
             if errror == nil {
                 // verification email 전송
                 authDataResult!.user.sendEmailVerification { (error) in
-                    #if DEBUG
-                    print("확인 이메일 전송 에러: ", errror?.localizedDescription)
-                    #endif
+                    ProgressHUD.showFailed("Error occurred while checking you email address.\n Please try it again later.")
                 }
                 
                 // User 객체 생성
@@ -106,7 +101,7 @@ class FirebaseUser {
         do {
             try FirebaseReference(.user).document(user.id).setData(from: user)
         } catch {
-            print(error.localizedDescription, "파이어 스토어에 유저 저장시 에러 발생!!")
+            ProgressHUD.showFailed("Unable to save user account.\n Please try it again later.\n \(error.localizedDescription)")
         }
     }
     
@@ -127,10 +122,7 @@ class FirebaseUser {
     func downloadUserFromFirebase(userId: String, email: String? = nil) {
         FirebaseReference(.user).document(userId).getDocument { (querySnapshot, error) in
             guard let document = querySnapshot else {
-                ProgressHUD.showFailed("존재하지 않는 이메일입니다.")
-                #if DEBUG
-                print("document가 존재하지 않습니다. 111", error?.localizedDescription)
-                #endif
+                ProgressHUD.showFailed("There is no saved account.\n Please register.")
                 return
             }
             
@@ -143,12 +135,10 @@ class FirebaseUser {
                 if let user = userObject {
                     saveUserLocally(user)
                 } else {
-                    print("Document가 존재하지 않습니다.222", error?.localizedDescription)
+                    ProgressHUD.showFailed("There is no saved account.\n Please register.")
                 }
             case .failure(let error):
-                #if DEBUG
-                print("User 디코딩 중 에러 발생", error.localizedDescription)
-                #endif
+                ProgressHUD.showFailed("Error occurred while checking user account.\n Please try it again later.")
             }
         }
     }

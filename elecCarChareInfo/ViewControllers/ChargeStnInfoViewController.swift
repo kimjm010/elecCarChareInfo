@@ -29,7 +29,7 @@ class ChargeStnInfoViewController: UIViewController {
     
     // MARK: - Vars
     
-    var chargeStn: ChargeStation?
+    var chargeStn: LocalChargeStation?
     var annotation: MKAnnotation?
     var calculatedDistance: Double?
     var userLocation: CLLocationCoordinate2D?
@@ -145,8 +145,8 @@ class ChargeStnInfoViewController: UIViewController {
                 return
             }
             
-            let allMakredStations = document.compactMap { (queryDocumentSnapshot) -> ChargeStation? in
-                return try? queryDocumentSnapshot.data(as: ChargeStation.self)
+            let allMakredStations = document.compactMap { (queryDocumentSnapshot) -> LocalChargeStation? in
+                return try? queryDocumentSnapshot.data(as: LocalChargeStation.self)
             }
             
             guard let chargeStn = self.chargeStn else {
