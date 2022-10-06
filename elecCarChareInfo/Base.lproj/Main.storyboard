@@ -433,7 +433,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     </mapView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNT-Pz-OGD">
-                                        <rect key="frame" x="20" y="60" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="50" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="bHJ-HN-HNZ"/>
@@ -449,7 +449,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fYl-zC-NTB" secondAttribute="trailing" id="C5U-6m-4SV"/>
-                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="60" id="HDU-SP-WKN"/>
+                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="50" id="HDU-SP-WKN"/>
                                     <constraint firstItem="UNT-Pz-OGD" firstAttribute="leading" secondItem="dMD-ae-g79" secondAttribute="leading" constant="20" symbolic="YES" id="Ldb-vj-quz"/>
                                     <constraint firstItem="fYl-zC-NTB" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" id="RZ7-jG-ydD"/>
                                     <constraint firstAttribute="trailing" secondItem="UNT-Pz-OGD" secondAttribute="trailing" constant="20" symbolic="YES" id="ahf-Fm-9yC"/>

@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Combine
 
 
-#warning("Todo: - search 결과 place + addr 인것 같으니 확인 할 것")
+#warning("Todo: - 필터링 기능 버그 있어요. 첫번째 데이터만 나오네요")
 class SearchTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -19,6 +20,8 @@ class SearchTableViewController: UITableViewController {
     // MARK: - Vars
     
     var filteredList = [LocalChargeStation]()
+    
+    var stationList = [LocalChargeStation]()
     
     var searchController = UISearchController(searchResultsController: nil)
     
@@ -32,6 +35,8 @@ class SearchTableViewController: UITableViewController {
         return searchController.isActive && !(isSearchBarEmpty)
     }
     
+    var subscriptions = Set<AnyCancellable>()
+    
     
     // MARK: - View Life Cycle
     
@@ -40,10 +45,13 @@ class SearchTableViewController: UITableViewController {
         
         setupSearchController()
         
-        for i in 0..<ParseChargeStation.chargeStnList.count {
-            let stn = ParseChargeStation.chargeStnList[i]
-            print(#fileID, #function, #line, "- \(stn.coordinate)")
-        }
+        ParseChargeStation.shared.chargeStnList
+            .filter{ $0.count > 0 }
+            .receive(on: DispatchQueue.main)
+            .sink { (updatedLocalStations: [LocalChargeStation]) in
+                self.stationList = updatedLocalStations
+            }
+            .store(in: &subscriptions)
     }
     
     
@@ -60,7 +68,7 @@ class SearchTableViewController: UITableViewController {
     
     
     private func filterContentForSearchText(_ searchText: String) {
-        filteredList = ParseChargeStation.chargeStnList.filter { (chargeStn) -> Bool in
+        filteredList = stationList.filter { (chargeStn) -> Bool in
             return chargeStn.stnPlace.lowercased().contains(searchText.lowercased())
         }
         
@@ -75,7 +83,7 @@ class SearchTableViewController: UITableViewController {
             return filteredList.count
         }
         
-        return ParseChargeStation.chargeStnList.count
+        return stationList.count
     }
 
     
@@ -88,7 +96,7 @@ class SearchTableViewController: UITableViewController {
             target = filteredList[indexPath.row]
         }
         
-        target = ParseChargeStation.chargeStnList[indexPath.row]
+        target = stationList[indexPath.row]
         
         cell.textLabel?.text = target.stnPlace
         cell.detailTextLabel?.text = target.stnAddr

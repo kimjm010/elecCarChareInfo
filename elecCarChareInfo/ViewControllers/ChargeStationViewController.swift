@@ -10,6 +10,7 @@ import CoreLocation
 import MapKit
 import FirebaseDatabase
 import FirebaseAuth
+import Combine
 
 
 class ChargeStationViewController: UIViewController {
@@ -38,6 +39,8 @@ class ChargeStationViewController: UIViewController {
         m.delegate = self
         return m
     }()
+    
+    var subscriptions = Set<AnyCancellable>()
     
     
     // MARK: - IBActions
@@ -69,13 +72,27 @@ class ChargeStationViewController: UIViewController {
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
         updateBtnUI()
+        
+        ParseChargeStation.shared.chargeStnList
+            .filter{ $0.count > 0 }
+            .receive(on: DispatchQueue.main)
+            .sink { (updatedLocalStations: [LocalChargeStation]) in
+                print("updatedLocalStations: \(updatedLocalStations.count)")
+                self.setMarkers(updatedLocalStations)
+            }
+            .store(in: &subscriptions)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print(#fileID, #function, #line, "- \(ParseChargeStation.chargeStnList)")
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     
@@ -141,34 +158,24 @@ class ChargeStationViewController: UIViewController {
     }
     
     
+    
+    
     // MARK: - Annotation Views
     
     /// 지도에서 사용할 annotation View 타입을 등록합니다.
     private func registerMapAnnotationViews() {
         mapView.register(MKAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
+    }
+    
+    
+    // MARK: - Set Markers to Map View
+    
+    /// 맵에 마커를 찍는다
+    /// - Parameter markerPoints: 찍을 마킹 포인트들
+    private func setMarkers(_ markerPoints : [LocalChargeStation]){
         
-//        let annotations: [ChargeAnnotation] = ParseChargeStation.chargeStnList.map { (charge) in
-//            guard let coordinates = charge.coordinate else {
-//                return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-//                                        id: charge.id,
-//                                        title: charge.stnPlace,
-//                                        subtitle: charge.stnAddr,
-//                                        city: charge.city,
-//                                        rapidCnt: charge.rapidCnt,
-//                                        slowCnt: charge.slowCnt)
-//            }
-//            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0],
-//                                                                       longitude: coordinates[1]),
-//                                    id: charge.id,
-//                                    title: charge.stnPlace,
-//                                    subtitle: charge.stnAddr,
-//                                    city: charge.city,
-//                                    rapidCnt: charge.rapidCnt,
-//                                    slowCnt: charge.slowCnt)
-//        }
-        
-        let annotations: [ChargeAnnotation] = dummyChargeStationData.map { (charge) in
+        let annotations: [ChargeAnnotation] = markerPoints.map { (charge) in
             guard let coordinates = charge.coordinate else {
                 return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
                                         id: charge.id,
