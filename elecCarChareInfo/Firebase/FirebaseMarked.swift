@@ -19,13 +19,11 @@ class FirebaseMarked {
     // MARK: - Add Marked
     
     func saveChargeStationToFirebase(user: User,
-                                     station: ChargeStation) {
+                                     station: LocalChargeStation) {
         do {
             try FirebaseReference(.marked).document(station.id).setData(from: station)
         } catch {
-            #if DEBUG
-            print(error.localizedDescription, "파이어 스토어에 즐겨찾기 저장 시 에러 발생!")
-            #endif
+            ProgressHUD.showFailed("Unable to save Charge Station into your marked list.\n Please try it again later.")
         }
     }
     
@@ -42,7 +40,7 @@ class FirebaseMarked {
                                completion: @escaping (_ error: Error?) -> Void) {
         guard let user = User.currentUser else { return }
         
-        let chargeStation = ChargeStation(id: UUID().uuidString,
+        let chargeStation = LocalChargeStation(id: UUID().uuidString,
                                           email: email,
                                           city: city,
                                           stnPlace: stnPlace,

@@ -5,9 +5,10 @@
 //  Created by Chris Kim on 8/12/22.
 //
 
+import FirebaseFirestoreSwift
+import ProgressHUD
 import Foundation
 import Firebase
-import FirebaseFirestoreSwift
 
 
 struct User: Codable, Equatable {
@@ -30,9 +31,7 @@ struct User: Codable, Equatable {
                     let userObject = try decoder.decode(User.self, from: dictionary)
                     return userObject
                 } catch {
-                    #if DEBUG
-                    print("User Defaults에서 유저 디코딩 중 에러 발생했습니다", #function, error.localizedDescription)
-                    #endif
+                    ProgressHUD.showFailed("Error occurred while decoding from User Defaults.\n Please try application later.")
                 }
             }
         }

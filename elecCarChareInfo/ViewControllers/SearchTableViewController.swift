@@ -18,8 +18,10 @@ class SearchTableViewController: UITableViewController {
     
     // MARK: - Vars
     
-    var filteredList = [ChargeStation]()
+    var filteredList = [LocalChargeStation]()
+    
     var searchController = UISearchController(searchResultsController: nil)
+    
     var cachedText: String?
     
     var isSearchBarEmpty: Bool {
@@ -37,6 +39,11 @@ class SearchTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupSearchController()
+        
+        for i in 0..<ParseChargeStation.chargeStnList.count {
+            let stn = ParseChargeStation.chargeStnList[i]
+            print(#fileID, #function, #line, "- \(stn.coordinate)")
+        }
     }
     
     
@@ -75,7 +82,7 @@ class SearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        var target: ChargeStation
+        var target: LocalChargeStation
         
         if isFiltering {
             target = filteredList[indexPath.row]

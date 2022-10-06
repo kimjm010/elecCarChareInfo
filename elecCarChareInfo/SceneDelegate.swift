@@ -23,21 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions)  {
+        ParseChargeStation.shared.changeData()
         autoLogin()
         guard let _ = (scene as? UIWindowScene) else { return }
-        
-        ParseChargeStation.shared.changeData()
-        
-        
-//        ParseChargeStation.shared.parseData { (data) in
-//            
-//            print(#fileID, #function, #line, "- \(data)")
-//            do {
-//                let result = try JSONDecoder().decode(ChargeStation.self, from: data)
-//            } catch {
-//                ProgressHUD.showFailed("Unable to fetch charge information data from server.\n Please try it again.")
-//            }
-//        }
     }
 
     

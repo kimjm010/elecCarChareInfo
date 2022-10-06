@@ -5,13 +5,13 @@
 //  Created by Chris Kim on 8/31/22.
 //
 
-import Foundation
-import Firebase
 import FirebaseFirestoreSwift
 import ProgressHUD
+import Foundation
+import Firebase
 
 
-struct ChargeStation: Codable {
+struct LocalChargeStation: Codable {
     
     var id: String
     var email: String?
@@ -38,9 +38,7 @@ struct ChargeStation: Codable {
                     let userObject = try decoder.decode(User.self, from: dictionary)
                     return userObject
                 } catch {
-                    #if DEBUG
-                    print("User Defuaults에서 유저 디코딩 중 에러 발생", #function, error.localizedDescription)
-                    #endif
+                    ProgressHUD.showFailed("Error occurred while decoding from User Defaults.\n Please try application later.")
                 }
             }
         }

@@ -5,6 +5,7 @@
 //  Created by Chris Kim on 8/26/22.
 //
 
+import ProgressHUD
 import Foundation
 import Firebase
 
@@ -22,9 +23,7 @@ class FirebaseCommunity {
         do {
             try FirebaseReference(.comment).document(comment.id).setData(from: comment)
         } catch {
-            #if DEBUG
-            print(error.localizedDescription, "파이어 스토어에 Comment 저장 시 에러 발생!!")
-            #endif
+            ProgressHUD.showFailed("Unable to save comment into app community.\n Please try it again later.")
         }
     }
     
