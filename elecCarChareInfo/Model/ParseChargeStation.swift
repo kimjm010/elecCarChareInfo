@@ -5,11 +5,11 @@
 //  Created by Chris Kim on 10/3/22.
 //
 
-import Foundation
-import Alamofire
-import ProgressHUD
 import CoreLocation
-import Combine
+import NSObject_Rx
+import RxAlamofire
+import ProgressHUD
+import RxSwift
 
 
 struct ServerChargeStation: Codable {
@@ -23,68 +23,53 @@ struct ServerChargeStation: Codable {
 }
 
 
+enum APIError: Error {
+    case badResponse
+}
+
+
 class ParseChargeStation : ObservableObject {
     static let shared = ParseChargeStation()
     private init() { }
     
-    // Charge Station List
-//    static var chargeStnList = [LocalChargeStation]()
+    // MARK: - Vars
     
-//    @Published
-    
-    // Rx에서 BehaviorSubject, BehaviorRelay
-    var chargeStnList = CurrentValueSubject<[LocalChargeStation], Never>([])
+    var chargeStnListObservable = BehaviorSubject<[LocalChargeStation]>(value: [])
     
     private let urlStr = "https://eleccar-charge-station.herokuapp.com/data"
     
-    // MARK: - Parse data From Server
+    let disposeBag = DisposeBag()
     
-    func parseData(completion: @escaping (_ result: Data) -> Void) {
-        
-        AF.request(urlStr).response { (response) in
-            switch response.result {
-            case .success(let data):
-                completion(data!)
-            case .failure(let error):
-                ProgressHUD.showFailed("Fail to parse data From server.\n Please try it again.\n \(error.localizedDescription)")
-                print(#fileID, #function, #line, "- \(error.localizedDescription)")
-            }
-        }
+    
+    // MARK: - Parse data From Server
+
+    func rxParseData(completion: @escaping (_ ressult: Data) -> Void) {
+        RxAlamofire.requestData(.get, urlStr)
+            .map { $1 }
+            .subscribe(onNext: {
+                completion($0)
+            })
+            .disposed(by: disposeBag)
     }
     
     
     // MARK: - Store the changed data to ParseChargeStation.chargeStnList
     
     func changeData() {
-        ParseChargeStation.shared.parseData { [weak self] (data) in
+        
+        ParseChargeStation.shared.rxParseData { [weak self] (data) in
             guard let self = self else { return }
             
             do {
                 let result = try JSONDecoder().decode([ServerChargeStation].self, from: data)
-//                ParseChargeStation.chargeStnList = ParseChargeStation.shared.changeChargeStationData(from: result)
+                
                 let fetchedLocalCargeStations : [LocalChargeStation] = ParseChargeStation.shared.changeChargeStationData(from: result)
                 
-                //
-                
-                self.addCoordicatesToArray(to: fetchedLocalCargeStations, allDone: { [weak self] in
-                    // 완성된 데이터 보내기
-                    self?.chargeStnList.send($0)
-                })
-                
-//                var finishLocalStations = fetchedLocalCargeStations
-//
-//                for (index, aStation) in fetchedLocalCargeStations.enumerated() {
-//
-//                    self.getCoordinate(aStation.stnAddr) { (location, error) in
-//                        finishLocalStations[index].coordinate = [location.latitude, location.longitude]
-//                        #if DEBUG
-//                        print(#fileID, #function, #line, "- \(finishLocalStations[index].coordinate) \(finishLocalStations[index].stnAddr)")
-//                        #endif
-//                        // 완성된 데이터 보내기
-//                        self.chargeStnList.send(finishLocalStations)
-//                    }
-//                }
-                print(#fileID, #function, #line, "- \(self.chargeStnList.value.count)")
+                self.addCoordinatesToArray(to: fetchedLocalCargeStations) { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.chargeStnListObservable.onNext($0)
+                }
             } catch {
                 ProgressHUD.showFailed("Cannot fetch Data from Server.\n Please try again later.")
             }
@@ -93,10 +78,6 @@ class ParseChargeStation : ObservableObject {
     
     
     // MARK: - Change Data Type to ChargeStation Array
-    
-    
-    
-    
     
     private func changeChargeStationData(from originalData: [ServerChargeStation]) -> [LocalChargeStation] {
         var stationList = [LocalChargeStation]()
@@ -118,8 +99,11 @@ class ParseChargeStation : ObservableObject {
     
     // MARK: - Convert Placemark into Coordinate
     
-    
-    private func addCoordicatesToArray(to array: [LocalChargeStation], allDone: (([LocalChargeStation]) -> Void)? = nil) {
+    /// 전기차 충전소 배열에 위치 정보 추가
+    /// - Parameters:
+    ///   - array: 전기차 충전소 배열
+    ///   - allDone: 위치 정보 추가 후 실행할 코드
+    private func addCoordinatesToArray(to array: [LocalChargeStation], allDone: (([LocalChargeStation]) -> Void)? = nil) {
         
         var tempArray = array
         
@@ -130,10 +114,6 @@ class ParseChargeStation : ObservableObject {
             self.getCoordinate(aStation.stnAddr) { (location, error) in
                 tempArray[index].coordinate = [location.latitude, location.longitude]
                 
-                #if DEBUG
-                print(#fileID, #function, #line, "- \(tempArray[index].coordinate) \(tempArray[index].stnAddr)")
-                #endif
-                
                 // 하나에 대한 데이터 완성됨
                 finishedArray.append(tempArray[index])
                 
@@ -142,7 +122,6 @@ class ParseChargeStation : ObservableObject {
                    allDone?(finishedArray)
                 }
             }
-            #warning("TODO : - 모든 데이터 준비되면 알리기")
         }
     }
     

@@ -5,8 +5,9 @@
 //  Created by Chris Kim on 8/22/22.
 //
 
+import NSObject_Rx
+import RxSwift
 import UIKit
-import Combine
 
 
 #warning("Todo: - 필터링 기능 버그 있어요. 첫번째 데이터만 나오네요")
@@ -35,8 +36,6 @@ class SearchTableViewController: UITableViewController {
         return searchController.isActive && !(isSearchBarEmpty)
     }
     
-    var subscriptions = Set<AnyCancellable>()
-    
     
     // MARK: - View Life Cycle
     
@@ -45,19 +44,20 @@ class SearchTableViewController: UITableViewController {
         
         setupSearchController()
         
-        ParseChargeStation.shared.chargeStnList
-            .filter{ $0.count > 0 }
-            .receive(on: DispatchQueue.main)
-            .sink { (updatedLocalStations: [LocalChargeStation]) in
-                self.stationList = updatedLocalStations
-            }
-            .store(in: &subscriptions)
+        ParseChargeStation.shared.chargeStnListObservable
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                self.stationList = $0
+            })
+            .disposed(by: rx.disposeBag)
     }
     
     
     // MARK: - Setup
     
-    /// searchController 초기화
+    /// Initialize Search Controller
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
@@ -103,6 +103,11 @@ class SearchTableViewController: UITableViewController {
 
         return cell
     }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 
@@ -113,6 +118,7 @@ class SearchTableViewController: UITableViewController {
 extension SearchTableViewController: UISearchResultsUpdating {
     
     /// searchBar의 내용이 변경되는 경우 호출합니다.
+    ///
     /// - Parameter searchController: searchController
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
