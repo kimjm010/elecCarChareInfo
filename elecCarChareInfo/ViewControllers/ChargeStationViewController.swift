@@ -5,12 +5,14 @@
 //  Created by Chris Kim on 8/11/22.
 //
 
-import UIKit
-import CoreLocation
-import MapKit
+
 import FirebaseDatabase
 import FirebaseAuth
-import Combine
+import CoreLocation
+import NSObject_Rx
+import RxSwift
+import MapKit
+import UIKit
 
 
 class ChargeStationViewController: UIViewController {
@@ -39,8 +41,6 @@ class ChargeStationViewController: UIViewController {
         m.delegate = self
         return m
     }()
-    
-    var subscriptions = Set<AnyCancellable>()
     
     
     // MARK: - IBActions
@@ -73,14 +73,13 @@ class ChargeStationViewController: UIViewController {
         setTabBarAppearanceAsDefault()
         updateBtnUI()
         
-        ParseChargeStation.shared.chargeStnList
-            .filter{ $0.count > 0 }
-            .receive(on: DispatchQueue.main)
-            .sink { (updatedLocalStations: [LocalChargeStation]) in
-                print("updatedLocalStations: \(updatedLocalStations.count)")
-                self.setMarkers(updatedLocalStations)
-            }
-            .store(in: &subscriptions)
+        ParseChargeStation.shared.chargeStnListObservable
+            .filter { $0.count > 0 }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.setMarkers($0)
+            })
+            .disposed(by: rx.disposeBag)
     }
     
     
