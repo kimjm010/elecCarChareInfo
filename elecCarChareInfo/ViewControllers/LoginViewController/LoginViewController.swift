@@ -176,8 +176,11 @@ class LoginViewController: UIViewController {
                 if error == nil {
                     ProgressHUD.showSuccess("확인 이메일을 전송했습니다.")
                     self.resendEmailButton.isHidden = false
+                    self.emailTextField.text = nil
+                    self.passwordTextField.text = nil
+                    self.updateUIFor(login: true)
                 } else {
-                    ProgressHUD.showFailed("이미 등록된 이메일입니다.")
+                    self.gotoAppMain()
                 }
             }
         } else {

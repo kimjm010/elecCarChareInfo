@@ -56,7 +56,9 @@ class FirebaseUser {
             if errror == nil {
                 // verification email 전송
                 authDataResult!.user.sendEmailVerification { (error) in
-                    ProgressHUD.showFailed("Error occurred while checking you email address.\n Please try it again later.")
+                    if error != nil {
+                        ProgressHUD.showFailed("Error occurred while checking you email address.\n Please try it again later.")
+                    }
                 }
                 
                 // User 객체 생성
