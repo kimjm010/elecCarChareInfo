@@ -16,7 +16,7 @@ class ChargeAnnotation: NSObject, MKAnnotation {
     dynamic var coordinate: CLLocationCoordinate2D
     
     /// 표시한 충전소 식별 id
-    var id: String
+    var identity: String
     
     /// annotation 제목
     ///
@@ -36,14 +36,14 @@ class ChargeAnnotation: NSObject, MKAnnotation {
     
     
     init(coordinate: CLLocationCoordinate2D,
-         id: String,
+         identity: String,
          title: String?,
          subtitle: String?,
          city: String?,
          rapidCnt: Int?,
          slowCnt: Int?) {
         self.coordinate = coordinate
-        self.id = UUID().uuidString
+        self.identity = UUID().uuidString
         self.title = title
         self.subtitle = subtitle
         self.city = city

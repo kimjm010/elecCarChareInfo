@@ -84,7 +84,7 @@ class ParseChargeStation : ObservableObject {
         
         for i in 0..<originalData.count {
             let original = originalData[i]
-            let chargeStation = LocalChargeStation(id: UUID().uuidString,
+            let chargeStation = LocalChargeStation(identity: UUID().uuidString,
                                                    city: original.city,
                                                    stnPlace: original.stnPlace,
                                                    stnAddr: original.stnAddr,

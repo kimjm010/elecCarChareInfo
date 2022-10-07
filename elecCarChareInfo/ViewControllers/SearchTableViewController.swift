@@ -10,7 +10,7 @@ import RxSwift
 import UIKit
 
 
-#warning("Todo: - 필터링 기능 버그 있어요. 첫번째 데이터만 나오네요")
+#warning("Todo: - 필터링 기능 버그 있어요. 1~3 데이터만 나오네요")
 class SearchTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -20,14 +20,6 @@ class SearchTableViewController: UITableViewController {
     
     // MARK: - Vars
     
-    var filteredList = [LocalChargeStation]()
-    
-    var stationList = [LocalChargeStation]()
-    
-    var searchController = UISearchController(searchResultsController: nil)
-    
-    var cachedText: String?
-    
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -35,6 +27,14 @@ class SearchTableViewController: UITableViewController {
     var isFiltering: Bool {
         return searchController.isActive && !(isSearchBarEmpty)
     }
+    
+    var searchController = UISearchController(searchResultsController: nil)
+    
+    var filteredList = [LocalChargeStation]()
+    
+    var stationList = [LocalChargeStation]()
+    
+    var cachedText: String?
     
     
     // MARK: - View Life Cycle
@@ -59,20 +59,13 @@ class SearchTableViewController: UITableViewController {
     
     /// Initialize Search Controller
     private func setupSearchController() {
-        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+//        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
+        searchController.searchBar.showsCancelButton = true
         searchController.searchBar.placeholder = "Enter Charge Station Name"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-    }
-    
-    
-    private func filterContentForSearchText(_ searchText: String) {
-        filteredList = stationList.filter { (chargeStn) -> Bool in
-            return chargeStn.stnPlace.lowercased().contains(searchText.lowercased())
-        }
-        
-        searchTableView.reloadData()
     }
     
 
@@ -93,9 +86,11 @@ class SearchTableViewController: UITableViewController {
         var target: LocalChargeStation
         
         if isFiltering {
+            filteredList.sort()
             target = filteredList[indexPath.row]
         }
         
+        stationList.sort()
         target = stationList[indexPath.row]
         
         cell.textLabel?.text = target.stnPlace
@@ -105,25 +100,30 @@ class SearchTableViewController: UITableViewController {
     }
     
     
+    // MARK: - Table View Delegate
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoViewController") as? ChargeStnInfoViewController {
+            infoVC.chargeStn = isFiltering ? filteredList[indexPath.row] : stationList[indexPath.row]
+            present(infoVC, animated: true)
+        }
     }
-}
-
-
-
-
-// MARK: - UISearchResults Updating
-
-extension SearchTableViewController: UISearchResultsUpdating {
     
-    /// searchBar의 내용이 변경되는 경우 호출합니다.
+    
+    // MARK: - Conduct Search
+    
+    /// Conduct Searching
     ///
-    /// - Parameter searchController: searchController
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        guard let text = searchBar.text else { return }
-        filterContentForSearchText(text)
+    /// - Parameter searchText: 검색할 text
+    private func filterContentForSearchText(_ searchText: String) {
+        
+        filteredList = stationList.filter {
+            return $0.stnPlace.lowercased().contains(searchText.lowercased()) || $0.stnAddr.lowercased().contains(searchText.lowercased())
+        }
+        
+        searchTableView.reloadData()
     }
 }
 
@@ -135,16 +135,19 @@ extension SearchTableViewController: UISearchResultsUpdating {
 extension SearchTableViewController: UISearchBarDelegate {
     
     /// searchBar검색 내용이 바뀔때마다 호출합니다.
+    ///
     /// - Parameters:
     ///   - searchBar: searchBar
-    ///   - searchText: searchBar에 입력된 text
+    ///   - searchText: searchBar에 입력된 tex
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(#fileID, #function, #line, "- \(searchText)")
         filterContentForSearchText(searchText)
         cachedText = searchText
     }
     
     
     /// 검색 종료 시 호출합니다.
+    ///
     /// - Parameter searchBar: searchBar
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let text = cachedText, !(text.isEmpty || filteredList.isEmpty) else { return }
@@ -153,8 +156,9 @@ extension SearchTableViewController: UISearchBarDelegate {
     
     
     /// 검색 혹은 Return버튼 클릭시 호출합니다.
+    ///
     /// - Parameter searchBar: searchBar
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchController.isActive = true
+        searchController.isActive = false
     }
 }

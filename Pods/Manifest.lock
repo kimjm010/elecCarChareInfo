@@ -800,7 +800,6 @@ PODS:
   - nanopb/encode (2.30909.0)
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
-  - NVActivityIndicatorView/AppExtension (4.8.0)
   - ProgressHUD (13.6)
   - PromisesObjC (2.1.1)
   - RxAlamofire (6.1.1):
@@ -808,11 +807,6 @@ PODS:
   - RxAlamofire/Core (6.1.1):
     - Alamofire (~> 5.4)
     - RxSwift (~> 6.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
 
 DEPENDENCIES:
@@ -824,10 +818,8 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseFirestoreSwift
   - "NSObject+Rx"
-  - NVActivityIndicatorView/AppExtension
   - ProgressHUD
   - RxAlamofire
-  - RxCocoa
   - RxSwift
 
 SPEC REPOS:
@@ -860,12 +852,9 @@ SPEC REPOS:
     - Libuv-gRPC
     - nanopb
     - "NSObject+Rx"
-    - NVActivityIndicatorView
     - ProgressHUD
     - PromisesObjC
     - RxAlamofire
-    - RxCocoa
-    - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
@@ -897,14 +886,11 @@ SPEC CHECKSUMS:
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
-  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
 
-PODFILE CHECKSUM: 5f280e4227ad900d716e564caca6b155143d8ab0
+PODFILE CHECKSUM: c8497b2648ad2f3182f83d9a4be91ac1f91075cc
 
 COCOAPODS: 1.11.2
