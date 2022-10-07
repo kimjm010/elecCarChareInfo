@@ -13,10 +13,7 @@ pod 'Firebase/Database'
 pod 'Alamofire'
 pod 'RxAlamofire'
 pod 'RxSwift'
-pod 'RxCocoa'
 pod 'NSObject+Rx'
-
-pod 'NVActivityIndicatorView/AppExtension'
 
 pod 'ProgressHUD'
 

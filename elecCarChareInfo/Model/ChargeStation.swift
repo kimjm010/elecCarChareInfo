@@ -11,9 +11,9 @@ import Foundation
 import Firebase
 
 
-struct LocalChargeStation: Codable {
+struct LocalChargeStation: Codable, Comparable {
     
-    var id: String
+    var identity: String
     var email: String?
     var city: String = ""
     var stnPlace: String
@@ -21,6 +21,11 @@ struct LocalChargeStation: Codable {
     var rapidCnt: Int
     var slowCnt: Int
     var coordinate: [Double]? = nil
+    
+    
+    static func < (lhs: LocalChargeStation, rhs: LocalChargeStation) -> Bool {
+        return lhs.stnPlace < rhs.stnPlace
+    }
     
     
     static var currentId: String {

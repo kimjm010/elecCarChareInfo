@@ -99,6 +99,7 @@ class ChargeStnInfoViewController: UIViewController {
     private func initializeData() {
         stnPlaceLabel.text = chargeStn?.stnPlace
         stnAddrLabel.text = chargeStn?.stnAddr
+        
         distanceLabel.text = "\(calculatedDistance ?? 0)km"
         findDirectionButton.setEnableBtnTheme()
         addMarkButton.setTitle("", for: .normal)

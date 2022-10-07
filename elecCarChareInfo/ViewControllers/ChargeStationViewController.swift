@@ -56,7 +56,7 @@ class ChargeStationViewController: UIViewController {
     /// - Parameter sender: enterPlaceButton
     @IBAction func placeButtonTapped(_ sender: Any) {
         let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
-
+        
         navigationController?.pushViewController(searchVC, animated: true)
     }
     
@@ -177,7 +177,7 @@ class ChargeStationViewController: UIViewController {
         let annotations: [ChargeAnnotation] = markerPoints.map { (charge) in
             guard let coordinates = charge.coordinate else {
                 return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-                                        id: charge.id,
+                                        identity: charge.identity,
                                         title: charge.stnPlace,
                                         subtitle: charge.stnAddr,
                                         city: charge.city,
@@ -186,7 +186,7 @@ class ChargeStationViewController: UIViewController {
             }
             return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0],
                                                                        longitude: coordinates[1]),
-                                    id: charge.id,
+                                    identity: charge.identity,
                                     title: charge.stnPlace,
                                     subtitle: charge.stnAddr,
                                     city: charge.city,
@@ -349,13 +349,13 @@ extension ChargeStationViewController: MKMapViewDelegate {
         }
         
         var annotationView: MKAnnotationView?
-
+        
         // TODO: mapView에 비슷한 위치에 있는 충전소는 갯수로 표시하기
-
+        
         if let annotation = annotation as? MKClusterAnnotation {
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier,
                                                              for: annotation) as! MKMarkerAnnotationView
-
+            
             view.markerTintColor = UIColor.systemBlue
         }
         
@@ -408,14 +408,14 @@ extension ChargeStationViewController: MKMapViewDelegate {
                       let rapidCnt = chargeAnnotation.rapidCnt,
                       let slowCnt = chargeAnnotation.slowCnt else { return }
                 selectedAnnotation = chargeAnnotation
-                selectedChargeStation = LocalChargeStation(id: chargeAnnotation.id,
-                                                      city: city,
-                                                      stnPlace: stnPlace,
-                                                      stnAddr: stnAddr,
-                                                      rapidCnt: rapidCnt,
-                                                      slowCnt: slowCnt,
-                                                      coordinate: [chargeAnnotation.coordinate.latitude,
-                                                                   chargeAnnotation.coordinate.longitude])
+                selectedChargeStation = LocalChargeStation(identity: chargeAnnotation.identity,
+                                                           city: city,
+                                                           stnPlace: stnPlace,
+                                                           stnAddr: stnAddr,
+                                                           rapidCnt: rapidCnt,
+                                                           slowCnt: slowCnt,
+                                                           coordinate: [chargeAnnotation.coordinate.latitude,
+                                                                        chargeAnnotation.coordinate.longitude])
             }
             
             if let infoVC = storyboard?.instantiateViewController(withIdentifier: "ChargeStnInfoViewController") as? ChargeStnInfoViewController {
