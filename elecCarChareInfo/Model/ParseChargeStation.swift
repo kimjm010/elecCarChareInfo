@@ -45,6 +45,7 @@ class ParseChargeStation : ObservableObject {
 
     func rxParseData(completion: @escaping (_ ressult: Data) -> Void) {
         RxAlamofire.requestData(.get, urlStr)
+            .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
             .map { $1 }
             .subscribe(onNext: {
                 completion($0)
