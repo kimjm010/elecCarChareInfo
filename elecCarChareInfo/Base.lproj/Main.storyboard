@@ -44,11 +44,11 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4mr-go-ReK">
-                                                            <rect key="frame" x="61" y="0.0" width="241" height="14.5"/>
+                                                            <rect key="frame" x="61" y="0.0" width="297" height="14.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdc-nd-y2y">
-                                                            <rect key="frame" x="302" y="0.0" width="56" height="14.5"/>
+                                                            <rect key="frame" x="358" y="0.0" width="0.0" height="14.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="한 줄 평을 작성해주세요:)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdP-bN-7KD">
-                                <rect key="frame" x="20" y="92" width="374" height="20.5"/>
+                                <rect key="frame" x="20" y="48" width="374" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -131,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUx-hN-r0U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="479.71014492753625" y="557.8125"/>
+            <point key="canvasLocation" x="-430" y="558"/>
         </scene>
         <!--Charge Stn Info View Controller-->
         <scene sceneID="HJn-Ik-ysL">
@@ -337,7 +337,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dCi-6H-Jzw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371" y="-194"/>
+            <point key="canvasLocation" x="401" y="-194"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="wWz-X0-lsU">
@@ -433,23 +433,22 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     </mapView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNT-Pz-OGD">
-                                        <rect key="frame" x="20" y="50" width="374" height="40"/>
+                                        <rect key="frame" x="20" y="40" width="374" height="40"/>
                                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="bHJ-HN-HNZ"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="systemGrayColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
-                                        <connections>
-                                            <action selector="placeButtonTapped:" destination="THJ-zv-IFy" eventType="touchUpInside" id="rPH-82-gY9"/>
-                                        </connections>
+                                        <buttonConfiguration key="configuration" style="plain" title="Please Enter Region / Station Name">
+                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="0.0"/>
+                                        </buttonConfiguration>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fYl-zC-NTB" secondAttribute="trailing" id="C5U-6m-4SV"/>
-                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="50" id="HDU-SP-WKN"/>
+                                    <constraint firstItem="UNT-Pz-OGD" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" constant="40" id="HDU-SP-WKN"/>
                                     <constraint firstItem="UNT-Pz-OGD" firstAttribute="leading" secondItem="dMD-ae-g79" secondAttribute="leading" constant="20" symbolic="YES" id="Ldb-vj-quz"/>
                                     <constraint firstItem="fYl-zC-NTB" firstAttribute="top" secondItem="dMD-ae-g79" secondAttribute="top" id="RZ7-jG-ydD"/>
                                     <constraint firstAttribute="trailing" secondItem="UNT-Pz-OGD" secondAttribute="trailing" constant="20" symbolic="YES" id="ahf-Fm-9yC"/>
@@ -467,9 +466,6 @@
                                 <color key="tintColor" systemColor="secondaryLabelColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="location" catalog="system"/>
-                                <connections>
-                                    <action selector="goToCurrentLocation:" destination="THJ-zv-IFy" eventType="touchUpInside" id="aBG-Eb-iKW"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="e9p-un-QSQ"/>
@@ -541,35 +537,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KNi-cj-FoO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371" y="-950"/>
-        </scene>
-        <!--Show Route View Controller-->
-        <scene sceneID="K9w-fZ-SD0">
-            <objects>
-                <viewController storyboardIdentifier="ShowRouteViewController" id="LjM-VB-utw" customClass="ShowRouteViewController" customModule="elecCarChareInfo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5Tl-kS-nd2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7Wx-HN-B7o">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </mapView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="7Q6-Hi-mES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="7Wx-HN-B7o" firstAttribute="trailing" secondItem="7Q6-Hi-mES" secondAttribute="trailing" id="GiN-0D-wXn"/>
-                            <constraint firstItem="7Wx-HN-B7o" firstAttribute="leading" secondItem="7Q6-Hi-mES" secondAttribute="leading" id="hoN-SH-SUB"/>
-                            <constraint firstItem="7Wx-HN-B7o" firstAttribute="top" secondItem="5Tl-kS-nd2" secondAttribute="top" id="ich-ON-c8e"/>
-                            <constraint firstAttribute="bottom" secondItem="7Wx-HN-B7o" secondAttribute="bottom" id="jAr-FY-7j2"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="dJ6-CP-8Pc"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="opM-RQ-dTV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="551" y="-194"/>
+            <point key="canvasLocation" x="-430" y="-194"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="wM8-Mr-mSf">
@@ -819,24 +787,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OaZ-FK-PhO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2204" y="1385"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="iPI-zm-I51">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="guM-md-f81" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="91y-2h-tTB">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ZBI-7D-uWa" kind="relationship" relationship="rootViewController" id="M1m-6P-c3Y"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TKv-bd-PvO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-430.43478260869568" y="557.8125"/>
         </scene>
         <!--Charge Station-->
         <scene sceneID="RDk-qS-ZcH">

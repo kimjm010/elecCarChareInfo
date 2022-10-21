@@ -10,6 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import CoreLocation
 import NSObject_Rx
+import RxCocoa
 import RxSwift
 import MapKit
 import UIKit
@@ -42,23 +43,8 @@ class ChargeStationViewController: UIViewController {
         return m
     }()
     
-    
-    // MARK: - IBActions
-    
-    /// 현재 위치로 이동합니다.
-    /// - Parameter sender: 현재 위치 버튼
-    @IBAction func goToCurrentLocation(_ sender: Any) {
-        goToCurrentLocation()
-    }
-    
-    
-    /// 특정 위치를 검색합니다.
-    /// - Parameter sender: enterPlaceButton
-    @IBAction func placeButtonTapped(_ sender: Any) {
-        let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
-        
-        navigationController?.pushViewController(searchVC, animated: true)
-    }
+    /// ChargeStationViewModel instance
+    let viewModel = ChargeStationViewModel()
     
     
     // MARK: - View Life Cycle
@@ -77,7 +63,31 @@ class ChargeStationViewController: UIViewController {
             .filter { $0.count > 0 }
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
-                self?.setMarkers($0)
+                guard let self = self else { return }
+                let annoations = self.viewModel.setAnnotationMarkers($0)
+                self.mapView.addAnnotations(annoations)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        
+        // Tap Search Button
+        enterPlaceButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController")
+                self.navigationController?.pushViewController(searchVC, animated: true)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        
+        // Move display to current location
+        goToCurrentLocationButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self,
+                      let region = self.viewModel.goToCurrentLocation() else { return }
+                
+                self.mapView.setRegion(region, animated: true)
             })
             .disposed(by: rx.disposeBag)
     }
@@ -101,6 +111,7 @@ class ChargeStationViewController: UIViewController {
         goToCurrentLocationButton.setTitle("", for: .normal)
         goToCurrentLocationButton.setEnableBtnTheme()
         mapView.showsCompass = false
+        
     }
     
     
@@ -124,12 +135,8 @@ class ChargeStationViewController: UIViewController {
     // MARK: - Go To Current Location
     
     private func goToCurrentLocation() {
-        
-        guard let initCntrCoordinate = locationManager.location?.coordinate else { return }
-        let region = MKCoordinateRegion(center: initCntrCoordinate,
-                                        latitudinalMeters: 5000,
-                                        longitudinalMeters: 5000)
-        mapView.setRegion(region, animated: true)
+        guard let currentRegion = viewModel.goToCurrentLocation() else { return }
+        mapView.setRegion(currentRegion, animated: true)
     }
     
     
@@ -137,26 +144,17 @@ class ChargeStationViewController: UIViewController {
     
     /// User's Location Authorization확인
     private func checkLocationAuth() {
-        if CLLocationManager.locationServicesEnabled() {
-            let status: CLAuthorizationStatus
-            status = self.locationManager.authorizationStatus
-            
-            switch status {
-            case .notDetermined:
-                self.locationManager.requestWhenInUseAuthorization()
-            case .restricted, .denied:
-                self.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                                       message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                                       completion: nil)
-            case .authorizedAlways, .authorizedWhenInUse:
-                self.updateLocation()
-            default:
-                break
-            }
+        guard let status = viewModel.checkLocationAuthorization() else { return }
+        
+        switch status {
+        case .restricted, .denied:
+            alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                                   message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                                   completion: nil)
+        default:
+            break
         }
     }
-    
-    
     
     
     // MARK: - Annotation Views
@@ -165,36 +163,6 @@ class ChargeStationViewController: UIViewController {
     private func registerMapAnnotationViews() {
         mapView.register(MKAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: NSStringFromClass(ChargeAnnotation.self))
-    }
-    
-    
-    // MARK: - Set Markers to Map View
-    
-    /// 맵에 마커를 찍는다
-    /// - Parameter markerPoints: 찍을 마킹 포인트들
-    private func setMarkers(_ markerPoints : [LocalChargeStation]){
-        
-        let annotations: [ChargeAnnotation] = markerPoints.map { (charge) in
-            guard let coordinates = charge.coordinate else {
-                return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-                                        identity: charge.identity,
-                                        title: charge.stnPlace,
-                                        subtitle: charge.stnAddr,
-                                        city: charge.city,
-                                        rapidCnt: charge.rapidCnt,
-                                        slowCnt: charge.slowCnt)
-            }
-            return ChargeAnnotation(coordinate: CLLocationCoordinate2D(latitude: coordinates[0],
-                                                                       longitude: coordinates[1]),
-                                    identity: charge.identity,
-                                    title: charge.stnPlace,
-                                    subtitle: charge.stnAddr,
-                                    city: charge.city,
-                                    rapidCnt: charge.rapidCnt,
-                                    slowCnt: charge.slowCnt)
-        }
-        
-        mapView.addAnnotations(annotations)
     }
     
     
@@ -248,6 +216,7 @@ class ChargeStationViewController: UIViewController {
     /// 특정 충전소까지의 Route를 취소합니다.
     private func removeRoute() {
         mapView.removeOverlays(mapView.overlays)
+        updateBtnUI()
     }
 }
 
@@ -267,16 +236,15 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
     /// 위치 사용 권한 변경 시 호출됩니다.
     /// - Parameter manager: locationManager 객체
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            updateLocation()
-        default:
+        guard let status = viewModel.changeLocationAuthorization() else { return }
+        switch status {
+        case .denied, .restricted, .notDetermined:
             alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
                               message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { [weak self] _ in
                 guard let self = self else { return }
-                print(#fileID, #function, #line, "- ")
                 self.checkLocationAuth()
             }
+        default: break
         }
     }
     
@@ -286,11 +254,15 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
     ///   - manager: location manager 객체
     ///   - error: error 객체
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingHeading()
+        viewModel.showError { [weak self] in
+            guard let self = self else { return }
+            
+            self.alertLocationAuth(title: "사용자의 위치를 확인 할 수 없습니다.",
+                              message: "설정에서 위치 서비스를 허용 하시겠습니까?",
+                              completion: nil)
+        }
         
-        alertLocationAuth(title: "사용자의 위치를 확인 할 수 없습니다.",
-                          message: "설정에서 위치 서비스를 허용 하시겠습니까?",
-                          completion: nil)
+        
     }
     
     
@@ -431,7 +403,7 @@ extension ChargeStationViewController: MKMapViewDelegate {
                 presentationController?.sourceRect = control.frame
                 presentationController?.sourceView = control
                 
-                present(infoVC, animated: true, completion: nil)
+                navigationController?.pushViewController(infoVC, animated: true)
             }
         }
     }

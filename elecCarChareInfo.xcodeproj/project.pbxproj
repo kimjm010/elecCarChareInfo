@@ -32,6 +32,7 @@
 		F5857ED128B667EB00FB44A9 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */; };
 		F5857ED328B6680000FB44A9 /* CommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */; };
 		F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5857ED428B6688200FB44A9 /* Date+Formatter.swift */; };
+		F5A102532902AA8100A22FB2 /* ChargeStationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A102522902AA8100A22FB2 /* ChargeStationViewModel.swift */; };
 		F5AF9E3328BEF8490090850C /* FirebaseMarked.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AF9E3228BEF8490090850C /* FirebaseMarked.swift */; };
 		F5AF9E3528BF1BEB0090850C /* MarkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AF9E3428BF1BEB0090850C /* MarkedList.swift */; };
 		F5AF9E3728BF22930090850C /* ChargeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AF9E3628BF22930090850C /* ChargeStation.swift */; };
@@ -71,6 +72,7 @@
 		F5857ED028B667EB00FB44A9 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		F5857ED228B6680000FB44A9 /* CommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewController.swift; sourceTree = "<group>"; };
 		F5857ED428B6688200FB44A9 /* Date+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatter.swift"; sourceTree = "<group>"; };
+		F5A102522902AA8100A22FB2 /* ChargeStationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStationViewModel.swift; sourceTree = "<group>"; };
 		F5AF9E3228BEF8490090850C /* FirebaseMarked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMarked.swift; sourceTree = "<group>"; };
 		F5AF9E3428BF1BEB0090850C /* MarkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkedList.swift; sourceTree = "<group>"; };
 		F5AF9E3628BF22930090850C /* ChargeStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeStation.swift; sourceTree = "<group>"; };
@@ -153,6 +155,12 @@
 			children = (
 				F56BA8B928A4DA2300515185 /* AppDelegate.swift */,
 				F56BA8BB28A4DA2300515185 /* SceneDelegate.swift */,
+				F56BA8BF28A4DA2300515185 /* Main.storyboard */,
+				F56BA8C428A4DA2300515185 /* LaunchScreen.storyboard */,
+				F56BA8C228A4DA2300515185 /* Assets.xcassets */,
+				F56BA8C728A4DA2300515185 /* Info.plist */,
+				F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */,
+				F5A102512902AA6C00A22FB2 /* ViewModel */,
 				F56BA8CF28A4EB4500515185 /* ViewControllers */,
 				F56BA8D828A5E73500515185 /* Cells */,
 				F570E31828B4A95200E98B68 /* Firebase */,
@@ -160,11 +168,6 @@
 				F57F2B9828B469D700A502F7 /* Helpers */,
 				F522B78C28A9386B00054965 /* Annotation */,
 				F5C4185F28AA04CF00BFBD96 /* Extensions */,
-				F56BA8BF28A4DA2300515185 /* Main.storyboard */,
-				F56BA8C428A4DA2300515185 /* LaunchScreen.storyboard */,
-				F56BA8C228A4DA2300515185 /* Assets.xcassets */,
-				F56BA8C728A4DA2300515185 /* Info.plist */,
-				F57F2B9028B45A8900A502F7 /* GoogleService-Info.plist */,
 			);
 			path = elecCarChareInfo;
 			sourceTree = "<group>";
@@ -228,6 +231,14 @@
 				F57F2B9928B469E600A502F7 /* Constants.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F5A102512902AA6C00A22FB2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F5A102522902AA8100A22FB2 /* ChargeStationViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F5C4185F28AA04CF00BFBD96 /* Extensions */ = {
@@ -365,6 +376,7 @@
 				F5F8D6DF28B73C2A0084CD1F /* CommentTableViewCell.swift in Sources */,
 				F5F6D4FC28B8BFE1005630CA /* ComposeCommentViewController.swift in Sources */,
 				F522B78E28A9388D00054965 /* ChargeAnnotation.swift in Sources */,
+				F5A102532902AA8100A22FB2 /* ChargeStationViewModel.swift in Sources */,
 				F5857ED528B6688200FB44A9 /* Date+Formatter.swift in Sources */,
 				F5C4186128AA04E500BFBD96 /* UIButton+Extension.swift in Sources */,
 				F5AF9E3728BF22930090850C /* ChargeStation.swift in Sources */,

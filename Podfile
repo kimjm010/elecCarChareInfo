@@ -14,6 +14,7 @@ pod 'Alamofire'
 pod 'RxAlamofire'
 pod 'RxSwift'
 pod 'NSObject+Rx'
+pod 'RxCocoa', '6.5.0'
 
 pod 'ProgressHUD'
 
