@@ -10,6 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import CoreLocation
 import NSObject_Rx
+import ProgressHUD
 import RxCocoa
 import RxSwift
 import MapKit
@@ -53,11 +54,16 @@ class ChargeStationViewController: UIViewController {
         super.viewDidLoad()
         
         initializeData()
-        goToCurrentLocation()
         initializeMapView()
         registerMapAnnotationViews()
         setTabBarAppearanceAsDefault()
         updateBtnUI()
+        
+        // current Location
+        viewModel.goToCurrentLoc()
+        
+        // check location authorization status
+        viewModel.checkloccationAuth()
         
         ParseChargeStation.shared.chargeStnListObservable
             .filter { $0.count > 0 }
@@ -69,7 +75,6 @@ class ChargeStationViewController: UIViewController {
             })
             .disposed(by: rx.disposeBag)
         
-        
         // Tap Search Button
         enterPlaceButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -80,14 +85,25 @@ class ChargeStationViewController: UIViewController {
             })
             .disposed(by: rx.disposeBag)
         
-        
         // Move display to current location
         goToCurrentLocationButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self,
-                      let region = self.viewModel.goToCurrentLocation() else { return }
-                
-                self.mapView.setRegion(region, animated: true)
+            .flatMap { [unowned self] in self.viewModel.currentLocationSubject }
+            .withUnretained(self)
+            .subscribe(onNext: {
+                guard let region = $0.1 else { return }
+                $0.0.mapView.setRegion(region, animated: true)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        // Check User Location Authorization Status
+        viewModel.locationAuthorizationStatusSubject
+            .withUnretained(self)
+            .subscribe(onNext: {
+                if $0.1 == .restricted || $0.1 == .denied || $0.1 == .notDetermined {
+                    $0.0.alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+                                           message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
+                                           completion: nil)
+                }
             })
             .disposed(by: rx.disposeBag)
     }
@@ -110,8 +126,6 @@ class ChargeStationViewController: UIViewController {
     private func initializeData() {
         goToCurrentLocationButton.setTitle("", for: .normal)
         goToCurrentLocationButton.setEnableBtnTheme()
-        mapView.showsCompass = false
-        
     }
     
     
@@ -128,32 +142,8 @@ class ChargeStationViewController: UIViewController {
     
     private func initializeMapView() {
         mapView.delegate = self
+        mapView.showsCompass = false
         mapView.showsUserLocation = true
-    }
-    
-    
-    // MARK: - Go To Current Location
-    
-    private func goToCurrentLocation() {
-        guard let currentRegion = viewModel.goToCurrentLocation() else { return }
-        mapView.setRegion(currentRegion, animated: true)
-    }
-    
-    
-    // MARK: - User Location 권한 확인
-    
-    /// User's Location Authorization확인
-    private func checkLocationAuth() {
-        guard let status = viewModel.checkLocationAuthorization() else { return }
-        
-        switch status {
-        case .restricted, .denied:
-            alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                                   message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?",
-                                   completion: nil)
-        default:
-            break
-        }
     }
     
     
@@ -186,9 +176,9 @@ class ChargeStationViewController: UIViewController {
             guard let self = self else { return }
             
             if let error = error {
-#if DEBUG
+                #if DEBUG
                 print(error.localizedDescription, "Add Route response에서 에러 발생")
-#endif
+                #endif
                 return
             }
             
@@ -239,11 +229,12 @@ extension ChargeStationViewController: CLLocationManagerDelegate {
         guard let status = viewModel.changeLocationAuthorization() else { return }
         switch status {
         case .denied, .restricted, .notDetermined:
-            alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
-                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { [weak self] _ in
-                guard let self = self else { return }
-                self.checkLocationAuth()
-            }
+            break
+//            alertLocationAuth(title: "위치 권한이 제한되어있습니다.",
+//                              message: "설정으로 이동하여 위치 권한을 변경하시겠습니까?") { [weak self] _ in
+//                guard let self = self else { return }
+//                self.checkLocationAuth()
+//            }
         default: break
         }
     }

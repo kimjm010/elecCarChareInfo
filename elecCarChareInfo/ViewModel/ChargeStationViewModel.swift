@@ -6,53 +6,50 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 import MapKit
 import UIKit
 
 
 class ChargeStationViewModel {
     
+    let locationAuthorizationStatusSubject = BehaviorSubject<CLAuthorizationStatus?>(value: .notDetermined)
+    
+    let currentLocationSubject = BehaviorSubject<MKCoordinateRegion?>(value: nil)
+    
     // MARK: - User Location 권한 확인
     
     /// Check User Location Authorization
     ///
-    /// - Returns: Location Authorization Status
-    func checkLocationAuthorization() -> CLAuthorizationStatus? {
+    /// - Returns: Location Authorization Status Observable
+    func checkloccationAuth() {
         if CLLocationManager.locationServicesEnabled() {
-            let status: CLAuthorizationStatus
-            status = CLLocationManager().authorizationStatus
+            let status = CLLocationManager().authorizationStatus
+            locationAuthorizationStatusSubject.onNext(status)
             
             switch status {
             case .notDetermined:
                 CLLocationManager().requestWhenInUseAuthorization()
-            case .restricted:
-                return CLAuthorizationStatus.restricted
-            case .denied:
-                return CLAuthorizationStatus.denied
-            case .authorizedWhenInUse, .authorizedAlways:
+            case .authorizedAlways, .authorizedWhenInUse:
                 updateLocation()
-                
             default:
                 break
             }
         }
-        
-        return nil
     }
     
     
     // MARK: - Go To Current Location
     
     /// Move the center to current Location
-    ///
-    /// - Returns: Current Coordinate Region
-    func goToCurrentLocation() -> MKCoordinateRegion? {
-        
-        guard let initCntrCoordinate = CLLocationManager().location?.coordinate else { return nil }
+    func goToCurrentLoc() {
+        guard let initCntrCoordinate = CLLocationManager().location?.coordinate else { return }
         let region = MKCoordinateRegion(center: initCntrCoordinate,
                                         latitudinalMeters: 5000,
                                         longitudinalMeters: 5000)
-        return region
+        
+        currentLocationSubject.onNext(region)
     }
     
     
